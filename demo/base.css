@@ -1,0 +1,75 @@
+* {
+    outline: none !important
+}
+
+html,
+body
+{
+    background: #fff;
+    margin: 0;
+    padding: 0;
+    color: #000
+}
+
+body
+{
+    background: #fff;
+    color: #000;
+    font-family: sans-serif;
+    font-size: 18px;
+    margin: 0 32px
+}
+
+h1
+{
+    font-size: 40px
+}
+
+h1 { font-size: 40px }
+h2 { font-size: 36px }
+h3 { font-size: 32px }
+h4 { font-size: 28px }
+h5 { font-size: 24px }
+h6 { font-size: 20px }
+
+div.hr {
+    width: 100%;
+    background-color: #ddd;
+    height: 2px;
+    border-radius: 9px
+}
+
+.execution_stats {
+    margin-bottom: 24px
+}
+
+.execution_stats p {
+    line-height: 5px
+}
+
+img {
+    margin-right: 8px;
+    box-shadow:
+                 -4px  -4px 0px #fff,
+                  4px   4px 0px #fff,
+                 -4px   4px 0px #fff,
+                  4px  -4px 0px #fff,
+                -12px -12px 0px #f00,
+                 12px  12px 0px #f00,
+                -12px  12px 0px #f00,
+                 12px -12px 0px #f00;
+    image-rendering: pixelated;
+    margin: 0 32px 32px 0
+}
+
+img:hover {
+    box-shadow:
+                 -4px  -4px 0px #fff,
+                  4px   4px 0px #fff,
+                 -4px   4px 0px #fff,
+                  4px  -4px 0px #fff,
+                -12px -12px 0px #0f0,
+                 12px  12px 0px #0f0,
+                -12px  12px 0px #0f0,
+                 12px -12px 0px #0f0
+}
