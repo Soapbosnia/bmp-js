@@ -1,0 +1,10 @@
+.vscode
+test*
+*build*
+bmp-debug.js
+Thumbs.db
+*.old
+*.php
+dev*
+bug*
+character-sets*
