@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-10-06 04:21 AM
+// Updated: 2022-10-11 12:24 PM
 //
 
 //
@@ -45,7 +45,7 @@ const bmp_header_parts = [
     {
         addr: 2,
         size: 4,
-        data: "\x36\x03\x00\x00"
+        data: "\x00\x00\x00\x00"
     },
 
     // Reserved (can be 0) app-dependent
@@ -62,7 +62,7 @@ const bmp_header_parts = [
         data: "\x00\x00"
     },
 
-    // Offset (i.e. start addr. of image)
+    // Offset (i.e. start addr. of image) (56)
     {
         addr: 10,
         size: 4,
@@ -80,14 +80,14 @@ const bmp_header_parts = [
     {
         addr: 18,
         size: 4,
-        data: "\x10\x00\x00\x00"
+        data: "\x00\x00\x00\x00"
     },
 
     // [*] Bitmap height in pixels (signed int)
     {
         addr: 22,
         size: 4,
-        data: "\x10\x00\x00\x00"
+        data: "\x00\x00\x00\x00"
     },
 
     // Number of color planes (must be 1)
@@ -117,7 +117,7 @@ const bmp_header_parts = [
     {
         addr: 34,
         size: 4,
-        data: "\x00\x03\x00\x00"
+        data: "\x00\x00\x00\x00"
     },
 
     // Horizontal resolution of the image. (pixel per metre, signed integer)
@@ -192,12 +192,13 @@ const BMP_HEADER_DATA            = 0x10;
  * @param value      Unsigned integer
  * @param pad_length Padding length
  * @param pad_left   True pads left (default), False pads right
+ * @return           Little-endian (LE) bytes
  */
 function bmp_little_endian_int(value, pad_length = 2, pad_left = true) {
     value = dechex(value);
     value = pad_left
           ? value.padStart(pad_length, '0')
-          : value.padEnd(pad_length, '0');
+          : value.padEnd  (pad_length, '0');
 
     value = str_split(value, 2);
     value = value.reverse();
@@ -209,7 +210,8 @@ function bmp_little_endian_int(value, pad_length = 2, pad_left = true) {
 
 /** Converts bytes from little endian to integers
  *
- * @param value      Bytes to integer
+ * @param value Bytes to integer
+ * @return      Integer
  */
 function bmp_little_endian_byte(value) {
     value = bin2hex(value);
@@ -225,6 +227,7 @@ function bmp_little_endian_byte(value) {
  *
  * @param width  Width  (X axis) of the image (non-zero)
  * @param height Height (Y axis) of the image (non-zero)
+ * @return       BMPJS Resource
  */
 function bmp_resource_create(width, height) {
     var header      = bmp_header_parts;
@@ -274,6 +277,7 @@ function bmp_resource_create(width, height) {
  *
  * @param resource Reference to the resource created by bmp_resource_create()
  * @param raw      Process raw data
+ * @return         false | true
  */
 function bmp_resource_valid(resource, raw = false) {
     var header = raw
@@ -299,6 +303,7 @@ function bmp_resource_valid(resource, raw = false) {
  * @param resource Reference to the resource created by bmp_resource_create()
  * @param x        X axis
  * @param y        Y axis
+ * @return         [R, G, B]
  */
 function bmp_resource_get_pixel(resource, x, y) {
     // WARN(oxou): Fallback to 0,0,0 if out of bounds.
@@ -338,7 +343,7 @@ function bmp_resource_get_pixel(resource, x, y) {
  * @return         true
  */
 function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
-    // WARN(oxou): Fake set_pixel success.
+    // WARN(oxou): Fake set_pixel success if out of bounds.
     if (x > resource.width || y > resource.height || 0 > x || 0 > y)
         return true;
 
@@ -376,15 +381,15 @@ function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
  */
 function bmp_resource_bitmap_to_bytes(resource) {
     var bitmap = resource.bitmap;
-    var w = resource.width;
-    var h = resource.height;
-    var p = resource.padding;
+    var w      = resource.width;
+    var p      = resource.padding;
+    var strpad = "";
 
     bitmap = [...bitmap]; // Convert Uint8Array to a standard Array
     bitmap = bitmap.map(v => dechex(v).padStart(2, '0'));
     bitmap = bitmap.join('');
     bitmap = str_split(bitmap, w * 3 * 2); // TODO(oxou): Check math
-    var strpad = String("00").repeat(p);
+    strpad = String("00").repeat(p);
     bitmap = bitmap.join(strpad) + strpad;
     bitmap = hex2bin(bitmap);
 
@@ -396,7 +401,7 @@ function bmp_resource_bitmap_to_bytes(resource) {
  * Returns the image width and height for a BMPJS resource
  *
  * @param resource Reference to the resource created by bmp_resource_create()
- * @return         `[width, height]`
+ * @return         [width, height]
  */
 function bmp_resource_get_image_size(resource) {
     if (!bmp_resource_valid(resource))
@@ -409,7 +414,7 @@ function bmp_resource_get_image_size(resource) {
  * Returns the bitmap from a BMPJS resource (if valid)
  *
  * @param resource Reference to the resource created by bmp_resource_create()
- * @return         Resource Uint8Array Bitmap
+ * @return         BMPJS Resource Uint8Array Bitmap
  */
 function bmp_resource_get_image_bitmap(resource) {
     if (!bmp_resource_valid(resource))
@@ -435,7 +440,7 @@ function bmp_resource_get_image_bitmap(resource) {
  *
  * @param width  Width  (X axis) of the image (non-zero)
  * @param height Height (Y axis) of the image (non-zero)
- * @return       Uint8Array with the size of `width * height * 3` containing zeros
+ * @return       Uint8Array with the size of (width * height * 3)
  */
 function bmp_create_array_pixel(width, height) {
     var buffer = new Uint8Array(width * height * 3);
@@ -469,7 +474,7 @@ function bmp_create_uri(resource) {
  *
  * @param resource Reference to the resource created by bmp_resource_create()
  * @param target   HTMLElement in which the image will be appended to
- * @return         Reference to the `img` element
+ * @return         false | Reference to the `img` element
  */
 function bmp_resource_spawn(resource, target = null) {
     if (!bmp_resource_valid(resource))
@@ -492,8 +497,9 @@ function bmp_resource_spawn(resource, target = null) {
  * by creating a new one by `resource`
  *
  * @param resource Reference to the resource created by bmp_resource_create()
- * @param target   `img` element pointing to a previous reference returned by bmp_resource_spawn()
- * @return         true
+ * @param target   `img` element pointing to a previous reference returned by
+ *                 bmp_resource_spawn()
+ * @return         false | true
  */
 function bmp_resource_replace(resource, target = null) {
     if (!bmp_resource_valid(resource))
@@ -531,6 +537,7 @@ function bmp_resource_spawn_console(resource) {
     return true;
 }
 
+/* TODO(oxou): Streamline this function */
 /**
  * Determine the file size of the BMPJS resource based on resource properties
  *
@@ -636,10 +643,10 @@ function bmp_resource_create_from_bytes(bytes) {
 /**
  * Request a BMP file from a remote location using synchronous XMLHttpRequest.
  *
- * Thanks to: https://reference.codeproject.com/dom/xmlhttprequest/sending_and_receiving_binary_data
+ * Thanks to: https://tinyurl.com/SendingAndReceivingBinaryData
  *
  * @param url URL pointing to a BMP file
- * @return    BMPJS resource
+ * @return    false | null | string
  */
 function bmp_resource_request(url = null) {
     if (url == null)
@@ -679,7 +686,7 @@ function bmp_resource_request(url = null) {
  * Uses structuredClone() to copy the resource object without reference.
  *
  * @param resource BMPJS Resource
- * @return         BMPJS Resource
+ * @return         BMPJS Resource | false
  */
 function bmp_resource_copy(resource) {
     if (!bmp_resource_valid(resource))
@@ -693,7 +700,7 @@ function bmp_resource_copy(resource) {
  *
  * @param resource BMPJS Resource
  * @param filename Name of the downloaded file
- * @return         false|true
+ * @return         false | true
  */
 function bmp_resource_download(resource, filename = "download.bmp") {
     if (!bmp_resource_valid(resource))

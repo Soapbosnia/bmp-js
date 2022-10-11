@@ -1,11 +1,7 @@
 // Copyright (C) 2022 Nurudin Imsirovic <github.com/oxou>
 //
 // Created: 2022-09-18 10:35 AM
-// Updated: 2022-09-21 11:26 PM
-
-var TimeA = time_precise();
-
-/* -------------------------------------------------------------------------- */
+// Updated: 2022-10-11 11:49 AM
 
 var w = 100;
 var h = 100;
@@ -42,9 +38,3 @@ for (let y = 0; y < h; y++) {
 bmp_resource_spawn(Image1, element_images_bmp);
 bmp_resource_spawn(Image2, element_images_bmp);
 bmp_resource_spawn(Image3, element_images_bmp);
-
-/* -------------------------------------------------------------------------- */
-
-var TimeB = time_precise();
-
-execution_time.innerText = "Execution took: " + (TimeB - TimeA) / 1000 + "s";

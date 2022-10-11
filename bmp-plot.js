@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2022-10-04 01:35 PM
+// Updated: 2022-10-11 10:20 AM
 //
 
 /**
@@ -38,7 +38,8 @@ function bmp_plot_rect(
 ) {
     for (let y2 = y; y2 < h + y; y2++)
         for (let x2 = x; x2 < w + x; x2++)
-            if (resource.width > x2 && resource.height > y2)
+            if (resource.width  > x2 &&
+                resource.height > y2)
                 bmp_resource_set_pixel(resource, x2, y2, r, g, b);
 
     return true;
@@ -61,13 +62,13 @@ function bmp_plot_clear(
 ) {
     for (let y = 0; y < resource.height; y++)
         for (let x = 0; x < resource.width; x++)
-                bmp_resource_set_pixel(resource, x, y, r, g, b);
+            bmp_resource_set_pixel(resource, x, y, r, g, b);
 
     return true;
 }
 
 /**
- * Plot a line from points A to B
+ * Plot a line from point A to B
  *
  * @param resource BMPJS resource
  * @param x1       Position X #1
@@ -165,7 +166,7 @@ function bmp_plot_resource(
 
 /**
  * Use a loaded image resource that contains a character set range from
- * 0x20 to 0x80
+ * 0x20 to 0x80 to plot text
  *
  * @param resource_p BMPJS resource (parent)
  * @param resource_c BMPJS resource (child)

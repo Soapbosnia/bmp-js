@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-10-09 12:01 AM
+// Updated: 2022-10-11 11:47 AM
 //
 
 /**
@@ -44,7 +44,7 @@ function bmp_mod_get_channel(resource, channel = 0) {
  * This will return incorrect results if called on a non-font resource
  *
  * @param resource BMPJS Resource
- * @return         Array [font_width, font_height, font_chars]
+ * @return         [font_width, font_height, font_chars]
  */
  function bmp_mod_dissect_font(resource) {
     var font_width  = resource.width / 96;
