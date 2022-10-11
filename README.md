@@ -1,7 +1,12 @@
 # Bitmap Image Encoder/Decoder in JavaScript
 
-Clone the repo locally by running `git clone ssh://git@github.com/oxou/bmp-js`  
+![Cover Image](img/cover-2560x1280.png)
+
+Clone the repo locally by running `git clone https://github.com/oxou/bmp-js`
 and browse the `demo` folder for examples of what this library can do.
+
+## Documentation
+See [here](docs/README.md).
 
 ## Features
 
