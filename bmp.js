@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-10-11 12:24 PM
+// Updated: 2022-10-15 05:29 AM
 //
 
 //
@@ -612,7 +612,6 @@ function bmp_resource_create_from_bytes(bytes) {
             }
 
             offsets[k[i]].data = bytes.substr(addr, size);
-
         }
     }
 
@@ -627,12 +626,7 @@ function bmp_resource_create_from_bytes(bytes) {
     bitdepth = bmp_little_endian_byte(bitdepth);
     padding  = width % 4;
 
-    bitmap   = str_split(bitmap, width * 3 + (padding));
-    bitmap   = bitmap.map(v => v.substr(0, width * 3));
-    bitmap   = bitmap.join('');
-    bitmap   = bitmap.split('');
-    bitmap   = bitmap.map(v => hexdec(bin2hex(v)));
-    bitmap   = Uint8Array.from(bitmap);
+    bitmap = byte_to_uint8array(bitmap);
 
     var resource = bmp_resource_create(width, height);
     resource.bitmap = bitmap;

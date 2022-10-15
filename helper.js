@@ -9,7 +9,7 @@
 // It defines helper functions to ease the programming of bmp.js
 //
 // Created: 2022-09-05 10:31 AM
-// Updated: 2022-10-11 12:39 PM
+// Updated: 2022-10-15 05:29 AM
 //
 
 /**
