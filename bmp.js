@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-10-15 05:29 AM
+// Updated: 2022-10-19 12:33 AM
 //
 
 //
@@ -255,7 +255,7 @@ function bmp_resource_create(width, height) {
                 return;
         }
 
-        if (header[header_index].data !== null)
+        if (header[header_index].data != null)
             header_raw += header[header_index].data;
     });
 
@@ -305,19 +305,29 @@ function bmp_resource_valid(resource, raw = false) {
  * @param y        Y axis
  * @return         [R, G, B]
  */
+/**
+ * Retrieve pixel RGB value from X, Y coordinate of a resource
+ *
+ * @param resource Reference to the resource created by bmp_resource_create()
+ * @param x        X axis
+ * @param y        Y axis
+ * @return         [R, G, B]
+ */
 function bmp_resource_get_pixel(resource, x, y) {
     // WARN(oxou): Fallback to 0,0,0 if out of bounds.
-    if (x > resource.width || y > resource.height || 0 > x || 0 > y)
+    if (x > resource.width - 1 || y > resource.height - 1 || 0 > x || 0 > y)
         return [0, 0, 0];
 
-    x = Math.floor(x) * 3;
-    y = Math.floor(y) * 3;
+    var bytes_per_pixel = 3;
+
+    x = Math.floor(x) * bytes_per_pixel;
+    y = Math.floor(y) * bytes_per_pixel;
 
     // This flips the image upside down.  Necessary because BMP uses the
     // bottom-up approach to reading pixels.
-    y = Math.abs( y - (resource.height * 3) + 3 );
+    y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
 
-    var pos = resource.width * y + x;
+    var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
 
     var b = clamp(Math.floor(Number(resource.bitmap[pos + 0])), 0, 255);
     var g = clamp(Math.floor(Number(resource.bitmap[pos + 1])), 0, 255);
@@ -344,7 +354,7 @@ function bmp_resource_get_pixel(resource, x, y) {
  */
 function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
     // WARN(oxou): Fake set_pixel success if out of bounds.
-    if (x > resource.width || y > resource.height || 0 > x || 0 > y)
+    if (x > resource.width - 1 || y > resource.height - 1 || 0 > x || 0 > y)
         return true;
 
     r = clamp(Math.floor(Number(r)), 0, 255);
@@ -356,14 +366,15 @@ function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
     g = isNaN(g) ? 0 : g;
     b = isNaN(b) ? 0 : b;
 
-    x = Math.floor(x) * 3;
-    y = Math.floor(y) * 3;
+    var bytes_per_pixel = 3;
+
+    x = Math.floor(x) * bytes_per_pixel;
+    y = Math.floor(y) * bytes_per_pixel;
 
     // This flips the image upside down.  Necessary because BMP uses the
     // bottom-up approach to reading pixels.
-    y = Math.abs( y - (resource.height * 3) + 3 );
-
-    var pos = resource.width * y + x;
+    y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
+    var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
 
     resource.bitmap[pos + 0] = b;
     resource.bitmap[pos + 1] = g;
@@ -388,7 +399,7 @@ function bmp_resource_bitmap_to_bytes(resource) {
     bitmap = [...bitmap]; // Convert Uint8Array to a standard Array
     bitmap = bitmap.map(v => dechex(v).padStart(2, '0'));
     bitmap = bitmap.join('');
-    bitmap = str_split(bitmap, w * 3 * 2); // TODO(oxou): Check math
+    bitmap = str_split(bitmap, w * 3 * 2);
     strpad = String("00").repeat(p);
     bitmap = bitmap.join(strpad) + strpad;
     bitmap = hex2bin(bitmap);
@@ -423,18 +434,6 @@ function bmp_resource_get_image_bitmap(resource) {
     return resource.bitmap;
 }
 
-//
-// @TODO(oxou): Revise the approach of doing this.  Do some JS benchmarks and
-// come to a conclusion on what needs to be done.
-//
-// In the ../bmp-js-old-3/bmp-class.js:buildBitmap() function, it appears that
-// I've used Uint8Array(width * height * 3) for creating the bitmap.  That
-// approach worked really well, and fast.
-//
-// I also must approach the bitmap as an array because we'll be converting
-// those numbers back to bytes.
-//
-
 /**
  * Creates a Uint8Array containing RGB values with the appropriate size
  *
@@ -443,7 +442,7 @@ function bmp_resource_get_image_bitmap(resource) {
  * @return       Uint8Array with the size of (width * height * 3)
  */
 function bmp_create_array_pixel(width, height) {
-    var buffer = new Uint8Array(width * height * 3);
+    var buffer = new Uint8Array(width * height * 3 + (height * (width % 4)));
     return buffer;
 }
 
@@ -549,7 +548,6 @@ function bmp_resource_filesize(resource) {
         h = resource.height,
         p = resource.padding;
     return [
-        resource.header_raw.length + resource.bitmap_raw.length,
         w * h * 3 + (h * p) + 54
     ];
 }
