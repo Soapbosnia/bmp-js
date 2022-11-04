@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-10-19 12:33 AM
+// Updated: 2022-11-04 01:57 AM
 //
 
 //
@@ -297,14 +297,6 @@ function bmp_resource_valid(resource, raw = false) {
     return status;
 }
 
-/**
- * Retrieve pixel RGB value from X, Y coordinate of a resource
- *
- * @param resource Reference to the resource created by bmp_resource_create()
- * @param x        X axis
- * @param y        Y axis
- * @return         [R, G, B]
- */
 /**
  * Retrieve pixel RGB value from X, Y coordinate of a resource
  *
