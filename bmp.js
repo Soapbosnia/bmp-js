@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-10 10:31 AM
+// Updated: 2022-11-10 05:51 PM
 //
 
 //
@@ -391,7 +391,7 @@ function bmp_resource_bitmap_to_bytes(resource) {
     bitmap = [...bitmap]; // Convert Uint8Array to a standard Array
     bitmap = bitmap.map(v => dechex(v).padStart(2, '0'));
     bitmap = bitmap.join('');
-    bitmap = str_split(bitmap, w * 3 * 2);
+    bitmap = str_split(bitmap, w * 3 * 2); // NOTE(oxou): Do we have to do something here to fix corrupted bytes?
     strpad = String("00").repeat(p);
     bitmap = bitmap.join(strpad) + strpad;
     bitmap = hex2bin(bitmap);
