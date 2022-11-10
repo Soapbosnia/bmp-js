@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-04 01:57 AM
+// Updated: 2022-11-10 10:31 AM
 //
 
 //
@@ -500,30 +500,6 @@ function bmp_resource_replace(resource, target = null) {
         return false;
 
     target.src = bmp_create_uri(resource);
-
-    return true;
-}
-
-/**
- * Same as bmp_resource_spawn() but it spawns an image inside DevTools console
- *
- * @param resource Reference to the resource created by bmp_resource_create()
- * @return true
- */
-function bmp_resource_spawn_console(resource) {
-    var uri = bmp_create_uri(resource);
-    var width = resource.width;
-    var height = resource.height;
-
-    var size = width >= height ? width : height;
-
-    console.log(
-        "%c " + String(' ').repeat(width),
-        "font-size:"      + size   + "px;"          +
-        "background:url(" + uri    + ") no-repeat;" +
-        "width:"          + width  + "px;"          +
-        "height:"         + 0      + "px"
-    );
 
     return true;
 }
