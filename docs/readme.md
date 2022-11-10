@@ -45,4 +45,5 @@ Note: You can name the file anything as long as it ends with `.htm` or `.html`.
 ```
 
 **Expected Result**
+
 ![expected-result](./img/001.bmp)
