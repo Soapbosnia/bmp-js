@@ -16,20 +16,20 @@ Returns: BMPJS Resource | false `(object|boolean)`
 
 ```js
 // Create a 32 x 32 image
-var bmp_resource1 = bmp_resource_create(32, 32);
+var bmp_resource_1 = bmp_resource_create(32, 32);
 
 // Clear it using light blue
-bmp_plot_clear(bmp_resource1, 0, 255, 255);
+bmp_plot_clear(bmp_resource_1, 0, 255, 255);
 
 // Copy the resource1 object into resource2
-var bmp_resource2 = bmp_resource_copy(bmp_resource1);
+var bmp_resource_2 = bmp_resource_copy(bmp_resource_1);
 
 // Clear it using bright red
-bmp_plot_clear(bmp_resource2, 255, 0, 0);
+bmp_plot_clear(bmp_resource_2, 255, 0, 0);
 
 // Spawn the images into the container
-bmp_resource_spawn(bmp_resource1, bmp_container);
-bmp_resource_spawn(bmp_resource2, bmp_container);
+bmp_resource_spawn(bmp_resource_1, bmp_container);
+bmp_resource_spawn(bmp_resource_2, bmp_container);
 ```
 
 ## Expected Result
