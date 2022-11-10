@@ -34,4 +34,4 @@ bmp_resource_spawn(bmp_resource_2, bmp_container);
 
 ## Expected Result
 
-![expected-result](./img/002.bmp)
+![expected-result](./img/002.png)

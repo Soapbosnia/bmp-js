@@ -77,7 +77,7 @@ Simply copy the source code provided below and paste it into a text editor, then
 
 ## Expected Result
 
-![expected-result](./img/001.bmp)
+![expected-result](./img/001.png)
 
 ## Other documentations
 - [bmp_resource_bitmap_to_bytes](./bmp-resource-bitmap-to-bytes.md)
