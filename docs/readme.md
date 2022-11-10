@@ -26,6 +26,10 @@ Simply copy the source code provided below and paste it into a text editor, then
 
 **Note**: All code examples will use `bmp_container` to spawn images into, your code can specify a different variable name or an ID, `bmp_container` is just an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which we write image elements into.
 
+**Note**: If the `bmp_container` variable is undefined, you can create it by spawning a HTMLElement node with the ID of `bmp_container` or adding `<div id="bmp_container"></div>` to your HTML code.
+
+
+
 ```html
 <script src="https://cdn.jsdelivr.net/gh/oxou/bmp-js/bmp.min.js"></script>
 
