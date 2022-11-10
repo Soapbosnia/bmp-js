@@ -16,7 +16,7 @@ Returns: false | null | string `(boolean|null|string)`
 
 ### Notes
 
-Before spawning the requested resources, once they have loaded, the resources must be created using the [`bmp_resource_create_from_bytes()`](./bmp-resource-create-from-bytes.md) function.
+Before spawning the requested resource, once it has loaded, the resource must be created using the [`bmp_resource_create_from_bytes()`](./bmp-resource-create-from-bytes.md) function.
 
 ## Code examples
 
