@@ -4,7 +4,7 @@ Clone the repo locally by running `git clone https://github.com/oxou/bmp-js`
 and browse the `demo` folder for examples of what this library can do.
 
 ## Documentation
-See [here](docs/README.md).
+See [here](docs/readme.md).
 
 ## Features
 
