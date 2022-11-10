@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-10 05:51 PM
+// Updated: 2022-11-10 06:10 PM
 //
 
 //
@@ -669,7 +669,7 @@ function bmp_resource_download(resource, filename = "download.bmp") {
     var anchor      = document.createElement('a');
     anchor.href     = bmp_create_uri(resource);
     anchor.download = filename;
-    anchor.style    = "display: none";
+    anchor.style    = "display:none";
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
