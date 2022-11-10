@@ -24,7 +24,7 @@ Simply copy the source code provided below and paste it into a text editor, then
 
 **Note**: You can name the file anything as long as it ends with `.htm` or `.html`.
 
-**Note**: All code examples will use `bmp_container` to spawn images into, your code can specify a different variable name or an ID, `bmp_container` is just an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which we write image tags into.
+**Note**: All code examples will use `bmp_container` to spawn images into, your code can specify a different variable name or an ID, `bmp_container` is just an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which we write image elements into.
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/oxou/bmp-js/bmp.min.js"></script>
