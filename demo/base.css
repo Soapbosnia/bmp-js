@@ -41,6 +41,7 @@ div.hr {
 }
 
 img {
+    image-rendering: pixelated;
     margin-right: 8px;
     border-width: 4px;
     border-style: solid;
@@ -49,5 +50,9 @@ img {
 }
 
 img:hover {
-    border-color: rgba(128, 128, 128, .4);
+    border-color: rgba(128, 128, 128, .4)
+}
+
+.zoomed-images img {
+    width: 24%;
 }
