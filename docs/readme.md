@@ -18,20 +18,45 @@ One limitation of running from a local file versus on a web-server host is that 
 
 For the sake of ease-of-use and simplicity we will be taking the `Remote` approach this time. But will warn when transitioning to `Local` when necessary based on use-case.
 
-### Setting up
+### Notes
+
+- You can name the file anything as long as it ends with `.htm` or `.html`.
+
+- All code examples will use `bmp_container` to spawn images into, your code can specify a different variable name or an ID, `bmp_container` is just an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which we write image elements into.
+
+- If the `bmp_container` variable is undefined, you can create it by spawning a HTMLElement node with the ID of `bmp_container` or adding `<div id="bmp_container"></div>` to your HTML code.
+
+### Setting up (remote)
 
 Simply copy the source code provided below and paste it into a text editor, then save it somewhere safely under the name `bmpjs.htm`.
 
-**Note**: You can name the file anything as long as it ends with `.htm` or `.html`.
-
-**Note**: All code examples will use `bmp_container` to spawn images into, your code can specify a different variable name or an ID, `bmp_container` is just an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which we write image elements into.
-
-**Note**: If the `bmp_container` variable is undefined, you can create it by spawning a HTMLElement node with the ID of `bmp_container` or adding `<div id="bmp_container"></div>` to your HTML code.
-
-
-
 ```html
 <script src="https://cdn.jsdelivr.net/gh/oxou/bmp-js/bmp.min.js"></script>
+
+<div id="bmp_container"></div>
+
+<script>
+    // Create a resource across 320 x 320 pixels.
+    var bmp_resource = bmp_resource_create(320, 320);
+
+    // Clear the entire resource's background with a dark red color
+    bmp_plot_clear(bmp_resource,  64, 0, 0);
+
+    // Plot a rectangle at 0,0 with dimensions of 160,160
+    bmp_plot_rect(bmp_resource, 0, 0, 160, 160, 192, 0, 0);
+
+    // Spawn the resource inside the HTMLElement #bmp_container
+    bmp_resource_spawn(bmp_resource, bmp_container);
+</script>
+```
+
+### Setting up (local)
+
+```html
+<script src="./helper.js"></script>
+<script src="./bmp.js"></script>
+<script src="./bmp-plot.js"></script>
+<script src="./bmp-mods.js"></script>
 
 <div id="bmp_container"></div>
 
