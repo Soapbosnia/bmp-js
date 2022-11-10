@@ -15,8 +15,11 @@ Returns: BMPJS Resource `(object)`
 ## Code examples
 
 ```js
-// Create a 128 x 64 image
-var bmp_resource = bmp_resource_create(128, 64);
+// Load an image
+var bmp_resource_bytes = bmp_resource_request("docs/img/load/2.bmp");
+
+// Convert the raw bytes to a BMP resource object
+var bmp_resource = bmp_resource_create_from_bytes(bmp_resource_bytes);
 
 // Spawn the image into the container
 bmp_resource_spawn(bmp_resource, bmp_container);
@@ -24,4 +27,4 @@ bmp_resource_spawn(bmp_resource, bmp_container);
 
 ## Expected Result
 
-![expected-result](./img/003.png)
+![expected-result](./img/005.png)
