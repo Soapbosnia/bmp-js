@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-10 06:10 PM
+// Updated: 2022-11-11 11:52 AM
 //
 
 //
@@ -509,15 +509,13 @@ function bmp_resource_replace(resource, target = null) {
  * Determine the file size of the BMPJS resource based on resource properties
  *
  * @param resource Reference to the resource created by bmp_resource_create()
- * @return         Array
+ * @return         Number
  */
 function bmp_resource_filesize(resource) {
     var w = resource.width,
         h = resource.height,
         p = resource.padding;
-    return [
-        w * h * 3 + (h * p) + 54
-    ];
+    return Number(w * h * 3 + (h * p) + 54);
 }
 
 /**
@@ -659,7 +657,7 @@ function bmp_resource_copy(resource) {
  * Prompt for a download of BMPJS resource.
  *
  * @param resource BMPJS Resource
- * @param filename Name of the downloaded file
+ * @param filename Name of the downloaded file (default: download.bmp)
  * @return         false | true
  */
 function bmp_resource_download(resource, filename = "download.bmp") {
