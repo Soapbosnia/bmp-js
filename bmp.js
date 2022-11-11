@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-11 11:55 AM
+// Updated: 2022-11-11 12:00 PM
 //
 
 //
@@ -62,7 +62,7 @@ const bmp_header_parts = [
         data: "\x00\x00"
     },
 
-    // Offset (i.e. start addr. of image) (56)
+    // Offset (i.e. start addr. of image) (54)
     {
         addr: 10,
         size: 4,
