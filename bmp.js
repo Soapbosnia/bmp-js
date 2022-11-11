@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-11 11:52 AM
+// Updated: 2022-11-11 11:55 AM
 //
 
 //
@@ -318,7 +318,6 @@ function bmp_resource_get_pixel(resource, x, y) {
     // This flips the image upside down.  Necessary because BMP uses the
     // bottom-up approach to reading pixels.
     y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
-
     var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
 
     var b = clamp(Math.floor(Number(resource.bitmap[pos + 0])), 0, 255);
