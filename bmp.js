@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-11 12:00 PM
+// Updated: 2022-11-12 02:57 PM
 //
 
 //
@@ -23,10 +23,10 @@
 
 //
 // This sample header of 54 bytes is used by bmp_resource_create() to construct
-// valid information based on parameters passed to it.  The function works in
+// valid information based on parameters passed to it. The function works in
 // conjuction with bmp_little_endian_int() to provide correct bit-endianness.
 //
-// Descriptions prepended with [*] are dynamic.  This means that the
+// Descriptions prepended with [*] are dynamic. This means that the
 // bmp_resource_create() function changes these bytes during creation.
 //
 const bmp_header_parts = [
@@ -152,7 +152,7 @@ const bmp_header_parts = [
         data: "\x00\x00\x00\x00"
     },
 
-    // Raw bitmap pixel data.  Each index contains 3 bytes (RGB) and whole array
+    // Raw bitmap pixel data. Each index contains 3 bytes (RGB) and whole array
     // can be retrieved using bmp_resource_get_pixels(resource) or individual
     // colors at X and Y coordinates using
     // bmp_resource_get_pixel(resource, x, y)
@@ -315,7 +315,7 @@ function bmp_resource_get_pixel(resource, x, y) {
     x = Math.floor(x) * bytes_per_pixel;
     y = Math.floor(y) * bytes_per_pixel;
 
-    // This flips the image upside down.  Necessary because BMP uses the
+    // This flips the image upside down. Necessary because BMP uses the
     // bottom-up approach to reading pixels.
     y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
     var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
@@ -362,7 +362,7 @@ function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
     x = Math.floor(x) * bytes_per_pixel;
     y = Math.floor(y) * bytes_per_pixel;
 
-    // This flips the image upside down.  Necessary because BMP uses the
+    // This flips the image upside down. Necessary because BMP uses the
     // bottom-up approach to reading pixels.
     y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
     var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
