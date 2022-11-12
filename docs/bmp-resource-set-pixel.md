@@ -22,7 +22,7 @@ Returns: true `(boolean)`
 // Create a sample picture
 var bmp_resource = bmp_resource_create(10, 10);
 
-// Place blue and red pixels at [0, 0] and [9, 9] coordinates
+// Place blue and red pixels at [2, 2] and [7, 7] coordinates
 bmp_resource_set_pixel(bmp_resource, 2, 2,   0, 255, 255);
 bmp_resource_set_pixel(bmp_resource, 7, 7, 255,   0,   0);
 
