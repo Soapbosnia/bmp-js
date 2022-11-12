@@ -1,7 +1,7 @@
 // Copyright (C) 2022 Nurudin Imsirovic <github.com/oxou>
 //
 // Created: 2022-09-19 08:11 PM
-// Updated: 2022-10-08 11:58 PM
+// Updated: 2022-11-12 05:30 PM
 
 // FONT: 5x8
 font_5x8_bytes = bmp_resource_request("../images/font/5x8/0.bmp");
@@ -38,7 +38,7 @@ function draw_font(resource, resource_font, text) {
     bmp_resource_spawn(resource, target_bmp_images);
 }
 
-draw_font(resource, resource_font_5x8,  "█ resource_font_5x8 █");
-draw_font(resource, resource_font_6x14, "█ resource_font_6x14 █");
-draw_font(resource, resource_font_7x14, "█ resource_font_7x14 █");
-draw_font(resource, resource_font_8x16, "█ resource_font_8x16 █");
+draw_font(resource, resource_font_5x8,  "[ resource_font_5x8 ]");
+draw_font(resource, resource_font_6x14, "[ resource_font_6x14 ]");
+draw_font(resource, resource_font_7x14, "[ resource_font_7x14 ]");
+draw_font(resource, resource_font_8x16, "[ resource_font_8x16 ]");
