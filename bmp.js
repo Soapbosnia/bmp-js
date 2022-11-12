@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-12 02:57 PM
+// Updated: 2022-11-12 04:44 PM
 //
 
 //
@@ -208,7 +208,8 @@ function bmp_little_endian_int(value, pad_length = 2, pad_left = true) {
     return value;
 }
 
-/** Converts bytes from little endian to integers
+/**
+ * Converts bytes from little endian to integers
  *
  * @param value Bytes to integer
  * @return      Integer
@@ -223,7 +224,8 @@ function bmp_little_endian_byte(value) {
     return Number(value);
 }
 
-/** Create a BMP resource
+/**
+ * Create a BMP resource
  *
  * @param width  Width  (X axis) of the image (non-zero)
  * @param height Height (Y axis) of the image (non-zero)
@@ -430,7 +432,7 @@ function bmp_resource_get_image_bitmap(resource) {
  *
  * @param width  Width  (X axis) of the image (non-zero)
  * @param height Height (Y axis) of the image (non-zero)
- * @return       Uint8Array with the size of (width * height * 3)
+ * @return       Uint8Array
  */
 function bmp_create_array_pixel(width, height) {
     var buffer = new Uint8Array(width * height * 3 + (height * (width % 4)));
