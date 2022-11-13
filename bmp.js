@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-11-12 04:44 PM
+// Updated: 2022-11-13 01:09 PM
 //
 
 //
@@ -277,7 +277,7 @@ function bmp_resource_create(width, height) {
 /**
  * Verify that the BMP resource is valid
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @param raw      Process raw data
  * @return         false | true
  */
@@ -302,7 +302,7 @@ function bmp_resource_valid(resource, raw = false) {
 /**
  * Retrieve pixel RGB value from X, Y coordinate of a resource
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @param x        X axis
  * @param y        Y axis
  * @return         [R, G, B]
@@ -337,7 +337,7 @@ function bmp_resource_get_pixel(resource, x, y) {
 /**
  * Set pixel RGB value at X, Y coordinate of a resource
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @param x        X axis
  * @param y        Y axis
  * @param r        Color channel Red
@@ -404,7 +404,7 @@ function bmp_resource_bitmap_to_bytes(resource) {
 /**
  * Returns the image width and height for a BMPJS resource
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @return         [width, height]
  */
 function bmp_resource_get_image_size(resource) {
@@ -417,7 +417,7 @@ function bmp_resource_get_image_size(resource) {
 /**
  * Returns the bitmap from a BMPJS resource (if valid)
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @return         BMPJS Resource Uint8Array Bitmap
  */
 function bmp_resource_get_image_bitmap(resource) {
@@ -442,7 +442,7 @@ function bmp_create_array_pixel(width, height) {
 /**
  * Creates a Blob URI with fully-constructed BMP data
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @return         The Blob URI containing fully-constructed BMP data
  */
 function bmp_create_uri(resource) {
@@ -464,7 +464,7 @@ function bmp_create_uri(resource) {
  * Creates an `img` element that is appended to the `target`
  * The image element src is set to the output of `bmp_create_uri(resource)`
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @param target   HTMLElement in which the image will be appended to
  * @return         false | Reference to the `img` element
  */
@@ -488,7 +488,7 @@ function bmp_resource_spawn(resource, target = null) {
  * Replace the URI from the old `img` element referenced through `target`
  * by creating a new one by `resource`
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @param target   `img` element pointing to a previous reference returned by
  *                 bmp_resource_spawn()
  * @return         false | true
@@ -509,7 +509,7 @@ function bmp_resource_replace(resource, target = null) {
 /**
  * Determine the file size of the BMPJS resource based on resource properties
  *
- * @param resource Reference to the resource created by bmp_resource_create()
+ * @param resource BMPJS Resource
  * @return         Number
  */
 function bmp_resource_filesize(resource) {

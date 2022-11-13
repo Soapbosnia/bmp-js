@@ -8,7 +8,7 @@ Determine the file size of the BMPJS resource based on resource properties.
 
 ### Parameters
 
-1. `resource` | `Reference to the resource created by bmp_resource_create()`
+1. `resource` | `BMPJS Resource`
 
 Returns: `(number)`
 

@@ -7,7 +7,7 @@ Creates a Blob URI with fully-constructed BMP data
 
 ### Parameters
 
-1. `resource` | `Reference to the resource created by bmp_resource_create()`
+1. `resource` | `BMPJS Resource`
 
 Returns: `(string)`
 

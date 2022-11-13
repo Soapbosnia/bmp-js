@@ -7,7 +7,7 @@ Verify that the BMP resource is valid
 
 ### Parameters
 
-1. `resource` | `Reference to the resource created by bmp_resource_create()`
+1. `resource` | `BMPJS Resource`
 2. `raw` | `Process raw data`
 
 Returns: false | true `(boolean)`

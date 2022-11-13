@@ -7,7 +7,7 @@ Creates an `img` element that is appended to the `target`. The image element src
 
 ### Parameters
 
-1. `resource` | `Reference to the resource created by bmp_resource_create()`
+1. `resource` | `BMPJS Resource`
 2. `target` | `HTMLElement in which the image will be appended to`
 
 Returns: false | Reference to the `img` element `(boolean|htmlelement)`

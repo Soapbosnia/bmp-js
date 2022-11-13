@@ -7,7 +7,7 @@ Returns the image width and height for a BMPJS resource
 
 ### Parameters
 
-1. `resource` | `Reference to the resource created by bmp_resource_create()`
+1. `resource` | `BMPJS Resource`
 
 Returns: [width, height] `(array)`
 

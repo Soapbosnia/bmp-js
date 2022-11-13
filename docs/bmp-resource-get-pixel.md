@@ -7,7 +7,7 @@ Retrieve pixel RGB value from X, Y coordinate of a resource
 
 ### Parameters
 
-1. `resource` | `Reference to the resource created by bmp_resource_create()`
+1. `resource` | `BMPJS Resource`
 2. `x` | `X axis`
 3. `y` | `Y axis`
 

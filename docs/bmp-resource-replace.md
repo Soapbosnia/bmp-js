@@ -7,7 +7,7 @@ Replace the URI from the old `img` element referenced through `target` by creati
 
 ### Parameters
 
-1. `resource` | `Reference to the resource created by bmp_resource_create()`
+1. `resource` | `BMPJS Resource`
 2. `target` | `img element pointing to a previous reference returned by bmp_resource_spawn()`
 
 Returns: false | true `(boolean)`

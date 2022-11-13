@@ -7,7 +7,7 @@ Returns the bitmap from a BMPJS resource (if valid)
 
 ### Parameters
 
-1. `resource` | `Reference to the resource created by bmp_resource_create()`
+1. `resource` | `BMPJS Resource`
 
 Returns: resource.bitmap `(uint8array)`
 
