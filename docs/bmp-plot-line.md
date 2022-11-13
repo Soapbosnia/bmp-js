@@ -76,7 +76,7 @@ for (let i = 0, j = points.length; i < j; i++) {
     bmp_plot_line(bmp_resource_5, p0, p1, p2, p3, c[0], c[1], c[2], 1.0);
 }
 
-// Spawn the image into the container
+// Spawn the images into the container
 bmp_resource_spawn(bmp_resource_1, bmp_container);
 bmp_resource_spawn(bmp_resource_2, bmp_container);
 bmp_resource_spawn(bmp_resource_3, bmp_container);
