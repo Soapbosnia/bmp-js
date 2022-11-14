@@ -13,3 +13,9 @@ See [here](docs/readme.md).
 - Code can interchangeably work on 2 or more images.
 - Sharing of color data between 2 or more images, for example `denoiser`.
 - Pretty much anything can be generated if you put enough effort to it.
+
+## Limitations
+- Only works on 24-bit images
+- Cannot produce animations because of high memory consumption and the inability to free Blobs from volatile memory.
+- Missing lots of vital plot and mod functions.
+- Bugs do still exist ;)
