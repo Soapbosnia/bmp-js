@@ -120,8 +120,6 @@ bmp_plot_text(bmp_resource, font_4, x_offset, y_offset, "Font: 8x16", true, 255,
 y_offset += font_4_props[1];
 
 bmp_plot_text(bmp_resource, font_4, x_offset, y_offset, "Font: 8x16", true,   0,   0,   0, 255, 255, 255);
-x_offset += font_4_props[0] * ("Font: 8x16").length + font_4_props[0];
-y_offset = 10;
 
 // Spawn the image into the container
 bmp_resource_spawn(bmp_resource, bmp_container);
