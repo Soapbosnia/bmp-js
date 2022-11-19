@@ -40,7 +40,7 @@ Simply copy the source code provided below and paste it into a text editor, then
     var bmp_resource = bmp_resource_create(320, 320);
 
     // Clear the entire resource's background with a dark red color
-    bmp_plot_clear(bmp_resource,  64, 0, 0);
+    bmp_plot_clear(bmp_resource, 64, 0, 0);
 
     // Plot a rectangle at 0,0 with dimensions of 160,160
     bmp_plot_rect(bmp_resource, 0, 0, 160, 160, 192, 0, 0);
