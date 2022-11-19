@@ -8,11 +8,11 @@ Copy the contents from a resource child to the resource parent
 ### Parameters
 
 1. `resource_p` | `BMPJS resource (parent)`
-1. `resource_c` | `BMPJS resource (child)`
-2. `x` | `Position X`
-3. `y` | `Position Y`
-4. `w` | `Width (by default -1, child's width)`
-5. `h` | `Height (by default -1, child's height)`
+2. `resource_c` | `BMPJS resource (child)`
+3. `x` | `Position X`
+4. `y` | `Position Y`
+5. `w` | `Width (by default -1, child's width)`
+6. `h` | `Height (by default -1, child's height)`
 
 Returns: true `(boolean)`
 
