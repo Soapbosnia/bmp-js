@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2022-11-13 04:16 PM
+// Updated: 2022-12-12 04:01 PM
 //
 
 /**
@@ -104,7 +104,7 @@ function bmp_plot_line(
     y = y1;
 
     for (let i = 0; i < l; i++) {
-        if (resource.width  > x &&
+        if (resource.width > x &&
             resource.height > y)
             bmp_resource_set_pixel(resource, x, y, r, g, b);
 
@@ -292,6 +292,261 @@ function bmp_plot_text(
         }
 
         x_offset += font_width;
+    }
+
+    return true;
+}
+
+/**
+ * Plot a circle
+ *
+ * @param resource BMPJS resource
+ * @param x        Position X
+ * @param y        Position Y
+ * @param w        Width
+ * @param h        Height
+ * @param r        Color channel Red
+ * @param g        Color channel Green
+ * @param b        Color channel Blue
+ * @param p        Precision of line (clamped from 0.1 to 2)
+ * @return         true
+ */
+function bmp_plot_circle(resource, x, y, w, h, r, g, b, p = 1) {
+    var points = [
+        [247,1],
+        [312,8],
+        [360,23],
+        [403,47],
+        [439,78],
+        [469,114],
+        [490,153],
+        [507,205],
+        [511,257],
+        [505,312],
+        [490,360],
+        [466,403],
+        [435,439],
+        [399,469],
+        [360,490],
+        [308,507],
+        [256,511],
+        [201,505],
+        [153,490],
+        [110,466],
+        [74,435],
+        [44,399],
+        [23,360],
+        [6,308],
+        [2,256],
+        [8,201],
+        [23,153],
+        [47,110],
+        [78,74],
+        [114,44],
+        [153,23],
+        [205,6],
+        [247,1]
+    ];
+
+    for (let i = 1; i < 33; i++) {
+        var last = points[i - 1];
+        var curr = points[i];
+        var lx = last[0] / 512 * w + x;
+        var ly = last[1] / 512 * h + y;
+        var cx = curr[0] / 512 * w + x;
+        var cy = curr[1] / 512 * h + y;
+        bmp_plot_line(resource, lx, ly, cx, cy, r, g, b, p);
+    }
+
+    return true;
+}
+
+/**
+ * Plot an arrow pointing up
+ *
+ * @param resource BMPJS resource
+ * @param x        Position X
+ * @param y        Position Y
+ * @param w        Width
+ * @param h        Height
+ * @param r        Color channel Red
+ * @param g        Color channel Green
+ * @param b        Color channel Blue
+ * @param p        Precision of line (clamped from 0.1 to 2)
+ * @return         true
+ */
+function bmp_plot_arrow_up(resource, x, y, w, h, r, g, b, p = 1) {
+    var points = [
+        [256,1],
+        [512,256],
+        [384,256],
+        [384,512],
+        [128,512],
+        [128,256],
+        [1,256],
+        [256,1]
+    ];
+
+    for (let i = 1; i < 8; i++) {
+        var last = points[i - 1];
+        var curr = points[i];
+        var lx = last[0] / 512 * w + x;
+        var ly = last[1] / 512 * h + y;
+        var cx = curr[0] / 512 * w + x;
+        var cy = curr[1] / 512 * h + y;
+        bmp_plot_line(resource, lx, ly, cx, cy, r, g, b, p);
+    }
+
+    return true;
+}
+
+/**
+ * Plot an arrow pointing down
+ *
+ * @param resource BMPJS resource
+ * @param x        Position X
+ * @param y        Position Y
+ * @param w        Width
+ * @param h        Height
+ * @param r        Color channel Red
+ * @param g        Color channel Green
+ * @param b        Color channel Blue
+ * @param p        Precision of line (clamped from 0.1 to 2)
+ * @return         true
+ */
+function bmp_plot_arrow_down(resource, x, y, w, h, r, g, b, p = 1) {
+    var points = [
+        [128,0],
+        [384,0],
+        [384,256],
+        [512,256],
+        [256,512],
+        [0,256],
+        [128,256],
+        [128,0]
+    ];
+
+    for (let i = 1; i < 8; i++) {
+        var last = points[i - 1];
+        var curr = points[i];
+        var lx = last[0] / 512 * w + x;
+        var ly = last[1] / 512 * h + y;
+        var cx = curr[0] / 512 * w + x;
+        var cy = curr[1] / 512 * h + y;
+        bmp_plot_line(resource, lx, ly, cx, cy, r, g, b, p);
+    }
+
+    return true;
+}
+
+/**
+ * Plot an arrow pointing left
+ *
+ * @param resource BMPJS resource
+ * @param x        Position X
+ * @param y        Position Y
+ * @param w        Width
+ * @param h        Height
+ * @param r        Color channel Red
+ * @param g        Color channel Green
+ * @param b        Color channel Blue
+ * @param p        Precision of line (clamped from 0.1 to 2)
+ * @return         true
+ */
+function bmp_plot_arrow_left(resource, x, y, w, h, r, g, b, p = 1) {
+    var points = [
+        [0,256],
+        [256,0],
+        [256,128],
+        [512,128],
+        [512,384],
+        [256,384],
+        [256,512],
+        [0,256]
+    ];
+
+    for (let i = 1; i < 8; i++) {
+        var last = points[i - 1];
+        var curr = points[i];
+        var lx = last[0] / 512 * w + x;
+        var ly = last[1] / 512 * h + y;
+        var cx = curr[0] / 512 * w + x;
+        var cy = curr[1] / 512 * h + y;
+        bmp_plot_line(resource, lx, ly, cx, cy, r, g, b, p);
+    }
+
+    return true;
+}
+
+/**
+ * Plot an arrow pointing right
+ *
+ * @param resource BMPJS resource
+ * @param x        Position X
+ * @param y        Position Y
+ * @param w        Width
+ * @param h        Height
+ * @param r        Color channel Red
+ * @param g        Color channel Green
+ * @param b        Color channel Blue
+ * @param p        Precision of line (clamped from 0.1 to 2)
+ * @return         true
+ */
+function bmp_plot_arrow_right(resource, x, y, w, h, r, g, b, p = 1) {
+    var points = [
+        [0,128],
+        [256,128],
+        [256,0],
+        [512,256],
+        [256,512],
+        [256,384],
+        [0,384],
+        [0,128]
+    ];
+
+    for (let i = 1; i < 8; i++) {
+        var last = points[i - 1];
+        var curr = points[i];
+        var lx = last[0] / 512 * w + x;
+        var ly = last[1] / 512 * h + y;
+        var cx = curr[0] / 512 * w + x;
+        var cy = curr[1] / 512 * h + y;
+        bmp_plot_line(resource, lx, ly, cx, cy, r, g, b, p);
+    }
+
+    return true;
+}
+
+/**
+ * Plot a triangle
+ *
+ * @param resource BMPJS resource
+ * @param x        Position X
+ * @param y        Position Y
+ * @param w        Width
+ * @param h        Height
+ * @param r        Color channel Red
+ * @param g        Color channel Green
+ * @param b        Color channel Blue
+ * @param p        Precision of line (clamped from 0.1 to 2)
+ * @return         true
+ */
+function bmp_plot_triangle(resource, x, y, w, h, r, g, b, p = 1) {
+    var points = [
+        [256,0],
+        [512,512],
+        [0,512],
+        [256,0]
+    ];
+
+    for (let i = 1; i < 4; i++) {
+        var last = points[i - 1];
+        var curr = points[i];
+        var lx = last[0] / 512 * w + x;
+        var ly = last[1] / 512 * h + y;
+        var cx = curr[0] / 512 * w + x;
+        var cy = curr[1] / 512 * h + y;
+        bmp_plot_line(resource, lx, ly, cx, cy, r, g, b, p);
     }
 
     return true;

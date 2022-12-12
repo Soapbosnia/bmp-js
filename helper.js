@@ -9,7 +9,7 @@
 // It defines helper functions to ease the programming of bmp.js
 //
 // Created: 2022-09-05 10:31 AM
-// Updated: 2022-10-15 05:29 AM
+// Updated: 2022-12-12 10:19 AM
 //
 
 /**
@@ -78,7 +78,7 @@ function hexdec(v = null) {
     if (v == null)
         return null;
 
-    return Number(parseInt(v, 16).toString());
+    return parseInt(v, 16);
 }
 
 /**
