@@ -7,8 +7,8 @@ Replace the URI from the old `img` element referenced through `target` by creati
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `target` | `img element pointing to a previous reference returned by bmp_resource_spawn()`
+1. `target` | `img element pointing to a previous reference returned by bmp_resource_spawn()`
+2. `resource` | `BMPJS Resource`
 
 Returns: false | true `(boolean)`
 
@@ -32,7 +32,7 @@ var bmp_resource_2 = bmp_resource_create(128, 64);
 bmp_plot_clear(bmp_resource_2, 0, 128, 128);
 
 // Replace the spawned bmp_resource_1 with the bmp_resource_2
-bmp_resource_replace(bmp_resource_2, spawn_reference);
+bmp_resource_replace(spawn_reference, bmp_resource_2);
 ```
 
 ## Expected Result

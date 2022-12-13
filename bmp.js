@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-12-13 08:50 AM
+// Updated: 2022-12-13 01:06 PM
 //
 
 //
@@ -490,16 +490,16 @@ function bmp_resource_spawn(resource, target = null) {
  * Replace the URI from the old `img` element referenced through `target`
  * by creating a new one by `resource`
  *
- * @param resource BMPJS Resource
  * @param target   `img` element pointing to a previous reference returned by
  *                 bmp_resource_spawn()
+ * @param resource BMPJS Resource
  * @return         false | true
  */
-function bmp_resource_replace(resource, target = null) {
-    if (!bmp_resource_valid(resource))
+function bmp_resource_replace(target = null, resource) {
+    if (target == null)
         return false;
 
-    if (target == null)
+    if (!bmp_resource_valid(resource))
         return false;
 
     target.src = bmp_create_uri(resource);
