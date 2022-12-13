@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-12-12 04:05 PM
+// Updated: 2022-12-13 08:50 AM
 //
 
 //
@@ -321,6 +321,7 @@ function bmp_resource_get_pixel(resource, x, y) {
     // bottom-up approach to reading pixels.
     y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
     var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
+        pos = Math.round(pos);
 
     var b = clamp(Math.floor(Number(resource.bitmap[pos + 0])), 0, 255);
     var g = clamp(Math.floor(Number(resource.bitmap[pos + 1])), 0, 255);
@@ -368,6 +369,7 @@ function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
     // bottom-up approach to reading pixels.
     y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
     var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
+        pos = Math.round(pos);
 
     resource.bitmap[pos + 0] = b;
     resource.bitmap[pos + 1] = g;
