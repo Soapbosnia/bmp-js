@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2022-12-12 04:01 PM
+// Updated: 2022-12-13 10:11 AM
 //
 
 /**
@@ -141,14 +141,20 @@ function bmp_plot_resource(
 
     // If width or height are negative 1, we assign each the child's dimensions
     if (w == -1)
-        w = resource_c.width;
+        w = resource_c.width - x;
 
     if (h == -1)
-        h = resource_c.height;
+        h = resource_c.height - y;
+
+    if (0 > x)
+        w += x;
+
+    if (0 > y)
+        h += y;
 
     for (let y1 = 0; y1 < h; y1++) {
         for (let x1 = 0; x1 < w; x1++) {
-            if (resource_p.width > w && resource_p.height > h) {
+            if (resource_p.width >= w && resource_p.height >= h) {
                 var c = bmp_resource_get_pixel(resource_c, x1, y1);
                 bmp_resource_set_pixel(
                     resource_p,
