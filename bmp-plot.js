@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2022-12-13 11:18 AM
+// Updated: 2022-12-14 08:31 PM
 //
 
 /**
@@ -311,7 +311,17 @@ function bmp_plot_text(
  * @param p        Precision of line (clamped from 0.1 to 2)
  * @return         true
  */
-function bmp_plot_circle(resource, x, y, w, h, r, g, b, p = 1) {
+function bmp_plot_circle(
+    resource,
+    x,
+    y,
+    w,
+    h,
+    r,
+    g,
+    b,
+    p = 1
+) {
     var points = [
         [247,1],
         [312,8],
@@ -375,7 +385,17 @@ function bmp_plot_circle(resource, x, y, w, h, r, g, b, p = 1) {
  * @param p        Precision of line (clamped from 0.1 to 2)
  * @return         true
  */
-function bmp_plot_arrow_up(resource, x, y, w, h, r, g, b, p = 1) {
+function bmp_plot_arrow_up(
+    resource,
+    x,
+    y,
+    w,
+    h,
+    r,
+    g,
+    b,
+    p = 1
+) {
     var points = [
         [256,1],
         [512,256],
@@ -414,7 +434,17 @@ function bmp_plot_arrow_up(resource, x, y, w, h, r, g, b, p = 1) {
  * @param p        Precision of line (clamped from 0.1 to 2)
  * @return         true
  */
-function bmp_plot_arrow_down(resource, x, y, w, h, r, g, b, p = 1) {
+function bmp_plot_arrow_down(
+    resource,
+    x,
+    y,
+    w,
+    h,
+    r,
+    g,
+    b,
+    p = 1
+) {
     var points = [
         [128,0],
         [384,0],
@@ -453,7 +483,17 @@ function bmp_plot_arrow_down(resource, x, y, w, h, r, g, b, p = 1) {
  * @param p        Precision of line (clamped from 0.1 to 2)
  * @return         true
  */
-function bmp_plot_arrow_left(resource, x, y, w, h, r, g, b, p = 1) {
+function bmp_plot_arrow_left(
+    resource,
+    x,
+    y,
+    w,
+    h,
+    r,
+    g,
+    b,
+    p = 1
+) {
     var points = [
         [0,256],
         [256,0],
@@ -492,7 +532,17 @@ function bmp_plot_arrow_left(resource, x, y, w, h, r, g, b, p = 1) {
  * @param p        Precision of line (clamped from 0.1 to 2)
  * @return         true
  */
-function bmp_plot_arrow_right(resource, x, y, w, h, r, g, b, p = 1) {
+function bmp_plot_arrow_right(
+    resource,
+    x,
+    y,
+    w,
+    h,
+    r,
+    g,
+    b,
+    p = 1
+) {
     var points = [
         [0,128],
         [256,128],
@@ -531,7 +581,17 @@ function bmp_plot_arrow_right(resource, x, y, w, h, r, g, b, p = 1) {
  * @param p        Precision of line (clamped from 0.1 to 2)
  * @return         true
  */
-function bmp_plot_triangle(resource, x, y, w, h, r, g, b, p = 1) {
+function bmp_plot_triangle(
+    resource,
+    x,
+    y,
+    w,
+    h,
+    r,
+    g,
+    b,
+    p = 1
+) {
     var points = [
         [256,0],
         [512,512],
