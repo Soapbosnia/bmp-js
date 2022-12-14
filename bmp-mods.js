@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-10-19 12:41 AM
+// Updated: 2022-12-14 08:57 PM
 //
 
 /**
@@ -19,7 +19,10 @@
  * @param channel  Channel index (0 = Red, 1 = Green, 2 = Blue) (default 0)
  * @return         BMPJS Resource
  */
-function bmp_mod_get_channel(resource, channel = 0) {
+function bmp_mod_get_channel(
+    resource,
+    channel = 0
+) {
     channel = clamp(channel, 0, 2);
     var resource_new = bmp_resource_create(resource.width, resource.height);
 
@@ -46,7 +49,9 @@ function bmp_mod_get_channel(resource, channel = 0) {
  * @param resource BMPJS Resource
  * @return         [font_width, font_height, font_chars]
  */
- function bmp_mod_dissect_font(resource) {
+function bmp_mod_dissect_font(
+    resource
+) {
     var font_width  = resource.width / 96;
     var font_height = resource.height;
     var font_chars  = resource.width / font_width;
@@ -60,7 +65,9 @@ function bmp_mod_get_channel(resource, channel = 0) {
  * @param resource BMPJS Resource
  * @return         BMPJS Resource
  */
-function bmp_mod_flip_x(resource) {
+function bmp_mod_flip_x(
+    resource
+) {
     var width  = resource.width;
     var height = resource.height;
 
@@ -83,7 +90,9 @@ function bmp_mod_flip_x(resource) {
  * @param resource BMPJS Resource
  * @return         BMPJS Resource
  */
- function bmp_mod_flip_y(resource) {
+function bmp_mod_flip_y(
+    resource
+) {
     var width  = resource.width;
     var height = resource.height;
 
@@ -106,7 +115,9 @@ function bmp_mod_flip_x(resource) {
  * @param resource BMPJS Resource
  * @return         BMPJS Resource
  */
-function bmp_mod_rotate_right(resource) {
+function bmp_mod_rotate_right(
+    resource
+) {
     var width = resource.width;
     var height = resource.height;
 
@@ -129,7 +140,9 @@ function bmp_mod_rotate_right(resource) {
  * @param resource BMPJS Resource
  * @return         BMPJS Resource
  */
-function bmp_mod_rotate_left(resource) {
+function bmp_mod_rotate_left(
+    resource
+) {
     var width = resource.width;
     var height = resource.height;
 
@@ -158,7 +171,15 @@ function bmp_mod_rotate_left(resource) {
  * @param cb       Color channel Blue  (child)
  * @return         BMPJS Resource
  */
-function bmp_mod_replace_color(resource, pr, pg, pb, cr, cg, cb) {
+function bmp_mod_replace_color(
+    resource,
+    pr,
+    pg,
+    pb,
+    cr,
+    cg,
+    cb
+) {
     var width = resource.width;
     var height = resource.height;
 
@@ -184,7 +205,10 @@ function bmp_mod_replace_color(resource, pr, pg, pb, cr, cg, cb) {
  * @param scale    Amount of noise to add ranging from 0.0 to 10.0
  * @return         BMPJS Resource
  */
-function bmp_mod_noise_grayscale(resource, scale = 0.1) {
+function bmp_mod_noise_grayscale(
+    resource,
+    scale = 0.1
+) {
     scale = clamp(scale, 0, 10);
     var width = resource.width;
     var height = resource.height;
@@ -212,7 +236,10 @@ function bmp_mod_noise_grayscale(resource, scale = 0.1) {
  * @param scale    Amount of noise to add ranging from 0.0 to 10.0
  * @return         BMPJS Resource
  */
- function bmp_mod_noise_rgb(resource, scale = 0.1) {
+function bmp_mod_noise_rgb(
+    resource,
+    scale = 0.1
+) {
     scale = clamp(scale, 0, 10);
     var width = resource.width;
     var height = resource.height;
@@ -241,7 +268,9 @@ function bmp_mod_noise_grayscale(resource, scale = 0.1) {
  * @param resource BMPJS Resource
  * @return         BMPJS Resource
  */
-function bmp_mod_color_invert(resource) {
+function bmp_mod_color_invert(
+    resource
+) {
     var width = resource.width;
     var height = resource.height;
 
@@ -266,7 +295,9 @@ function bmp_mod_color_invert(resource) {
  * @param resource BMPJS Resource
  * @return         BMPJS Resource
  */
-function bmp_mod_color_grayscale(resource) {
+function bmp_mod_color_grayscale(
+    resource
+) {
     var width = resource.width;
     var height = resource.height;
 
@@ -293,7 +324,9 @@ function bmp_mod_color_grayscale(resource) {
  * @param resource BMPJS Resource
  * @return         BMPJS Resource
  */
-function bmp_mod_color_1bit(resource) {
+function bmp_mod_color_1bit(
+    resource
+) {
     var width = resource.width;
     var height = resource.height;
 
@@ -318,7 +351,10 @@ function bmp_mod_color_1bit(resource) {
  * @param scale    Amount of noise to add ranging from 0.0 to 10.0
  * @return         BMPJS Resource
  */
-function bmp_mod_noise_grayscale(resource, scale = 0.1) {
+function bmp_mod_noise_grayscale(
+    resource,
+    scale = 0.1
+) {
     scale = clamp(scale, 0, 10);
     var width = resource.width;
     var height = resource.height;
@@ -346,7 +382,10 @@ function bmp_mod_noise_grayscale(resource, scale = 0.1) {
  * @param scale    Amount of noise to add ranging from 0.0 to 10.0
  * @return         BMPJS Resource
  */
- function bmp_mod_noise_rgb(resource, scale = 0.1) {
+function bmp_mod_noise_rgb(
+    resource,
+    scale = 0.1
+) {
     scale = clamp(scale, 0, 10);
     var width = resource.width;
     var height = resource.height;
@@ -365,6 +404,149 @@ function bmp_mod_noise_grayscale(resource, scale = 0.1) {
             bmp_resource_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
         }
     }
+
+    return resource_new;
+}
+
+/**
+ * Apply a convolution matrix to an image.
+ * More information about that here:
+ *  - https://en.wikipedia.org/wiki/Kernel_(image_processing)
+ *  - https://en.wikipedia.org/wiki/Convolution
+ *  - https://docs.gimp.org/2.8/en/plug-in-convmatrix.html
+ *
+ * @param resource BMPJS Resource
+ * @param matrix   Convolution matrix (3x3 and 5x5 only)
+ * @param divisor  How much to divide the average result (default 1)
+ * @param offset   Value to add to the quotient (division result)
+ * @return         BMPJS Resource
+ */
+function bmp_mod_apply_convolution_matrix(
+    resource,
+    matrix = [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    divisor = 1,
+    offset = 0
+) {
+    var resource_new = bmp_resource_copy(resource);
+    var w = resource.width;
+    var h = resource.height;
+
+    if (matrix.length != 9 && matrix.length != 25)
+        throw("Convolution matrix must be of size 3x3 (9) or 5x5 (25)");
+
+    // Convolution matrix (3 x 3)
+    //var cm = [
+    //     0, -1,  0,
+    //    -1,  5, -1,
+    //     0, -1,  0
+    //];
+
+    var cm = matrix;
+
+    // MATRIX_3X3
+    if (matrix.length == 9) {
+
+        for (let x = 0; x < w; x++)
+        {
+            for (let y = 0; y < h; y++)
+            {
+                /* 3 x 3 grid */
+                var ct  = bmp_resource_get_pixel(resource, x    , y - 1);
+                var ctl = bmp_resource_get_pixel(resource, x - 1, y - 1);
+                var ctr = bmp_resource_get_pixel(resource, x + 1, y - 1);
+
+                var c   = bmp_resource_get_pixel(resource, x    , y    );
+                var cl  = bmp_resource_get_pixel(resource, x - 1, y    );
+                var cr  = bmp_resource_get_pixel(resource, x + 1, y    );
+
+                var cb  = bmp_resource_get_pixel(resource, x    , y + 1);
+                var cbl = bmp_resource_get_pixel(resource, x - 1, y + 1);
+                var cbr = bmp_resource_get_pixel(resource, x + 1, y + 1);
+
+                /* Apply convolution matrix */
+                ctl[0] *= cm[0];
+                ctl[1] *= cm[0];
+                ctl[2] *= cm[0];
+
+                ct[0]  *= cm[1];
+                ct[1]  *= cm[1];
+                ct[2]  *= cm[1];
+
+                ctr[0] *= cm[2];
+                ctr[1] *= cm[2];
+                ctr[2] *= cm[2];
+
+                cl[0]  *= cm[3];
+                cl[1]  *= cm[3];
+                cl[2]  *= cm[3];
+
+                c[0]   *= cm[4];
+                c[1]   *= cm[4];
+                c[2]   *= cm[4];
+
+                cr[0]  *= cm[5];
+                cr[1]  *= cm[5];
+                cr[2]  *= cm[5];
+
+                cbl[0] *= cm[6];
+                cbl[1] *= cm[6];
+                cbl[2] *= cm[6];
+
+                cb[0]  *= cm[7];
+                cb[1]  *= cm[7];
+                cb[2]  *= cm[7];
+
+                cbr[0] *= cm[8];
+                cbr[1] *= cm[8];
+                cbr[2] *= cm[8];
+
+                var avg = [
+                    (ct[0] + ctl[0] + ctr[0] + cb[0] + cbl[0] + cbr[0] + c[0] + cl[0] + cr[0]) / divisor,
+                    (ct[1] + ctl[1] + ctr[1] + cb[1] + cbl[1] + cbr[1] + c[1] + cl[1] + cr[1]) / divisor,
+                    (ct[2] + ctl[2] + ctr[2] + cb[2] + cbl[2] + cbr[2] + c[2] + cl[2] + cr[2]) / divisor
+                ];
+
+                bmp_resource_set_pixel(
+                    resource_new,
+                    x,
+                    y,
+                    avg[0] + offset,
+                    avg[1] + offset,
+                    avg[2] + offset
+                );
+            }
+        }
+
+    }
+
+    // MATRIX_5X5
+
+    if (matrix.length == 25) {
+        throw("5x5 matrix not implemented");
+    }
+
+    return resource_new;
+}
+
+/**
+ * Sharpen an image
+ *
+ * @param resource BMPJS Resource
+ * @return         BMPJS Resource
+ */
+function bmp_mod_sharpen(
+    resource
+) {
+    var resource_new = bmp_resource_copy(resource);
+
+    resource_new = bmp_mod_apply_convolution_matrix(
+        resource_new,
+        [
+             0,-1, 0,
+            -1, 5,-1,
+             0,-1, 0
+        ]
+    );
 
     return resource_new;
 }
