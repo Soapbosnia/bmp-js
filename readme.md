@@ -9,7 +9,7 @@ See [here](docs/readme.md).
 ## What is the purpose of this?
 
 It may not serve any purpose other than to work on it and in the meantime expand knowledge about data and image
-processing and various algorithms used alongside it.
+processing and various algorithms used alongside it and use that knowledge to build image filters and so on.
 
 In my honest opinion I do not think one should deploy this library inside a production environment albeit I do know it
 is production-ready and perhaps where it could be applicable to save on maintenance and implementation resources but
