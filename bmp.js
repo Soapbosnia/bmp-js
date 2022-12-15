@@ -604,43 +604,11 @@ function bmp_resource_create_from_bytes(bytes) {
 /**
  * Request a BMP file from a remote location using synchronous XMLHttpRequest.
  *
- * Thanks to: https://tinyurl.com/SendingAndReceivingBinaryData
- *
  * @param url URL pointing to a BMP file
  * @return    false | null | string
  */
 function bmp_resource_request(url = null) {
-    if (url == null)
-        return false;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, false);
-    xhr.overrideMimeType("text/plain; charset=x-user-defined");
-    xhr.send();
-
-    if (xhr.status != 200)
-        return null;
-
-    //
-    // WARN(oxou): Had to come up with a solution to remove preceeding 0x7F
-    // bytes, which caused misalignment and overall incorrect response of the
-    // data. This "hack" solves that issue, but I do not know how stable it is.
-    // I've tried several files and it seems to just "work." I hope it stays
-    // that way.
-    //
-    data = xhr.response.split('');
-    var data_len = data.length;
-
-    for (var i = 0; i < data_len; i++) {
-        var value = bin2hex(data[i]);
-
-        if (value.length > 2) {
-            value = value.substr(2, 2);
-            data[i] = hex2bin(value);
-        }
-    }
-
-    return data.join('');
+    return http_get_bytes(url);
 }
 
 /**
