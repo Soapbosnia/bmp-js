@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-12-14 08:57 PM
+// Updated: 2022-12-15 11:31 AM
 //
 
 /**
@@ -547,6 +547,60 @@ function bmp_mod_sharpen(
              0,-1, 0
         ]
     );
+
+    return resource_new;
+}
+
+/**
+ * Resize an image (using nearest neighbor)
+ *
+ * @param resource BMPJS Resource
+ * @param w        Width   (Rounded to nearest place)
+ * @param h        Height  (Rounded to nearest place)
+ * @return         BMPJS Resource
+ */
+function bmp_mod_resize(
+    resource,
+    w,
+    h
+) {
+    w = Math.round(w);
+    h = Math.round(h);
+
+    // If the dimensions have not changed,
+    // return the affectee resource
+    if (w == resource.width && h == resource.height)
+        return resource;
+
+    var resource_new = bmp_resource_create(w, h);
+
+    // Difference values between resource
+    // and resource_new dimensions
+    xd = resource.width  / w;
+    yd = resource.height / h;
+
+    for (let x = 0; x < w; x++) {
+        for (let y = 0; y < h; y++) {
+            var c = bmp_resource_get_pixel(
+                resource,
+                xd * x,
+                yd * y
+            );
+
+            for (let i = 0; i < xd; i += xd) {
+                for (let j = 0; j < yd; j += yd) {
+                    bmp_resource_set_pixel(
+                        resource_new,
+                        x + i,
+                        y + j,
+                        c[0],
+                        c[1],
+                        c[2]
+                    );
+                }
+            }
+        }
+    }
 
     return resource_new;
 }
