@@ -13,7 +13,7 @@ processing and various algorithms used alongside it.
 
 In my honest opinion I do not think one should deploy this library inside a production environment albeit I do know it
 is production-ready and perhaps where it could be applicable to save on maintenance and implementation resources but
-for me personally this project is here priamrily for me to learn something new and hopefully for newcomers to learn as
+for me personally this project is here primarily for me to learn something new and hopefully for newcomers to learn as
 well, and then in the future use this knowledge in other projects and implementations.
 
 ## Features
