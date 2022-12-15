@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-12-15 11:31 AM
+// Updated: 2022-12-15 12:22 PM
 //
 
 /**
@@ -601,6 +601,41 @@ function bmp_mod_resize(
             }
         }
     }
+
+    return resource_new;
+}
+
+/**
+ * Pixelate an image
+ *
+ * @param resource BMPJS Resource
+ * @param factor   How much to divide image dimensions before upsampling (default 2, min 1)
+ * @return         BMPJS Resource
+ */
+function bmp_mod_pixelate(
+    resource,
+    factor = 2
+) {
+    // Factor min can be 1
+    factor = Math.round(clamp(factor, 1));
+
+    // If factor is 1 return the affectee resource
+    if (factor == 1)
+        return resource;
+
+    var resource_new = bmp_resource_copy(bmp_resource);
+
+    // Original dimensions
+    var ow = resource.width;
+    var oh = resource.height;
+
+    // Sampled dimensions
+    var sw = clamp(Math.round(ow / factor), 1);
+    var sh = clamp(Math.round(oh / factor), 1);
+
+    // Downsample and upsample using nearest neighbor
+    resource_new = bmp_mod_resize(resource_new, sw, sh);
+    resource_new = bmp_mod_resize(resource_new, ow, oh);
 
     return resource_new;
 }
