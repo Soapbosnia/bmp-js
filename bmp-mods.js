@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-12-15 12:22 PM
+// Updated: 2022-12-16 04:41 PM
 //
 
 /**
@@ -444,6 +444,14 @@ function bmp_mod_apply_convolution_matrix(
     var cm = matrix;
 
     // MATRIX_3X3
+    //
+    // [
+    //    A0  A1  A2
+    //
+    //    A3  A4  A5
+    //
+    //    A6  A7  A8
+    // ]
     if (matrix.length == 9) {
 
         for (let x = 0; x < w; x++)
@@ -451,59 +459,67 @@ function bmp_mod_apply_convolution_matrix(
             for (let y = 0; y < h; y++)
             {
                 /* 3 x 3 grid */
-                var ct  = bmp_resource_get_pixel(resource, x    , y - 1);
-                var ctl = bmp_resource_get_pixel(resource, x - 1, y - 1);
-                var ctr = bmp_resource_get_pixel(resource, x + 1, y - 1);
+                var a0 = bmp_resource_get_pixel(resource, x - 1, y - 1);
+                var a1 = bmp_resource_get_pixel(resource, x    , y - 1);
+                var a2 = bmp_resource_get_pixel(resource, x + 1, y - 1);
 
-                var c   = bmp_resource_get_pixel(resource, x    , y    );
-                var cl  = bmp_resource_get_pixel(resource, x - 1, y    );
-                var cr  = bmp_resource_get_pixel(resource, x + 1, y    );
+                var a3 = bmp_resource_get_pixel(resource, x - 1, y    );
+                var a4 = bmp_resource_get_pixel(resource, x    , y    );
+                var a5 = bmp_resource_get_pixel(resource, x + 1, y    );
 
-                var cb  = bmp_resource_get_pixel(resource, x    , y + 1);
-                var cbl = bmp_resource_get_pixel(resource, x - 1, y + 1);
-                var cbr = bmp_resource_get_pixel(resource, x + 1, y + 1);
+                var a6 = bmp_resource_get_pixel(resource, x - 1, y + 1);
+                var a7 = bmp_resource_get_pixel(resource, x    , y + 1);
+                var a8 = bmp_resource_get_pixel(resource, x + 1, y + 1);
 
                 /* Apply convolution matrix */
-                ctl[0] *= cm[0];
-                ctl[1] *= cm[0];
-                ctl[2] *= cm[0];
+                a0[0] *= cm[0];
+                a0[1] *= cm[0];
+                a0[2] *= cm[0];
 
-                ct[0]  *= cm[1];
-                ct[1]  *= cm[1];
-                ct[2]  *= cm[1];
+                a1[0] *= cm[1];
+                a1[1] *= cm[1];
+                a1[2] *= cm[1];
 
-                ctr[0] *= cm[2];
-                ctr[1] *= cm[2];
-                ctr[2] *= cm[2];
+                a2[0] *= cm[2];
+                a2[1] *= cm[2];
+                a2[2] *= cm[2];
 
-                cl[0]  *= cm[3];
-                cl[1]  *= cm[3];
-                cl[2]  *= cm[3];
+                a3[0] *= cm[3];
+                a3[1] *= cm[3];
+                a3[2] *= cm[3];
 
-                c[0]   *= cm[4];
-                c[1]   *= cm[4];
-                c[2]   *= cm[4];
+                a4[0] *= cm[4];
+                a4[1] *= cm[4];
+                a4[2] *= cm[4];
 
-                cr[0]  *= cm[5];
-                cr[1]  *= cm[5];
-                cr[2]  *= cm[5];
+                a5[0] *= cm[5];
+                a5[1] *= cm[5];
+                a5[2] *= cm[5];
 
-                cbl[0] *= cm[6];
-                cbl[1] *= cm[6];
-                cbl[2] *= cm[6];
+                a6[0] *= cm[6];
+                a6[1] *= cm[6];
+                a6[2] *= cm[6];
 
-                cb[0]  *= cm[7];
-                cb[1]  *= cm[7];
-                cb[2]  *= cm[7];
+                a7[0] *= cm[7];
+                a7[1] *= cm[7];
+                a7[2] *= cm[7];
 
-                cbr[0] *= cm[8];
-                cbr[1] *= cm[8];
-                cbr[2] *= cm[8];
+                a8[0] *= cm[8];
+                a8[1] *= cm[8];
+                a8[2] *= cm[8];
 
                 var avg = [
-                    (ct[0] + ctl[0] + ctr[0] + cb[0] + cbl[0] + cbr[0] + c[0] + cl[0] + cr[0]) / divisor,
-                    (ct[1] + ctl[1] + ctr[1] + cb[1] + cbl[1] + cbr[1] + c[1] + cl[1] + cr[1]) / divisor,
-                    (ct[2] + ctl[2] + ctr[2] + cb[2] + cbl[2] + cbr[2] + c[2] + cl[2] + cr[2]) / divisor
+                    (a0[0] + a1[0] + a2[0] +
+                     a3[0] + a4[0] + a5[0] +
+                     a6[0] + a7[0] + a8[0]) / divisor,
+
+                    (a0[1] + a1[1] + a2[1] +
+                     a3[1] + a4[1] + a5[1] +
+                     a6[1] + a7[1] + a8[1]) / divisor,
+
+                    (a0[2] + a1[2] + a2[2] +
+                     a3[2] + a4[2] + a5[2] +
+                     a6[2] + a7[2] + a8[2]) / divisor
                 ];
 
                 bmp_resource_set_pixel(
@@ -636,6 +652,80 @@ function bmp_mod_pixelate(
     // Downsample and upsample using nearest neighbor
     resource_new = bmp_mod_resize(resource_new, sw, sh);
     resource_new = bmp_mod_resize(resource_new, ow, oh);
+
+    return resource_new;
+}
+
+/**
+ * Crop an image
+ *
+ * @param resource BMPJS Resource
+ * @param x1       Position X #1
+ * @param y1       Position Y #1
+ * @param x2       Position X #2
+ * @param y2       Position Y #2
+ * @param mode2    This is so values [x2, y2] are used as width and height of the returned resource
+ * @return         BMPJS Resource
+ */
+function bmp_mod_crop(
+    resource,
+    x1    = 0,
+    y1    = 0,
+    x2    = 1,
+    y2    = 1,
+    mode2 = 0
+) {
+    // Here we try to save people from making pesky mistakes
+    if (x1 == x2)
+        ++x2;
+
+    if (y1 == y2)
+        ++y2;
+
+    // If Point #1 is bigger than Point #2 then flip their values
+    if (x1 > x2) {
+        tx = x1;
+        x1 = x2;
+        x2 = tx;
+    }
+
+    if (y1 > y2) {
+        ty = y1;
+        y1 = y2;
+        y2 = ty;
+    }
+
+    // Point #2 must be within the dimension boundaries of the resource
+    x2 = clamp(x2, 0, resource.width);
+    y2 = clamp(y2, 0, resource.height);
+
+    if (mode2 == true) {
+        x2 += x1;
+        y2 += y1;
+    }
+
+    var w = Math.round(x2 - x1);
+    var h = Math.round(y2 - y1);
+
+    var resource_new = bmp_resource_create(w, h);
+
+    for (let x = x1; x < x2; x++)
+        for (let y = y1; y < y2; y++) {
+            var c = bmp_resource_get_pixel(
+                resource,
+                x,
+                y
+            );
+
+            bmp_resource_set_pixel(
+                resource_new,
+                x - x1,
+                y - y1,
+                c[0],
+                c[1],
+                c[2]
+            );
+        }
 
     return resource_new;
 }
