@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-12-17 02:33 PM
+// Updated: 2022-12-17 04:36 PM
 //
 
 /**
@@ -879,34 +879,43 @@ function bmp_mod_crop(
         ++y2;
 
     // If Point #1 is bigger than Point #2 then flip their values
-    if (x1 > x2) {
-        tx = x1;
-        x1 = x2;
-        x2 = tx;
-    }
+    if (!mode2) {
+        if (x1 > x2) {
+            tx = x1;
+            x1 = x2;
+            x2 = tx;
+        }
 
-    if (y1 > y2) {
-        ty = y1;
-        y1 = y2;
-        y2 = ty;
+        if (y1 > y2) {
+            ty = y1;
+            y1 = y2;
+            y2 = ty;
+        }
     }
 
     // Point #2 must be within the dimension boundaries of the resource
-    x2 = clamp(x2, 0, resource.width);
-    y2 = clamp(y2, 0, resource.height);
-
-    if (mode2 == true) {
-        x2 += x1;
-        y2 += y1;
+    if (!mode2) {
+        x2 = clamp(x2, 0, resource.width);
+        y2 = clamp(y2, 0, resource.height);
     }
 
-    var w = Math.round(x2 - x1);
-    var h = Math.round(y2 - y1);
+    var w, h;
+
+    if (mode2) {
+        w = x2;
+        h = y2;
+    } else {
+        w = Math.round(x2 - x1);
+        h = Math.round(y2 - y1);
+    }
 
     var resource_new = bmp_resource_create(w, h);
 
-    for (let x = x1; x < x2; x++)
-        for (let y = y1; y < y2; y++) {
+    var mx = w + x1;
+    var my = h + y1;
+
+    for (let x = x1; x < mx; x++)
+        for (let y = y1; y < my; y++) {
             var c = bmp_resource_get_pixel(
                 resource,
                 x,
