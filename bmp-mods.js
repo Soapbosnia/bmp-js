@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-12-17 04:36 PM
+// Updated: 2022-12-17 05:07 PM
 //
 
 /**
@@ -871,15 +871,15 @@ function bmp_mod_crop(
     x2 = Math.round(Math.abs(x2));
     y2 = Math.round(Math.abs(y2));
 
-    // Here we try to save people from making pesky mistakes
-    if (x1 == x2)
-        ++x2;
-
-    if (y1 == y2)
-        ++y2;
-
-    // If Point #1 is bigger than Point #2 then flip their values
     if (!mode2) {
+        // Here we try to save people from making pesky mistakes
+        if (x1 == x2)
+            ++x2;
+
+        if (y1 == y2)
+            ++y2;
+
+        // If Point #1 is bigger than Point #2 then flip their values
         if (x1 > x2) {
             tx = x1;
             x1 = x2;
