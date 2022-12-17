@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2022 Nurudin Imsirovic <github.com/oxou>
+// Copyright (C) 2022-2023 Nurudin Imsirovic <github.com/oxou>
 //
 // Bitmap Image Encoder/Decoder - Plot
 // https://www.github.com/oxou/bmp-js
@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2022-12-14 08:31 PM
+// Updated: 2022-12-17 02:04 PM
 //
 
 /**
@@ -219,7 +219,7 @@ function bmp_plot_text(
 
     for (let text_index = 0; text_index < text_length; text_index++) {
         var char_code = text.charCodeAt(text_index);
-        let char_x_offset = (char_code - 32) * font_width;
+        var char_x_offset = (char_code - 32) * font_width;
 
         // Handle new lines
         if (char_code == 10 || char_code == 13) {

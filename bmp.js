@@ -1,11 +1,11 @@
 //
-// Copyright (C) 2022 Nurudin Imsirovic <github.com/oxou>
+// Copyright (C) 2022-2023 Nurudin Imsirovic <github.com/oxou>
 //
 // Bitmap Image Encoder/Decoder
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-12-13 01:06 PM
+// Updated: 2022-12-17 02:04 PM
 //
 
 //
