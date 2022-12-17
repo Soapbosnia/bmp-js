@@ -39,15 +39,16 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_bytes = bmp_resource_request("docs/img/load/3.bmp");
+var bmp_resource_bytes = bmp_resource_request("docs/img/load/2.bmp");
 var bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_bytes);
 
-// Convert bmp_resource_1 to inverted colors and store the new resource here
-var bmp_resource_2 = bmp_mod_color_invert(bmp_resource_1);
+// Crop image using mode 1 and 2
+var bmp_resource_2 = bmp_mod_crop(bmp_resource_1, 60, 60, 120, 120, 0); // Mode 1
+var bmp_resource_3 = bmp_mod_crop(bmp_resource_1, 60, 60, 120, 120, 1); // Mode 2
 
 // Spawn the images into the container
-bmp_resource_spawn(bmp_resource_1, bmp_container);
 bmp_resource_spawn(bmp_resource_2, bmp_container);
+bmp_resource_spawn(bmp_resource_3, bmp_container);
 ```
 
 ## Expected Result
