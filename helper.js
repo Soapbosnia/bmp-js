@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2022 Nurudin Imsirovic <github.com/oxou>
+// Copyright (C) 2022-2023 Nurudin Imsirovic <github.com/oxou>
 //
 // Bitmap Image Encoder/Decoder - Helper
 // https://www.github.com/oxou/bmp-js
@@ -9,7 +9,7 @@
 // It defines helper functions to ease the programming of bmp.js
 //
 // Created: 2022-09-05 10:31 AM
-// Updated: 2022-12-15 12:48 PM
+// Updated: 2022-12-17 02:04 PM
 //
 
 /**
