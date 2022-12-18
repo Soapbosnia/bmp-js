@@ -12,17 +12,17 @@ All values between those 2 points will be the returned resource
 that contains the pixel data cropped within that area.
 
 If X1 or Y1 are equal to their neighboring counterparts, then the
-values of X2 or Y2 are increment by 1.
+values of X2 or Y2 are incremented by 1.
 If X1 is 42 and X2 is 42 then X2 will be 43 as we cannot return
-a cropped image if the 2 points fall on the same exact coordinate i.e.
-we cannot have an image whose sides are 0.
+a cropped image if the 2 points fall on the same exact coordinate,
+that is we cannot have an image that is 0x0.
 
-Mode 2 overrides the resource_new width and height by treating
+Mode 2 overrides the returned resources' width and height by treating
 X2 and Y2 as the dimensions and not the 2nd point on the image.
 
 If the width or height exceed the boundary of the affectee resource
-then the value that bmp_resource_get_pixel() returns by default when
-out of bounds will be written to the copy resource.
+then the value that bmp_resource_get_pixel() returns when out of bounds
+by default will be written to the copy resource.
 
 ### Parameters
 
