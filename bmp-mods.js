@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-12-17 05:07 PM
+// Updated: 2022-12-18 05:07 PM
 //
 
 /**
@@ -743,8 +743,8 @@ function bmp_mod_sharpen(
  * Resize an image (using nearest neighbor)
  *
  * @param resource BMPJS Resource
- * @param w        Width   (Rounded to nearest place)
- * @param h        Height  (Rounded to nearest place)
+ * @param w        Width  (Rounded to nearest place)
+ * @param h        Height (Rounded to nearest place)
  * @return         BMPJS Resource
  */
 function bmp_mod_resize(
@@ -931,6 +931,129 @@ function bmp_mod_crop(
                 c[2]
             );
         }
+
+    return resource_new;
+}
+
+/**
+ * Detect edges in an image
+ *
+ * @param resource BMPJS Resource
+ * @param mode Available modes range from 0 to 2
+ * @return BMPJS Resource
+ */
+function bmp_mod_detect_edge(
+    resource,
+    mode = 0
+) {
+    mode = clamp(mode, 0, 2);
+
+    var resource_new = bmp_resource_copy(resource);
+
+    if (mode == 0) {
+        resource_new = bmp_mod_apply_convolution_matrix(
+            resource_new,
+            [
+                1,  0, -1,
+                0,  0,  0,
+               -1,  0,  1
+            ]
+        );
+    }
+
+    if (mode == 1) {
+        resource_new = bmp_mod_apply_convolution_matrix(
+            resource_new,
+            [
+                0,  1,  0,
+                1, -4,  1,
+                0,  1,  0
+            ]
+        );
+    }
+
+    if (mode == 2) {
+        resource_new = bmp_mod_apply_convolution_matrix(
+            resource_new,
+            [
+               -1, -1, -1,
+               -1,  8, -1,
+               -1, -1, -1
+            ]
+        );
+    }
+
+    return resource_new;
+}
+
+/**
+ * Box blur
+ *
+ * @param resource BMPJS Resource
+ * @return BMPJS Resource
+ */
+function bmp_mod_blur_box(
+    resource
+) {
+    var resource_new = bmp_resource_copy(resource);
+
+    resource_new = bmp_mod_apply_convolution_matrix(
+        resource_new,
+        [
+            1,  1,  1,
+            1,  1,  1,
+            1,  1,  1
+        ],
+        9
+    );
+
+    return resource_new;
+}
+
+/**
+ * Gaussian blur
+ *
+ * @param resource BMPJS Resource
+ * @return BMPJS Resource
+ */
+function bmp_mod_blur_gaussian(
+    resource
+) {
+    var resource_new = bmp_resource_copy(resource);
+
+    resource_new = bmp_mod_apply_convolution_matrix(
+        resource_new,
+        [
+            1,  2,  1,
+            2,  4,  2,
+            1,  2,  1
+        ],
+        16
+    );
+
+    return resource_new;
+}
+
+/**
+ * Emboss
+ *
+ * @param resource BMPJS Resource
+ * @return BMPJS Resource
+ */
+function bmp_mod_emboss(
+    resource
+) {
+    var resource_new = bmp_resource_copy(resource);
+
+    resource_new = bmp_mod_apply_convolution_matrix(
+        resource_new,
+        [
+            -2, -1,  0,
+            -1,  1,  1,
+             0,  1,  2
+         ],
+         9
+    );
 
     return resource_new;
 }
