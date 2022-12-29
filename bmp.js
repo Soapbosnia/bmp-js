@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-12-17 04:03 PM
+// Updated: 2022-12-29 03:30 PM
 //
 
 //
@@ -309,7 +309,7 @@ function bmp_resource_valid(resource, raw = false) {
  */
 function bmp_resource_get_pixel(resource, x, y) {
     // WARN(oxou): Fallback to 0,0,0 if out of bounds.
-    if (x > resource.width - 1 || y > resource.height - 1 || 0 > x || 0 > y)
+    if (x > resource.width || y > resource.height || 0 > x || 0 > y)
         return [0, 0, 0];
 
     var bytes_per_pixel = 3;
@@ -348,7 +348,7 @@ function bmp_resource_get_pixel(resource, x, y) {
  */
 function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
     // WARN(oxou): Fake set_pixel success if out of bounds.
-    if (x > resource.width - 1 || y > resource.height - 1 || 0 > x || 0 > y)
+    if (x > resource.width || y > resource.height || 0 > x || 0 > y)
         return true;
 
     r = clamp(Math.floor(Number(r)), 0, 255);

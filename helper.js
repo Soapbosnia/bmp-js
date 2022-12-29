@@ -9,7 +9,7 @@
 // It defines helper functions to ease the programming of bmp.js
 //
 // Created: 2022-09-05 10:31 AM
-// Updated: 2022-12-17 02:04 PM
+// Updated: 2022-12-29 02:56 PM
 //
 
 /**
@@ -91,7 +91,12 @@ function dechex(v = null) {
     if (v == null)
         return null;
 
-    return Number(v).toString(16);
+    var h = Number(v).toString(16);
+
+    if (h.length % 2)
+        h = '0' + h;
+
+    return h;
 }
 
 /**
