@@ -129,6 +129,7 @@ Simply copy the source code provided below and paste it into a text editor, then
 - [bmp_plot_arrow_up](./bmp-plot-arrow-up.md)
 - [bmp_plot_circle](./bmp-plot-circle.md)
 - [bmp_plot_clear](./bmp-plot-clear.md)
+- [bmp_plot_fill](./bmp-plot-fill.md)
 - [bmp_plot_line](./bmp-plot-line.md)
 - [bmp_plot_rect](./bmp-plot-rect.md)
 - [bmp_plot_resource](./bmp-plot-resource.md)
