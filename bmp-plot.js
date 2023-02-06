@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2022-12-29 03:30 PM
+// Updated: 2023-02-06 10:31 PM
 //
 
 /**
@@ -607,6 +607,66 @@ function bmp_plot_triangle(
         var cx = curr[0] / 512 * w + x;
         var cy = curr[1] / 512 * h + y;
         bmp_plot_line(resource, lx, ly, cx, cy, r, g, b, p);
+    }
+
+    return true;
+}
+
+/**
+ * Fill the area with the given color starting from x,y until all occurences
+ * of the background color have been replaced in that area.
+ *
+ * @param resource BMPJS resource
+ * @param x        Position X
+ * @param y        Position Y
+ * @param r        Color channel Red
+ * @param g        Color channel Green
+ * @param b        Color channel Blue
+ * @param callback Callback function (defaults to bmp_resource_set_pixel)
+ * @return         true
+ */
+function bmp_plot_fill(
+    resource,
+    x,
+    y,
+    r,
+    g,
+    b,
+    callback = null
+) {
+    var fill_stack = [];
+        fill_stack.push([x, y]);
+
+    var bg_color = bmp_resource_get_pixel(resource, x, y);
+
+    if (callback === null)
+        callback = bmp_resource_set_pixel;
+
+    // Let's not shoot ourselves in the foot
+    if (bg_color[0] == r &&
+        bg_color[1] == g &&
+        bg_color[2] == b)
+        return;
+
+    while (fill_stack.length > 0) {
+        var [x, y] = fill_stack.pop();
+        var color = bmp_resource_get_pixel(resource, x, y);
+
+        if (0 > x || x > resource.width ||
+            0 > y || y > resource.height)
+            continue;
+
+        if (color[0] != bg_color[0] ||
+            color[1] != bg_color[1] ||
+            color[2] != bg_color[2])
+            continue;
+
+        callback(resource, x, y, r, g, b);
+
+        fill_stack.push([x + 1, y]);
+        fill_stack.push([x - 1, y]);
+        fill_stack.push([x, y + 1]);
+        fill_stack.push([x, y - 1]);
     }
 
     return true;
