@@ -15,6 +15,10 @@ Copy the contents from a resource child to the resource parent
 6. `h` | `Height (by default -1, child's height)`
 7. `ox` | `Offset to add to the X position of child`
 8. `oy` | `Offset to add to the Y position of child`
+9. `transparent` | `Handle tr, tg and tb colors as transparency`
+10. `tr` | `Red channel to be used as transparency`
+11. `tg` | `Green channel to be used as transparency`
+12. `tb` | `Blue channel to be used as transparency`
 
 Returns: true `(boolean)`
 
@@ -37,6 +41,9 @@ var bmp_resource_4 = bmp_resource_request("docs/img/load/08.bmp");
 var bmp_resource_5 = bmp_resource_request("docs/img/load/10.bmp");
     bmp_resource_5 = bmp_resource_create_from_bytes(bmp_resource_5);
 
+var bmp_resource_6 = bmp_resource_request("docs/img/load/11.bmp");
+    bmp_resource_6 = bmp_resource_create_from_bytes(bmp_resource_6);
+
 // Plot images
 bmp_plot_resource(bmp_resource_1, bmp_resource_2, 15, 30);
 bmp_plot_resource(bmp_resource_1, bmp_resource_3, 240, 70);
@@ -48,6 +55,11 @@ bmp_plot_resource(bmp_resource_1, bmp_resource_5, 16 * 2, 400, 16, 16, 16 * 0);
 bmp_plot_resource(bmp_resource_1, bmp_resource_5, 16 * 4, 400, 16, 16, 16 * 1);
 bmp_plot_resource(bmp_resource_1, bmp_resource_5, 16 * 6, 400, 16, 16, 16 * 2);
 bmp_plot_resource(bmp_resource_1, bmp_resource_5, 16 * 8, 400, 16, 16, 16 * 3);
+
+// Plot images with a alpha-like properties
+bmp_plot_resource(bmp_resource_1, bmp_resource_6, 100, 300, -1, -1, 0, 0, true, 255, 0, 255);
+bmp_plot_resource(bmp_resource_1, bmp_resource_6, 130, 300, -1, -1, 0, 0);
+bmp_plot_resource(bmp_resource_1, bmp_resource_6, 130, 232, -1, -1, 0, 0, true, 0, 0, 0);
 
 // Spawn the image into the container
 bmp_resource_spawn(bmp_resource_1, bmp_container);
