@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2022-12-29 03:30 PM
+// Updated: 2023-02-20 01:03 PM
 //
 
 //
@@ -502,6 +502,7 @@ function bmp_resource_replace(target = null, resource) {
     if (!bmp_resource_valid(resource))
         return false;
 
+    URL.revokeObjectURL(target.src);
     target.src = bmp_create_uri(resource);
 
     return true;
