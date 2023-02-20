@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2023-02-06 10:31 PM
+// Updated: 2023-02-20 08:26 AM
 //
 
 /**
@@ -124,6 +124,8 @@ function bmp_plot_line(
  * @param y          Position Y
  * @param w          Width  (by default -1, child's width)
  * @param h          Height (by default -1, child's height)
+ * @param ox         Offset to add to the X position of child
+ * @param oy         Offset to add to the Y position of child
  * @return           true
  */
 function bmp_plot_resource(
@@ -132,7 +134,9 @@ function bmp_plot_resource(
     x = 0,
     y = 0,
     w = -1,
-    h = -1
+    h = -1,
+    ox = 0,
+    oy = 0
 ) {
     var resource_c = structuredClone(resource_c);
 
@@ -149,7 +153,7 @@ function bmp_plot_resource(
     for (let x1 = 0; x1 < w; x1++) {
         for (let y1 = 0; y1 < h; y1++) {
             if (resource_p.width > x1 + x && resource_p.height > y1 + y) {
-                var c = bmp_resource_get_pixel(resource_c, x1, y1);
+                var c = bmp_resource_get_pixel(resource_c, x1 + ox, y1 + oy);
                 bmp_resource_set_pixel(
                     resource_p,
                     x1 + x,
