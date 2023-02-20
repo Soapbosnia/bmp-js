@@ -9,7 +9,7 @@
 // It defines helper functions to ease the programming of bmp.js
 //
 // Created: 2022-09-05 10:31 AM
-// Updated: 2022-12-29 02:56 PM
+// Updated: 2023-02-20 02:05 PM
 //
 
 /**
@@ -218,4 +218,15 @@ function http_get_bytes(url = null) {
     }
 
     return data.join('');
+}
+
+/**
+ * Linear interpolation.
+ *
+ * @param a Point a
+ * @param b Point b
+ * @param t Time
+ */
+function lerp(a, b, t) {
+    return a + (b - a) * t
 }
