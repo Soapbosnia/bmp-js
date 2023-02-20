@@ -16,7 +16,7 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an image
-var bmp_resource_bytes = bmp_resource_request("docs/img/load/2.bmp");
+var bmp_resource_bytes = bmp_resource_request("docs/img/load/02.bmp");
 
 // Convert the raw bytes to a BMP resource object
 var bmp_resource = bmp_resource_create_from_bytes(bmp_resource_bytes);

@@ -22,10 +22,10 @@ Before spawning the requested resource, once it has loaded, the resource must be
 
 ```js
 // Load 4 images
-var bmp_resource_1 = bmp_resource_request("docs/img/load/1.bmp");
-var bmp_resource_2 = bmp_resource_request("docs/img/load/2.bmp");
-var bmp_resource_3 = bmp_resource_request("docs/img/load/3.bmp");
-var bmp_resource_4 = bmp_resource_request("docs/img/load/4.bmp");
+var bmp_resource_1 = bmp_resource_request("docs/img/load/01.bmp");
+var bmp_resource_2 = bmp_resource_request("docs/img/load/02.bmp");
+var bmp_resource_3 = bmp_resource_request("docs/img/load/03.bmp");
+var bmp_resource_4 = bmp_resource_request("docs/img/load/04.bmp");
 
 // Create BMP resources from bytes
 bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_1);

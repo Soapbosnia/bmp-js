@@ -39,7 +39,7 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_1_bytes = bmp_resource_request("docs/img/load/2.bmp");
+var bmp_resource_1_bytes = bmp_resource_request("docs/img/load/02.bmp");
 var bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_1_bytes);
 
 // Crop image using mode 1 and 2

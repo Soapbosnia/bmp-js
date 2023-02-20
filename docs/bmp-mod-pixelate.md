@@ -16,7 +16,7 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load image
-var bmp_resource = bmp_resource_request("docs/img/load/9.bmp");
+var bmp_resource = bmp_resource_request("docs/img/load/09.bmp");
     bmp_resource = bmp_resource_create_from_bytes(bmp_resource);
 
 // Pixelate images

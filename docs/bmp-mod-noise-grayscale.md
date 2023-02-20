@@ -16,7 +16,7 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_bytes = bmp_resource_request("docs/img/load/4.bmp");
+var bmp_resource_bytes = bmp_resource_request("docs/img/load/04.bmp");
 var bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_bytes);
 
 // Add noise with ranges of: 0.25, 0.50, 0.75, 1.00
