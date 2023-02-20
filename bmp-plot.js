@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2023-02-20 08:26 AM
+// Updated: 2023-02-20 01:00 PM
 //
 
 /**
@@ -118,15 +118,19 @@ function bmp_plot_line(
 /**
  * Copy the contents from a resource child to the resource parent
  *
- * @param resource_p BMPJS resource (parent)
- * @param resource_c BMPJS resource (child)
- * @param x          Position X
- * @param y          Position Y
- * @param w          Width  (by default -1, child's width)
- * @param h          Height (by default -1, child's height)
- * @param ox         Offset to add to the X position of child
- * @param oy         Offset to add to the Y position of child
- * @return           true
+ * @param resource_p  BMPJS resource (parent)
+ * @param resource_c  BMPJS resource (child)
+ * @param x           Position X
+ * @param y           Position Y
+ * @param w           Width  (by default -1, child's width)
+ * @param h           Height (by default -1, child's height)
+ * @param ox          Offset to add to the X position of child
+ * @param oy          Offset to add to the Y position of child
+ * @param transparent Handle tr, tg and tb colors as transparency
+ * @param tr          Red channel to be used as transparency
+ * @param tg          Green channel to be used as transparency
+ * @param tb          Blue channel to be used as transparency
+ * @return            true
  */
 function bmp_plot_resource(
     resource_p,
@@ -136,7 +140,11 @@ function bmp_plot_resource(
     w = -1,
     h = -1,
     ox = 0,
-    oy = 0
+    oy = 0,
+    transparent = false,
+    tr = -1,
+    tg = -1,
+    tb = -1
 ) {
     var resource_c = structuredClone(resource_c);
 
@@ -154,6 +162,13 @@ function bmp_plot_resource(
         for (let y1 = 0; y1 < h; y1++) {
             if (resource_p.width > x1 + x && resource_p.height > y1 + y) {
                 var c = bmp_resource_get_pixel(resource_c, x1 + ox, y1 + oy);
+
+                if (transparent)
+                    if (c[0] == tr &&
+                        c[1] == tg &&
+                        c[2] == tb)
+                        continue;
+
                 bmp_resource_set_pixel(
                     resource_p,
                     x1 + x,
