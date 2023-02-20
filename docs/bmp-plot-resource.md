@@ -57,9 +57,9 @@ bmp_plot_resource(bmp_resource_1, bmp_resource_5, 16 * 6, 400, 16, 16, 16 * 2);
 bmp_plot_resource(bmp_resource_1, bmp_resource_5, 16 * 8, 400, 16, 16, 16 * 3);
 
 // Plot images with a alpha-like properties
-bmp_plot_resource(bmp_resource_1, bmp_resource_6, 100, 300, -1, -1, 0, 0, true, 255, 0, 255);
-bmp_plot_resource(bmp_resource_1, bmp_resource_6, 130, 300, -1, -1, 0, 0);
-bmp_plot_resource(bmp_resource_1, bmp_resource_6, 130, 232, -1, -1, 0, 0, true, 0, 0, 0);
+bmp_plot_resource(bmp_resource_1, bmp_resource_6, 100, 100, -1, -1, 0, 0, true, 255, 0, 255);
+bmp_plot_resource(bmp_resource_1, bmp_resource_6, 130, 100, -1, -1, 0, 0);
+bmp_plot_resource(bmp_resource_1, bmp_resource_6, 130, 175, -1, -1, 0, 0, true, 0, 0, 0);
 
 // Spawn the image into the container
 bmp_resource_spawn(bmp_resource_1, bmp_container);
