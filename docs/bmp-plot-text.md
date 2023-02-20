@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_plot_resource
+# bmp-js / Documentation / bmp_plot_text
 ## Introduction
 
 ### Description
