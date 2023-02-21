@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2022-12-18 05:07 PM
+// Updated: 2023-02-21 09:18 PM
 //
 
 /**
@@ -192,70 +192,6 @@ function bmp_mod_replace_color(
                 color[1] == pg &&
                 color[2] == pb)
                 bmp_resource_set_pixel(resource_new, x, y, cr, cg, cb);
-        }
-    }
-
-    return resource_new;
-}
-
-/**
- * Add grayscale noise to an image
- *
- * @param resource BMPJS Resource
- * @param scale    Amount of noise to add ranging from 0.0 to 10.0
- * @return         BMPJS Resource
- */
-function bmp_mod_noise_grayscale(
-    resource,
-    scale = 0.1
-) {
-    scale = clamp(scale, 0, 10);
-    var width = resource.width;
-    var height = resource.height;
-
-    var resource_new = bmp_resource_copy(resource);
-
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
-            var noise = Math.floor(Math.random(0) * (255 * scale));
-            c[0] = clamp(c[0] + noise, 0, 255);
-            c[1] = clamp(c[1] + noise, 0, 255);
-            c[2] = clamp(c[2] + noise, 0, 255);
-            bmp_resource_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
-        }
-    }
-
-    return resource_new;
-}
-
-/**
- * Add RGB noise to an image
- *
- * @param resource BMPJS Resource
- * @param scale    Amount of noise to add ranging from 0.0 to 10.0
- * @return         BMPJS Resource
- */
-function bmp_mod_noise_rgb(
-    resource,
-    scale = 0.1
-) {
-    scale = clamp(scale, 0, 10);
-    var width = resource.width;
-    var height = resource.height;
-
-    var resource_new = bmp_resource_copy(resource);
-
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
-            var noise1 = Math.floor(Math.random(0) * (255 * scale));
-            var noise2 = Math.floor(Math.random(0) * (255 * scale));
-            var noise3 = Math.floor(Math.random(0) * (255 * scale));
-            c[0] = clamp(c[0] + noise1, 0, 255);
-            c[1] = clamp(c[1] + noise2, 0, 255);
-            c[2] = clamp(c[2] + noise3, 0, 255);
-            bmp_resource_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
         }
     }
 
