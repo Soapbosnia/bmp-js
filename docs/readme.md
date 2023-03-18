@@ -14,7 +14,7 @@ Local means cloning this GitHub repository and running your own local web-server
 
 Remote means working from a single file, either through a web-server host or running from a local file which sources BMPJS from a remote location.
 
-One limitation of running from a local file versus on a web-server host is that you cannot load bitmaps from a relative path, for example `./img/test.bmp` will fail as the browser forbids reading resources from a local file resource (also known as [**file URI scheme**](https://en.wikipedia.org/wiki/File_URI_scheme).)
+One limitation of running from a local file versus on a web-server host is that you cannot load bitmaps from a relative path, for example `./img/test.bmp` will fail as the browser forbids reading resources from a local file resource (see [**Cross-origin resource sharing**](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing).)
 
 For the sake of ease-of-use and simplicity we will be taking the `Remote` approach this time. But will warn when transitioning to `Local` when necessary based on use-case.
 
@@ -86,8 +86,8 @@ Simply copy the source code provided below and paste it into a text editor, then
 - [bmp_resource_create_from_bytes](./bmp-resource-create-from-bytes.md)
 - [bmp_resource_download](./bmp-resource-download.md)
 - [bmp_resource_filesize](./bmp-resource-filesize.md)
-- [bmp_resource_get_image_bitmap](./bmp-resource-get-image-bitmap.md)
-- [bmp_resource_get_image_size](./bmp-resource-get-image-size.md)
+- [bmp_resource_get_bitmap](./bmp-resource-get-bitmap.md)
+- [bmp_resource_get_size](./bmp-resource-get-size.md)
 - [bmp_resource_get_pixel](./bmp-resource-get-pixel.md)
 - [bmp_resource_replace](./bmp-resource-replace.md)
 - [bmp_resource_request](./bmp-resource-request.md)
