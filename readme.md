@@ -8,13 +8,20 @@ See [here](docs/readme.md).
 
 ## What is the purpose of this?
 
-It may not serve any purpose other than to work on it and in the meantime expand knowledge about data and image
-processing and various algorithms used alongside it and use that knowledge to build image filters and so on.
+It may not serve any purpose other than for me to work on it and in the meantime
+expand knowledge about data and image processing algorithms used alongside it and
+hopefully apply that knowledge on a broader scale.
 
-In my honest opinion I do not think one should deploy this library inside a production environment albeit I do know it
-is production-ready and perhaps where it could be applicable to save on maintenance and implementation resources but
-for me personally this project is here primarily for me to learn something new and hopefully for newcomers to learn as
-well, and then in the future use this knowledge in other projects and implementations.
+In my honest opinion I do not think one should deploy this library inside a
+production environment although you definitely can do that with the additions of
+the newly added Canvas support to the core.
+
+BMPJS itself is not only a library for decoding and encoding Bitmap images, but
+also a library that tries to bring extra functionality to the core that allow it
+to run specialized tasks on the image pixels themselves.
+
+You can take a look at the [Documentation](docs/readme.md) and [Demos](demo/readme.md)
+for more information regarding these extra functionalities.
 
 ## Features
 
