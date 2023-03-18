@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-02-20 01:03 PM
+// Updated: 2023-03-18 11:40 PM
 //
 
 //
@@ -39,7 +39,7 @@ const bmp_header_parts = [
 
     // [*] File size
     // Formula for calculating file size is:
-    // bitmap_width * bitmap_height * 3 + (bitmap_height * padding) + 54
+    // width * height * bytes_per_pixel + (height * padding) + 54
     //
     // The reason we add "+ 54" is due to the file header taking up 54 bytes.
     {
@@ -76,14 +76,14 @@ const bmp_header_parts = [
         data: "\x28\x00\x00\x00"
     },
 
-    // [*] Bitmap width in pixels (signed int)
+    // [*] Bitmap width in pixels (signed int) (limit: 16384)
     {
         addr: 18,
         size: 4,
         data: "\x00\x00\x00\x00"
     },
 
-    // [*] Bitmap height in pixels (signed int)
+    // [*] Bitmap height in pixels (signed int) (limit: 16384)
     {
         addr: 22,
         size: 4,
@@ -97,11 +97,11 @@ const bmp_header_parts = [
         data: "\x01\x00"
     },
 
-    // Bit depth (We always default to 24)
+    // Bit depth (We only support 32-bit for performance but we can load 24-bit)
     {
         addr: 28,
         size: 2,
-        data: "\x18\x00"
+        data: "\x20\x00"
     },
 
     // Compression method used
@@ -113,7 +113,7 @@ const bmp_header_parts = [
 
     // [*] Raw bitmap size, 0 can be given for BI_RGB.
     // Formula for calculating bitmap size is:
-    // bitmap_width * bitmap_height * 3
+    // width * height * bytes_per_pixel
     {
         addr: 34,
         size: 4,
@@ -152,7 +152,7 @@ const bmp_header_parts = [
         data: "\x00\x00\x00\x00"
     },
 
-    // Raw bitmap pixel data. Each index contains 3 bytes (RGB) and whole array
+    // Raw bitmap pixel data. Each index contains 4 bytes (RGBA) and whole array
     // can be retrieved using bmp_resource_get_pixels(resource) or individual
     // colors at X and Y coordinates using
     // bmp_resource_get_pixel(resource, x, y)
@@ -187,7 +187,7 @@ const BMP_HEADER_IMPORTANTCOLORS = 0xF;
 const BMP_HEADER_DATA            = 0x10;
 
 /**
- * Converts integers to little endian bytes
+ * Converts integers to little-endian bytes
  *
  * @param value      Unsigned integer
  * @param pad_length Padding length
@@ -209,7 +209,7 @@ function bmp_little_endian_int(value, pad_length = 2, pad_left = true) {
 }
 
 /**
- * Converts bytes from little endian to integers
+ * Converts bytes from little-endian to integers
  *
  * @param value Bytes to integer
  * @return      Integer
@@ -227,16 +227,24 @@ function bmp_little_endian_byte(value) {
 /**
  * Create a BMP resource
  *
- * @param width  Width  (X axis) of the image (non-zero)
- * @param height Height (Y axis) of the image (non-zero)
- * @return       BMPJS Resource
+ * @param width  Width  (X axis) of the image (non-zero) (limit: 16384)
+ * @param height Height (Y axis) of the image (non-zero) (limit: 16384)
+ * @param canvas When writing to a canvas this must be true (default: false)
+ * @return       false | BMPJS Resource
  */
-function bmp_resource_create(width, height) {
+function bmp_resource_create(width, height, canvas = false) {
+    width  = Math.floor(width);
+    height = Math.floor(height);
+
+    if (16384 < width ||
+        16384 < height)
+        return false;
+
     var header      = bmp_header_parts;
     var header_raw  = "";
     var padding     = width % 4;
     var bitmap      = bmp_create_array_pixel(width, height);
-    var bitmap_size = width * height * 3 + (height * padding);
+    var bitmap_size = width * height * 4 + (height * padding);
 
     header.forEach(function(header_object, header_index) {
         switch (header_index) {
@@ -262,7 +270,7 @@ function bmp_resource_create(width, height) {
     });
 
     return {
-        header:      byte_to_uint8array(header_raw),
+        header:      byte_to_uint8clampedarray(header_raw),
         header_size: header_raw.length,
         header_raw:  header_raw,
         width:       width,
@@ -270,7 +278,10 @@ function bmp_resource_create(width, height) {
         bitmap:      bitmap,
         bitmap_raw:  null,
         bitmap_size: bitmap_size,
-        padding:     padding
+        padding:     padding,
+        filesize:    width * height * 4 + (height * padding) + 54,
+        bpp:         4,
+        canvas:      canvas
     };
 }
 
@@ -300,43 +311,45 @@ function bmp_resource_valid(resource, raw = false) {
 }
 
 /**
- * Retrieve pixel RGB value from X, Y coordinate of a resource
+ * Retrieve pixel RGBA value from X, Y coordinate of a resource
  *
  * @param resource BMPJS Resource
  * @param x        X axis
  * @param y        Y axis
- * @return         [R, G, B]
+ * @return         [R, G, B, A]
  */
 function bmp_resource_get_pixel(resource, x, y) {
-    // WARN(oxou): Fallback to 0,0,0 if out of bounds.
+    // WARN(oxou): Fallback to 0,0,0,255 if out of bounds.
     if (x > resource.width || y > resource.height || 0 > x || 0 > y)
-        return [0, 0, 0];
+        return [0, 0, 0, 255];
 
-    var bytes_per_pixel = 3;
+    var pos = bmp_getpos_32(resource.width, resource.height, x, y, !resource.canvas);
 
-    x = Math.floor(x) * bytes_per_pixel;
-    y = Math.floor(y) * bytes_per_pixel;
+    var r, g, b, a;
 
-    // This flips the image upside down. Necessary because BMP uses the
-    // bottom-up approach to reading pixels.
-    y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
-    var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
-        pos = Math.round(pos);
-
-    var b = clamp(Math.floor(Number(resource.bitmap[pos + 0])), 0, 255);
-    var g = clamp(Math.floor(Number(resource.bitmap[pos + 1])), 0, 255);
-    var r = clamp(Math.floor(Number(resource.bitmap[pos + 2])), 0, 255);
+    if (resource.canvas) {
+        b = Number(resource.bitmap.data[pos + 2]);
+        g = Number(resource.bitmap.data[pos + 1]);
+        r = Number(resource.bitmap.data[pos + 0]);
+        a = Number(resource.bitmap.data[pos + 3]);
+    } else {
+        b = Number(resource.bitmap.data[pos + 0]);
+        g = Number(resource.bitmap.data[pos + 1]);
+        r = Number(resource.bitmap.data[pos + 2]);
+        a = Number(resource.bitmap.data[pos + 3]);
+    }
 
     // WARN(oxou): We need this to fix the issue with bin2hex errors.
     r = isNaN(r) ? 0 : r;
     g = isNaN(g) ? 0 : g;
     b = isNaN(b) ? 0 : b;
+    a = isNaN(a) ? 0 : a;
 
-    return [r, g, b];
+    return [r, g, b, a];
 }
 
 /**
- * Set pixel RGB value at X, Y coordinate of a resource
+ * Set pixel RGBA value at X, Y coordinate of a resource
  *
  * @param resource BMPJS Resource
  * @param x        X axis
@@ -344,36 +357,52 @@ function bmp_resource_get_pixel(resource, x, y) {
  * @param r        Color channel Red
  * @param g        Color channel Green
  * @param b        Color channel Blue
+ * @param a        Color channel Alpha (untouched if null)
  * @return         true
  */
-function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
+function bmp_resource_set_pixel(
+    resource,
+    x,
+    y,
+    r = null,
+    g = null,
+    b = null,
+    a = null
+) {
     // WARN(oxou): Fake set_pixel success if out of bounds.
     if (x > resource.width || y > resource.height || 0 > x || 0 > y)
         return true;
 
-    r = clamp(Math.floor(Number(r)), 0, 255);
-    g = clamp(Math.floor(Number(g)), 0, 255);
-    b = clamp(Math.floor(Number(b)), 0, 255);
+    r = Math.floor(Number(r));
+    g = Math.floor(Number(g));
+    b = Math.floor(Number(b));
 
     // WARN(oxou): We need this to fix the issue with bin2hex errors.
     r = isNaN(r) ? 0 : r;
     g = isNaN(g) ? 0 : g;
     b = isNaN(b) ? 0 : b;
 
-    var bytes_per_pixel = 3;
+    var pos = bmp_getpos_32(resource.width, resource.height, x, y, !resource.canvas);
 
-    x = Math.floor(x) * bytes_per_pixel;
-    y = Math.floor(y) * bytes_per_pixel;
+    if (resource.canvas) {
+        resource.bitmap.data[pos + 0] = r;
+        resource.bitmap.data[pos + 1] = g;
+        resource.bitmap.data[pos + 2] = b;
 
-    // This flips the image upside down. Necessary because BMP uses the
-    // bottom-up approach to reading pixels.
-    y = Math.abs( y - (resource.height * bytes_per_pixel) + bytes_per_pixel );
-    var pos = (resource.width + (resource.padding / bytes_per_pixel)) * y + x;
-        pos = Math.round(pos);
+        // WARN(oxou): Add isNaN() check to the Alpha channel
+        if (a != null)
+            resource.bitmap.data[pos + 3] = a;
 
-    resource.bitmap[pos + 0] = b;
-    resource.bitmap[pos + 1] = g;
-    resource.bitmap[pos + 2] = r;
+        return true;
+    }
+
+    resource.bitmap.data[pos + 0] = b;
+    resource.bitmap.data[pos + 1] = g;
+    resource.bitmap.data[pos + 2] = r;
+
+    // WARN(oxou): Add isNaN() check to the Alpha channel
+    if (a != null)
+        resource.bitmap.data[pos + 3] = a;
 
     return true;
 }
@@ -386,12 +415,12 @@ function bmp_resource_set_pixel(resource, x, y, r = null, g = null, b = null) {
  * @return         true
  */
 function bmp_resource_bitmap_to_bytes(resource) {
-    var bitmap = resource.bitmap;
+    var bitmap = resource.bitmap.data;
     var w      = resource.width;
     var p      = resource.padding;
     var strpad = "";
 
-    bitmap = [...bitmap]; // Convert Uint8Array to a standard Array
+    bitmap = [...bitmap]; // Convert Uint8ClampedArray to a standard Array
     bitmap = bitmap.map(v => dechex(v).padStart(2, '0'));
     bitmap = bitmap.join('');
     bitmap = str_split(bitmap, w * 3 * 2); // NOTE(oxou): Do we have to do something here to fix corrupted bytes?
@@ -404,10 +433,10 @@ function bmp_resource_bitmap_to_bytes(resource) {
 }
 
 /**
- * Returns the image width and height for a BMPJS resource
+ * Returns the image width and height for a BMPJS resource (if valid)
  *
  * @param resource BMPJS Resource
- * @return         [width, height]
+ * @return         false | [width, height]
  */
 function bmp_resource_get_image_size(resource) {
     if (!bmp_resource_valid(resource))
@@ -420,25 +449,54 @@ function bmp_resource_get_image_size(resource) {
  * Returns the bitmap from a BMPJS resource (if valid)
  *
  * @param resource BMPJS Resource
- * @return         BMPJS Resource Uint8Array Bitmap
+ * @return         false | Uint8ClampedArray
  */
-function bmp_resource_get_image_bitmap(resource) {
+function bmp_resource_get_pixels(resource) {
     if (!bmp_resource_valid(resource))
         return false;
 
-    return resource.bitmap;
+    return resource.bitmap.data;
 }
 
 /**
- * Creates a Uint8Array containing RGB values with the appropriate size
+ * Creates an ImageData object containing RGBA values for the resource
+ * This function should only be called by the internals of the library
  *
  * @param width  Width  (X axis) of the image (non-zero)
  * @param height Height (Y axis) of the image (non-zero)
- * @return       Uint8Array
+ * @return       false | ImageData
  */
 function bmp_create_array_pixel(width, height) {
-    var buffer = new Uint8Array(width * height * 3 + (height * (width % 4)));
-    return buffer;
+    var bitmap = new ImageData(width, height);
+
+    for (let x = 0; x < width; x++) {
+        for (let y = 0; y < height; y++) {
+            var pos = bmp_getpos_32(width, height, x, y);
+            bitmap.data[pos + 3] = 255; // Set Alpha to 255
+        }
+    }
+
+    return bitmap;
+}
+
+/**
+ * Resets all the values of the Alpha channel to 255
+ *
+ * @param resource BMPJS Resource
+ * @return         false | true
+ */
+function bmp_resource_reset_alpha(resource) {
+    if (!bmp_resource_valid(resource))
+        return false;
+
+    for (let x = 0; x < width; x++) {
+        for (let y = 0; y < height; y++) {
+            var pos = bmp_getpos_32(width, height, x, y);
+            resource.bitmap.data[pos + 3] = 255;
+        }
+    }
+
+    return true;
 }
 
 /**
@@ -451,7 +509,7 @@ function bmp_create_uri(resource) {
     var blob = new Blob(
         [
             resource.header,
-            resource.bitmap
+            resource.bitmap.data
         ],
         {
             type: "image/bmp"
@@ -463,12 +521,12 @@ function bmp_create_uri(resource) {
 }
 
 /**
- * Creates an `img` element that is appended to the `target`
+ * Creates an `img` element that is appended to the `target`.\
  * The image element src is set to the output of `bmp_create_uri(resource)`
  *
  * @param resource BMPJS Resource
  * @param target   HTMLElement in which the image will be appended to
- * @return         false | Reference to the `img` element
+ * @return         false | Reference to the `img` or `canvas` element
  */
 function bmp_resource_spawn(resource, target = null) {
     if (!bmp_resource_valid(resource))
@@ -476,6 +534,22 @@ function bmp_resource_spawn(resource, target = null) {
 
     if (target == null)
         return false;
+
+    // If canvas is true then spawn a canvas element instead of an image
+    if (resource.canvas) {
+        var canvas = document.createElement("canvas");
+        canvas.context = canvas.getContext("2d");
+        target.appendChild(canvas);
+
+        canvas.width = resource.width;
+        canvas.height = resource.height;
+
+        // Write image to the canvas
+        bmp_write_to_canvas(canvas, resource);
+
+        // Return reference to the canvas element
+        return canvas;
+    }
 
     var image = document.createElement("img");
     image.src = bmp_create_uri(resource);
@@ -487,10 +561,9 @@ function bmp_resource_spawn(resource, target = null) {
 }
 
 /**
- * Replace the URI from the old `img` element referenced through `target`
- * by creating a new one by `resource`
+ * Replace the `resource` in the `target` element by creating a new one
  *
- * @param target   `img` element pointing to a previous reference returned by
+ * @param target   Value pointing to a previous reference returned by
  *                 bmp_resource_spawn()
  * @param resource BMPJS Resource
  * @return         false | true
@@ -502,13 +575,17 @@ function bmp_resource_replace(target = null, resource) {
     if (!bmp_resource_valid(resource))
         return false;
 
+    if (target instanceof HTMLCanvasElement) {
+        bmp_write_to_canvas(target, resource);
+        return true;
+    }
+
     URL.revokeObjectURL(target.src);
     target.src = bmp_create_uri(resource);
 
     return true;
 }
 
-/* TODO(oxou): Streamline this function */
 /**
  * Determine the file size of the BMPJS resource based on resource properties
  *
@@ -516,19 +593,17 @@ function bmp_resource_replace(target = null, resource) {
  * @return         Number
  */
 function bmp_resource_filesize(resource) {
-    var w = resource.width,
-        h = resource.height,
-        p = resource.padding;
-    return Number(w * h * 3 + (h * p) + 54);
+    return resource.filesize;
 }
 
 /**
  * Decode raw Bitmap bytes to a BMPJS resource object
  *
- * @param bytes Raw bytes of a valid BMP file
- * @return      BMPJS resource
+ * @param bytes  Raw bytes of a valid BMP file
+ * @param canvas When writing to a canvas this must be true (default: false)
+ * @return       BMPJS resource
  */
-function bmp_resource_create_from_bytes(bytes) {
+function bmp_resource_create_from_bytes(bytes, canvas = false) {
     if (!bmp_resource_valid(bytes, true))
         return false;
 
@@ -587,19 +662,97 @@ function bmp_resource_create_from_bytes(bytes) {
     var height   = offsets .height   .data;
     var bitdepth = offsets .bitdepth .data;
     var bitmap   = offsets .data     .data;
-    var padding  = 0;
 
     width    = bmp_little_endian_byte(width);
     height   = bmp_little_endian_byte(height);
     bitdepth = bmp_little_endian_byte(bitdepth);
-    padding  = width % 4;
 
-    bitmap = byte_to_uint8array(bitmap);
+    var resource = bmp_resource_create(width, height, canvas);
 
-    var resource = bmp_resource_create(width, height);
-    resource.bitmap = bitmap;
+    // Load 24-bit image as a 32-bit resource
+    if (bitdepth == 24) {
+        var bytes = byte_to_uint8clampedarray(bitmap);
+
+        // Copy bytes from 24-bit to 32-bit resource
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                var pos = bmp_getpos_24(width, height, x, y, true);
+                var r = Number(bytes[pos + 2]);
+                var g = Number(bytes[pos + 1]);
+                var b = Number(bytes[pos + 0]);
+                bmp_resource_set_pixel(resource, x, y, r, g, b, 255);
+            }
+        }
+    }
+
+    // Load 32-bit image
+    if (bitdepth == 32) {
+        var bytes = byte_to_uint8clampedarray(bitmap);
+
+        if (canvas) {
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    var pos = bmp_getpos_32(width, height, x, y, true);
+                    var r = Number(bytes[pos + 2]);
+                    var g = Number(bytes[pos + 1]);
+                    var b = Number(bytes[pos + 0]);
+                    var a = Number(bytes[pos + 3]);
+                    bmp_resource_set_pixel(resource, x, y, r, g, b, a);
+                }
+            }
+        } else {
+            //
+            // NOTE(oxou): Should I get rid of this?  We'll see.
+            //
+            resource.bitmap = new ImageData(bytes, width);
+        }
+    }
+
+    resource.filesize = bytes.length;
 
     return resource;
+}
+
+/**
+ * Get X and Y position from bytes of a 24-bit BMPJS resource.
+ *
+ * @param  w    Width
+ * @param  h    Height
+ * @param  x    Position X
+ * @param  y    Position Y
+ * @param  flip Whether to flip the Y axis upside-down
+ * @return      Number
+ */
+function bmp_getpos_24(w, h, x, y, flip = true) {
+    x = Math.floor(x) * 3;
+    y = Math.floor(y) * 3;
+
+    if (flip)
+        y = Math.abs(y - (h * 3) + 3);
+
+    var p = w % 4;
+    pos = Math.round((w + (p / 3)) * y + x);
+    return pos;
+}
+
+/**
+ * Get X and Y position from bytes of a 32-bit BMPJS resource.
+ *
+ * @param  w    Width
+ * @param  h    Height
+ * @param  x    Position X
+ * @param  y    Position Y
+ * @param  flip Whether to flip the Y axis upside-down
+ * @return      Number
+ */
+function bmp_getpos_32(w, h, x, y, flip = true) {
+    x = Math.floor(x) * 4;
+    y = Math.floor(y) * 4;
+
+    if (flip)
+        y = Math.abs(y - (h * 4) + 4);
+
+    return w * y + x;
 }
 
 /**
@@ -644,5 +797,33 @@ function bmp_resource_download(resource, filename = "download.bmp") {
     anchor.click();
     anchor.remove();
 
+    return true;
+}
+
+/**
+ * Write `resource` bitmap to the `target` canvas context.\
+ * NOTE: This function is used internally by BMPJS and should not be
+ * called in scripts.
+ *
+ * @param canvas   Value pointing to a previous reference returned by
+ *                 bmp_resource_spawn() that is an instance of HTMLCanvasElement
+ * @param resource BMPJS Resource
+ * @return         false | true
+ */
+function bmp_write_to_canvas(canvas = null, resource) {
+    if (canvas == null)
+        return false;
+
+    if (!bmp_resource_valid(resource))
+        return false;
+
+    if (!(canvas instanceof HTMLCanvasElement))
+        return false;
+
+    // Update the canvas size before putting the image
+    canvas.width  = resource.bitmap.width;
+    canvas.height = resource.bitmap.height;
+
+    canvas.context.putImageData(resource.bitmap, 0, 0);
     return true;
 }
