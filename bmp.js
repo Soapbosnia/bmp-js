@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-18 11:40 PM
+// Updated: 2023-03-19 12:42 AM
 //
 
 //
@@ -724,8 +724,8 @@ function bmp_resource_create_from_bytes(bytes, canvas = false) {
  * @return      Number
  */
 function bmp_getpos_24(w, h, x, y, flip = true) {
-    x = Math.floor(x) * 3;
-    y = Math.floor(y) * 3;
+    x = Math.round(x) * 3;
+    y = Math.round(y) * 3;
 
     if (flip)
         y = Math.abs(y - (h * 3) + 3);
@@ -746,8 +746,8 @@ function bmp_getpos_24(w, h, x, y, flip = true) {
  * @return      Number
  */
 function bmp_getpos_32(w, h, x, y, flip = true) {
-    x = Math.floor(x) * 4;
-    y = Math.floor(y) * 4;
+    x = Math.round(x) * 4;
+    y = Math.round(y) * 4;
 
     if (flip)
         y = Math.abs(y - (h * 4) + 4);
