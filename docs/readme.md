@@ -80,6 +80,7 @@ Simply copy the source code provided below and paste it into a text editor, then
 ![expected-result](./img/001.png)
 
 ## Other documentations
+### Core
 - [bmp_resource_bitmap_to_bytes](./bmp-resource-bitmap-to-bytes.md)
 - [bmp_resource_copy](./bmp-resource-copy.md)
 - [bmp_resource_create](./bmp-resource-create.md)
@@ -101,6 +102,7 @@ Simply copy the source code provided below and paste it into a text editor, then
 - [bmp_little_endian_byte](./bmp-little-endian-byte.md)
 - [bmp_little_endian_int](./bmp-little-endian-int.md)
 
+### Mods
 - [bmp_mod_apply_convolution_matrix](./bmp-mod-apply-convolution-matrix.md)
 - [bmp_mod_blur_box](./bmp-mod-blur-box.md)
 - [bmp_mod_blur_gaussian](./bmp-mod-blur-gaussian.md)
@@ -123,6 +125,7 @@ Simply copy the source code provided below and paste it into a text editor, then
 - [bmp_mod_rotate_right](./bmp-mod-rotate-right.md)
 - [bmp_mod_sharpen](./bmp-mod-sharpen.md)
 
+### Plot
 - [bmp_plot_arrow_down](./bmp-plot-arrow-down.md)
 - [bmp_plot_arrow_left](./bmp-plot-arrow-left.md)
 - [bmp_plot_arrow_right](./bmp-plot-arrow-right.md)
