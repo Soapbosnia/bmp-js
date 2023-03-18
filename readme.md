@@ -25,8 +25,8 @@ well, and then in the future use this knowledge in other projects and implementa
 - Automatically decodes images as 32-bit (even if they're 24)
 - Canvas support has been added for animation purposes and performance.
 - Pretty much anything can be generated if you put enough effort to it.
+- Make animations using BMPJS with the performance of the Canvas
 
 ## Limitations
-- Cannot produce animations because of high memory consumption and the inability to free Blobs from volatile memory.
 - Missing lots of vital plot and mod functions.
 - Bugs do still exist ;)
