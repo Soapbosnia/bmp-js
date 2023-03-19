@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2023-02-20 01:00 PM
+// Updated: 2023-03-19 05:02 PM
 //
 
 /**
@@ -40,7 +40,7 @@ function bmp_plot_rect(
         for (let x2 = x; x2 < w + x; x2++)
             if (resource.width  > x2 &&
                 resource.height > y2)
-                bmp_resource_set_pixel(resource, x2, y2, r, g, b);
+                bmp_set_pixel(resource, x2, y2, r, g, b);
 
     return true;
 }
@@ -60,9 +60,10 @@ function bmp_plot_clear(
     g = 0,
     b = 0
 ) {
+    // Default
     for (let y = 0; y < resource.height; y++)
         for (let x = 0; x < resource.width; x++)
-            bmp_resource_set_pixel(resource, x, y, r, g, b);
+            bmp_set_pixel(resource, x, y, r, g, b);
 
     return true;
 }
@@ -106,7 +107,7 @@ function bmp_plot_line(
     for (let i = 0; i < l; i++) {
         if (resource.width > x &&
             resource.height > y)
-            bmp_resource_set_pixel(resource, x, y, r, g, b);
+            bmp_set_pixel(resource, x, y, r, g, b);
 
         x += ax;
         y += ay;
@@ -161,7 +162,7 @@ function bmp_plot_resource(
     for (let x1 = 0; x1 < w; x1++) {
         for (let y1 = 0; y1 < h; y1++) {
             if (resource_p.width > x1 + x && resource_p.height > y1 + y) {
-                var c = bmp_resource_get_pixel(resource_c, x1 + ox, y1 + oy);
+                var c = bmp_get_pixel(resource_c, x1 + ox, y1 + oy);
 
                 if (transparent)
                     if (c[0] == tr &&
@@ -169,7 +170,7 @@ function bmp_plot_resource(
                         c[2] == tb)
                         continue;
 
-                bmp_resource_set_pixel(
+                bmp_set_pixel(
                     resource_p,
                     x1 + x,
                     y1 + y,
@@ -261,7 +262,7 @@ function bmp_plot_text(
         for (let ly = y_start; ly < font_height; ly++) {
             for (let lx = x_start; lx < font_width; lx++) {
                 // Get the font pixel color based on char_x_offset
-                var pixel_c = bmp_resource_get_pixel(
+                var pixel_c = bmp_get_pixel(
                     resource_c,
                     lx + char_x_offset,
                     ly
@@ -299,7 +300,7 @@ function bmp_plot_text(
                 // Write the font pixel to the parent
                 if (resource_p.width  > x_offset + lx &&
                     resource_p.height > y_offset + ly)
-                    bmp_resource_set_pixel(
+                    bmp_set_pixel(
                         resource_p,
                         x_offset + lx,
                         y_offset + ly,
@@ -327,7 +328,10 @@ function bmp_plot_text(
  * @param r        Color channel Red
  * @param g        Color channel Green
  * @param b        Color channel Blue
- * @param p        Precision of line (clamped from 0.1 to 2)
+ * @param p        Precision of line (clamped from 0.1 to 2) (ignored on fill)
+ * @param fill     Fill the circle with color
+ * @param center   Treat X and Y as the center point of the circle
+ * @param angles   Across what angle to plot the circle (default: 360)
  * @return         true
  */
 function bmp_plot_circle(
@@ -339,52 +343,39 @@ function bmp_plot_circle(
     r,
     g,
     b,
-    p = 1
+    p      = 1,
+    fill   = false,
+    center = false,
+    angles = 360
 ) {
-    var points = [
-        [247,1],
-        [312,8],
-        [360,23],
-        [403,47],
-        [439,78],
-        [469,114],
-        [490,153],
-        [507,205],
-        [511,257],
-        [505,312],
-        [490,360],
-        [466,403],
-        [435,439],
-        [399,469],
-        [360,490],
-        [308,507],
-        [256,511],
-        [201,505],
-        [153,490],
-        [110,466],
-        [74,435],
-        [44,399],
-        [23,360],
-        [6,308],
-        [2,256],
-        [8,201],
-        [23,153],
-        [47,110],
-        [78,74],
-        [114,44],
-        [153,23],
-        [205,6],
-        [247,1]
-    ];
+    var radian = w / 2;
 
-    for (let i = 1; i < 33; i++) {
-        var last = points[i - 1];
-        var curr = points[i];
-        var lx = last[0] / 512 * w + x;
-        var ly = last[1] / 512 * h + y;
-        var cx = curr[0] / 512 * w + x;
-        var cy = curr[1] / 512 * h + y;
-        bmp_plot_line(resource, lx, ly, cx, cy, r, g, b, p);
+    if (!fill) {
+        p = 1 / p;
+        p = clamp(p, 0.5, 10); // clamped from 0.1 to 2
+        p -= .5;
+    }
+
+    // Offset from the center
+    if (center == false) {
+        x += w / 2;
+        y += h / 2;
+    }
+
+    w = radian / w * 2;
+    h = radian / h * 2;
+
+    for (let angle = 0, x1, y1; angle < angles; angle += 0.05) {
+        x1 = radian * Math.cos(deg2rad(angle)) / w;
+        y1 = radian * Math.sin(deg2rad(angle)) / h;
+
+        if (fill) {
+            bmp_plot_line(resource, x, y, x + x1, y + y1, r, g, b);
+        } else {
+            if (p > 0)
+                angle += p;
+            bmp_set_pixel(resource, x + x1, y + y1, r, g, b);
+        }
     }
 
     return true;
@@ -641,7 +632,7 @@ function bmp_plot_triangle(
  * @param r        Color channel Red
  * @param g        Color channel Green
  * @param b        Color channel Blue
- * @param callback Callback function (defaults to bmp_resource_set_pixel)
+ * @param callback Callback function (defaults to bmp_set_pixel)
  * @return         true
  */
 function bmp_plot_fill(
@@ -656,10 +647,10 @@ function bmp_plot_fill(
     var fill_stack = [];
         fill_stack.push([x, y]);
 
-    var bg_color = bmp_resource_get_pixel(resource, x, y);
+    var bg_color = bmp_get_pixel(resource, x, y);
 
     if (callback === null)
-        callback = bmp_resource_set_pixel;
+        callback = bmp_set_pixel;
 
     // Let's not shoot ourselves in the foot
     if (bg_color[0] == r &&
@@ -669,7 +660,7 @@ function bmp_plot_fill(
 
     while (fill_stack.length > 0) {
         var [x, y] = fill_stack.pop();
-        var color = bmp_resource_get_pixel(resource, x, y);
+        var color = bmp_get_pixel(resource, x, y);
 
         if (0 > x || x > resource.width ||
             0 > y || y > resource.height)
