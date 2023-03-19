@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-19 12:42 AM
+// Updated: 2023-03-20 12:50 AM
 //
 
 //
@@ -22,12 +22,12 @@
 //
 
 //
-// This sample header of 54 bytes is used by bmp_resource_create() to construct
+// This sample header of 54 bytes is used by bmp_create() to construct
 // valid information based on parameters passed to it. The function works in
-// conjuction with bmp_little_endian_int() to provide correct bit-endianness.
+// conjuction with bmp_le_int() to provide correct bit-endianness.
 //
 // Descriptions prepended with [*] are dynamic. This means that the
-// bmp_resource_create() function changes these bytes during creation.
+// bmp_create() function changes these bytes during creation.
 //
 const bmp_header_parts = [
     // Magic number or byte
@@ -153,9 +153,9 @@ const bmp_header_parts = [
     },
 
     // Raw bitmap pixel data. Each index contains 4 bytes (RGBA) and whole array
-    // can be retrieved using bmp_resource_get_pixels(resource) or individual
+    // can be retrieved using bmp_get_pixels(resource) or individual
     // colors at X and Y coordinates using
-    // bmp_resource_get_pixel(resource, x, y)
+    // bmp_get_pixel(resource, x, y)
     //
     // The size value of this data block is determined based on the width and
     // height.
@@ -194,7 +194,7 @@ const BMP_HEADER_DATA            = 0x10;
  * @param pad_left   True pads left (default), False pads right
  * @return           Little-endian (LE) bytes
  */
-function bmp_little_endian_int(value, pad_length = 2, pad_left = true) {
+function bmp_le_int(value, pad_length = 2, pad_left = true) {
     value = dechex(value);
     value = pad_left
           ? value.padStart(pad_length, '0')
@@ -214,7 +214,7 @@ function bmp_little_endian_int(value, pad_length = 2, pad_left = true) {
  * @param value Bytes to integer
  * @return      Integer
  */
-function bmp_little_endian_byte(value) {
+function bmp_le_byte(value) {
     value = bin2hex(value);
     value = str_split(value, 2);
     value = value.reverse();
@@ -232,7 +232,7 @@ function bmp_little_endian_byte(value) {
  * @param canvas When writing to a canvas this must be true (default: false)
  * @return       false | BMPJS Resource
  */
-function bmp_resource_create(width, height, canvas = false) {
+function bmp_create(width, height, canvas = false) {
     width  = Math.floor(width);
     height = Math.floor(height);
 
@@ -243,25 +243,25 @@ function bmp_resource_create(width, height, canvas = false) {
     var header      = bmp_header_parts;
     var header_raw  = "";
     var padding     = width % 4;
-    var bitmap      = bmp_create_array_pixel(width, height);
+    var bitmap      = bmp_create_pixels(width, height);
     var bitmap_size = width * height * 4 + (height * padding);
 
     header.forEach(function(header_object, header_index) {
         switch (header_index) {
             case BMP_HEADER_FILESIZE:
-                header_raw += bmp_little_endian_int(bitmap_size + 54, 8);
+                header_raw += bmp_le_int(bitmap_size + 54, 8);
                 return;
 
             case BMP_HEADER_WIDTH:
-                header_raw += bmp_little_endian_int(width, 8);
+                header_raw += bmp_le_int(width, 8);
                 return;
 
             case BMP_HEADER_HEIGHT:
-                header_raw += bmp_little_endian_int(height, 8);
+                header_raw += bmp_le_int(height, 8);
                 return;
 
             case BMP_HEADER_BITMAPSIZE:
-                header_raw += bmp_little_endian_int(bitmap_size, 8);
+                header_raw += bmp_le_int(bitmap_size, 8);
                 return;
         }
 
@@ -292,7 +292,7 @@ function bmp_resource_create(width, height, canvas = false) {
  * @param raw      Process raw data
  * @return         false | true
  */
-function bmp_resource_valid(resource, raw = false) {
+function bmp_valid(resource, raw = false) {
     var header = raw
                ? resource
                : resource.header_raw;
@@ -318,9 +318,9 @@ function bmp_resource_valid(resource, raw = false) {
  * @param y        Y axis
  * @return         [R, G, B, A]
  */
-function bmp_resource_get_pixel(resource, x, y) {
+function bmp_get_pixel(resource, x, y) {
     // WARN(oxou): Fallback to 0,0,0,255 if out of bounds.
-    if (x > resource.width || y > resource.height || 0 > x || 0 > y)
+    if (x > resource.width - 1 || y > resource.height - 1 || 0 > x || 0 > y)
         return [0, 0, 0, 255];
 
     var pos = bmp_getpos_32(resource.width, resource.height, x, y, !resource.canvas);
@@ -360,7 +360,7 @@ function bmp_resource_get_pixel(resource, x, y) {
  * @param a        Color channel Alpha (untouched if null)
  * @return         true
  */
-function bmp_resource_set_pixel(
+function bmp_set_pixel(
     resource,
     x,
     y,
@@ -370,7 +370,7 @@ function bmp_resource_set_pixel(
     a = null
 ) {
     // WARN(oxou): Fake set_pixel success if out of bounds.
-    if (x > resource.width || y > resource.height || 0 > x || 0 > y)
+    if (x > resource.width - 1 || y > resource.height - 1 || 0 > x || 0 > y)
         return true;
 
     r = Math.floor(Number(r));
@@ -414,7 +414,7 @@ function bmp_resource_set_pixel(
  * @param resource BMPJS Resource
  * @return         true
  */
-function bmp_resource_bitmap_to_bytes(resource) {
+function bmp_to_bytes(resource) {
     var bitmap = resource.bitmap.data;
     var w      = resource.width;
     var p      = resource.padding;
@@ -438,8 +438,8 @@ function bmp_resource_bitmap_to_bytes(resource) {
  * @param resource BMPJS Resource
  * @return         false | [width, height]
  */
-function bmp_resource_get_image_size(resource) {
-    if (!bmp_resource_valid(resource))
+function bmp_size(resource) {
+    if (!bmp_valid(resource))
         return false;
 
     return [resource.width, resource.height];
@@ -451,8 +451,8 @@ function bmp_resource_get_image_size(resource) {
  * @param resource BMPJS Resource
  * @return         false | Uint8ClampedArray
  */
-function bmp_resource_get_pixels(resource) {
-    if (!bmp_resource_valid(resource))
+function bmp_get_pixels(resource) {
+    if (!bmp_valid(resource))
         return false;
 
     return resource.bitmap.data;
@@ -466,7 +466,7 @@ function bmp_resource_get_pixels(resource) {
  * @param height Height (Y axis) of the image (non-zero)
  * @return       false | ImageData
  */
-function bmp_create_array_pixel(width, height) {
+function bmp_create_pixels(width, height) {
     var bitmap = new ImageData(width, height);
 
     for (let x = 0; x < width; x++) {
@@ -485,8 +485,8 @@ function bmp_create_array_pixel(width, height) {
  * @param resource BMPJS Resource
  * @return         false | true
  */
-function bmp_resource_reset_alpha(resource) {
-    if (!bmp_resource_valid(resource))
+function bmp_reset_alpha(resource) {
+    if (!bmp_valid(resource))
         return false;
 
     for (let x = 0; x < width; x++) {
@@ -528,8 +528,8 @@ function bmp_create_uri(resource) {
  * @param target   HTMLElement in which the image will be appended to
  * @return         false | Reference to the `img` or `canvas` element
  */
-function bmp_resource_spawn(resource, target = null) {
-    if (!bmp_resource_valid(resource))
+function bmp_spawn(resource, target = null) {
+    if (!bmp_valid(resource))
         return false;
 
     if (target == null)
@@ -545,7 +545,7 @@ function bmp_resource_spawn(resource, target = null) {
         canvas.height = resource.height;
 
         // Write image to the canvas
-        bmp_write_to_canvas(canvas, resource);
+        bmp_to_canvas(canvas, resource);
 
         // Return reference to the canvas element
         return canvas;
@@ -568,15 +568,15 @@ function bmp_resource_spawn(resource, target = null) {
  * @param resource BMPJS Resource
  * @return         false | true
  */
-function bmp_resource_replace(target = null, resource) {
+function bmp_replace(target = null, resource) {
     if (target == null)
         return false;
 
-    if (!bmp_resource_valid(resource))
+    if (!bmp_valid(resource))
         return false;
 
     if (target instanceof HTMLCanvasElement) {
-        bmp_write_to_canvas(target, resource);
+        bmp_to_canvas(target, resource);
         return true;
     }
 
@@ -592,7 +592,7 @@ function bmp_resource_replace(target = null, resource) {
  * @param resource BMPJS Resource
  * @return         Number
  */
-function bmp_resource_filesize(resource) {
+function bmp_filesize(resource) {
     return resource.filesize;
 }
 
@@ -603,8 +603,8 @@ function bmp_resource_filesize(resource) {
  * @param canvas When writing to a canvas this must be true (default: false)
  * @return       BMPJS resource
  */
-function bmp_resource_create_from_bytes(bytes, canvas = false) {
-    if (!bmp_resource_valid(bytes, true))
+function bmp_from_raw(bytes, canvas = false) {
+    if (!bmp_valid(bytes, true))
         return false;
 
     //
@@ -615,7 +615,7 @@ function bmp_resource_create_from_bytes(bytes, canvas = false) {
     // Unfortunately this will almost likely cause problems that are
     // unfixable, as far as I know.
     //
-    var header_offset = bmp_little_endian_byte(
+    var header_offset = bmp_le_byte(
         bytes.substr(0xA, 0x4)
     );
 
@@ -663,11 +663,11 @@ function bmp_resource_create_from_bytes(bytes, canvas = false) {
     var bitdepth = offsets .bitdepth .data;
     var bitmap   = offsets .data     .data;
 
-    width    = bmp_little_endian_byte(width);
-    height   = bmp_little_endian_byte(height);
-    bitdepth = bmp_little_endian_byte(bitdepth);
+    width    = bmp_le_byte(width);
+    height   = bmp_le_byte(height);
+    bitdepth = bmp_le_byte(bitdepth);
 
-    var resource = bmp_resource_create(width, height, canvas);
+    var resource = bmp_create(width, height, canvas);
 
     // Load 24-bit image as a 32-bit resource
     if (bitdepth == 24) {
@@ -680,7 +680,7 @@ function bmp_resource_create_from_bytes(bytes, canvas = false) {
                 var r = Number(bytes[pos + 2]);
                 var g = Number(bytes[pos + 1]);
                 var b = Number(bytes[pos + 0]);
-                bmp_resource_set_pixel(resource, x, y, r, g, b, 255);
+                bmp_set_pixel(resource, x, y, r, g, b, 255);
             }
         }
     }
@@ -697,7 +697,7 @@ function bmp_resource_create_from_bytes(bytes, canvas = false) {
                     var g = Number(bytes[pos + 1]);
                     var b = Number(bytes[pos + 0]);
                     var a = Number(bytes[pos + 3]);
-                    bmp_resource_set_pixel(resource, x, y, r, g, b, a);
+                    bmp_set_pixel(resource, x, y, r, g, b, a);
                 }
             }
         } else {
@@ -761,7 +761,7 @@ function bmp_getpos_32(w, h, x, y, flip = true) {
  * @param url URL pointing to a BMP file
  * @return    false | null | string
  */
-function bmp_resource_request(url = null) {
+function bmp_request(url = null) {
     return http_get_bytes(url);
 }
 
@@ -771,8 +771,8 @@ function bmp_resource_request(url = null) {
  * @param resource BMPJS Resource
  * @return         BMPJS Resource | false
  */
-function bmp_resource_copy(resource) {
-    if (!bmp_resource_valid(resource))
+function bmp_copy(resource) {
+    if (!bmp_valid(resource))
         return false;
 
     return structuredClone(resource);
@@ -785,8 +785,8 @@ function bmp_resource_copy(resource) {
  * @param filename Name of the downloaded file (default: download.bmp)
  * @return         false | true
  */
-function bmp_resource_download(resource, filename = "download.bmp") {
-    if (!bmp_resource_valid(resource))
+function bmp_save(resource, filename = "download.bmp") {
+    if (!bmp_valid(resource))
         return false;
 
     var anchor      = document.createElement('a');
@@ -810,11 +810,11 @@ function bmp_resource_download(resource, filename = "download.bmp") {
  * @param resource BMPJS Resource
  * @return         false | true
  */
-function bmp_write_to_canvas(canvas = null, resource) {
+function bmp_to_canvas(canvas = null, resource) {
     if (canvas == null)
         return false;
 
-    if (!bmp_resource_valid(resource))
+    if (!bmp_valid(resource))
         return false;
 
     if (!(canvas instanceof HTMLCanvasElement))
@@ -826,4 +826,20 @@ function bmp_write_to_canvas(canvas = null, resource) {
 
     canvas.context.putImageData(resource.bitmap, 0, 0);
     return true;
+}
+
+/**
+ * Similar to bmp_request but returns a BMPJS Resource automatically
+ *
+ * @param url URL pointing to a BMP file
+ * @return    false | BMPJS Resource
+ */
+function bmp_load(url = null) {
+    var bytes = bmp_request(url);
+
+    if (!bmp_valid(bytes, true))
+        return false;
+
+    var resource = bmp_from_raw(bytes);
+    return resource;
 }
