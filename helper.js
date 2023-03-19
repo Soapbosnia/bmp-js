@@ -9,7 +9,7 @@
 // It defines helper functions to ease the programming of bmp.js
 //
 // Created: 2022-09-05 10:31 AM
-// Updated: 2023-02-20 02:05 PM
+// Updated: 2023-03-19 07:44 PM
 //
 
 /**
@@ -27,13 +27,6 @@ function hex2bin(hex = null) {
 
     if ((hexl % 2))
         throw("Hexadecimal input string length must be even");
-
-    for (let i = 0; i < hexl; i++) {
-        var ord = Number(hex.charCodeAt(i));
-
-        if (!(ord > 47 && ord < 58 || ord > 96 && ord < 103))
-            throw("Input string must be hexadecimal");
-    }
 
     var output = "";
 
@@ -152,26 +145,26 @@ function time_precise() {
 }
 
 /**
- * Converts bytes to an Uint8Array
+ * Converts bytes to an Uint8ClampedArray
  *
  * @param str String
- * @return    Uint8Array
+ * @return    Uint8ClampedArray
  */
-function byte_to_uint8array(str) {
+function byte_to_uint8clampedarray(str) {
     str = bin2hex(str);
     str = str_split(str, 2);
     str = str.map(v => hexdec(v));
 
-    return Uint8Array.from(str);
+    return Uint8ClampedArray.from(str);
 }
 
 /**
- * Converts Uint8Array to bytes
+ * Converts Uint8ClampedArray to bytes
  *
- * @param arr Uint8Array
+ * @param arr Uint8ClampedArray
  * @return    string
  */
-function uint8array_to_byte(arr) {
+function uint8clampedarray_to_byte(arr) {
     arr = [...arr];
     arr = arr.map(v => hex2bin(dechex(v).padStart(2, '0')));
     arr = arr.join('');
@@ -228,5 +221,49 @@ function http_get_bytes(url = null) {
  * @param t Time
  */
 function lerp(a, b, t) {
-    return a + (b - a) * t
+    return a + (b - a) * t;
+}
+
+/**
+ * Degree to radian
+ *
+ * @param deg Degree
+ * @return    Number
+ */
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
+/**
+ * Radian to degree
+ *
+ * @param rad Radian
+ * @return    Number
+ */
+function rad2deg(rad) {
+    return rad * (180 / Math.PI);
+}
+
+/**
+ * Returns true if N is in range of A and B
+ *
+ * @param n Initial value
+ * @param a Point A
+ * @param b Point B
+ * @return  false | true
+ */
+function in_range(n, a, b) {
+    return (n >= a &&
+            n <= b);
+}
+
+/**
+ * Returns 1 if positive, -1 if negative, and 0 if none of those
+ *
+ * @param n Initial value
+ * @return  -1 | 0 | 1
+ */
+function sgn(n) {
+    return (n > 0) -
+           (n < 0);
 }
