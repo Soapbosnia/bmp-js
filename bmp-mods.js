@@ -9,27 +9,31 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2023-02-21 09:18 PM
+// Updated: 2023-03-19 02:58 PM
 //
 
 /**
  * Retrieve a specific color channel from a resource
  *
  * @param resource BMPJS Resource
- * @param channel  Channel index (0 = Red, 1 = Green, 2 = Blue) (default 0)
+ * @param channel  Channel index (0=Red, 1=Green, 2=Blue, 3=Alpha) (default 0)
  * @return         BMPJS Resource
  */
 function bmp_mod_get_channel(
     resource,
     channel = 0
 ) {
-    channel = clamp(channel, 0, 2);
-    var resource_new = bmp_resource_create(resource.width, resource.height);
+    channel = clamp(channel, 0, 3);
+    var resource_new = bmp_create(
+                           resource.width,
+                           resource.height,
+                           resource.canvas
+                       );
 
     for (let y = 0; y < resource.height; y++)
         for (let x = 0; x < resource.width; x++) {
-            var color = bmp_resource_get_pixel(resource, x, y);
-            bmp_resource_set_pixel(
+            var color = bmp_get_pixel(resource, x, y);
+            bmp_set_pixel(
                 resource_new,
                 x,
                 y,
@@ -71,13 +75,13 @@ function bmp_mod_flip_x(
     var width  = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_create(width, height);
+    var resource_new = bmp_create(width, height, resource.canvas);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             var x2 = Math.abs(width - x) - 1;
-            bmp_resource_set_pixel(resource_new, x2, y, c[0], c[1], c[2]);
+            bmp_set_pixel(resource_new, x2, y, c[0], c[1], c[2]);
         }
     }
 
@@ -96,13 +100,13 @@ function bmp_mod_flip_y(
     var width  = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_create(width, height);
+    var resource_new = bmp_create(width, height, resource.canvas);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             var y2 = Math.abs(height - y) - 1;
-            bmp_resource_set_pixel(resource_new, x, y2, c[0], c[1], c[2]);
+            bmp_set_pixel(resource_new, x, y2, c[0], c[1], c[2]);
         }
     }
 
@@ -121,13 +125,13 @@ function bmp_mod_rotate_right(
     var width = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_create(height, width);
+    var resource_new = bmp_create(height, width, resource.canvas);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             var y2 = Math.abs(height - y) - 1;
-            bmp_resource_set_pixel(resource_new, y2, x, c[0], c[1], c[2]);
+            bmp_set_pixel(resource_new, y2, x, c[0], c[1], c[2]);
         }
     }
 
@@ -146,13 +150,13 @@ function bmp_mod_rotate_left(
     var width = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_create(height, width);
+    var resource_new = bmp_create(height, width, resource.canvas);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             var x2 = Math.abs(width - x) - 1;
-            bmp_resource_set_pixel(resource_new, y, x2, c[0], c[1], c[2]);
+            bmp_set_pixel(resource_new, y, x2, c[0], c[1], c[2]);
         }
     }
 
@@ -183,15 +187,15 @@ function bmp_mod_replace_color(
     var width = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var color = bmp_resource_get_pixel(resource, x, y);
+            var color = bmp_get_pixel(resource, x, y);
             if (color[0] == pr &&
                 color[1] == pg &&
                 color[2] == pb)
-                bmp_resource_set_pixel(resource_new, x, y, cr, cg, cb);
+                bmp_set_pixel(resource_new, x, y, cr, cg, cb);
         }
     }
 
@@ -210,15 +214,15 @@ function bmp_mod_color_invert(
     var width = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             c[0] = Math.abs(c[0] - 255);
             c[1] = Math.abs(c[1] - 255);
             c[2] = Math.abs(c[2] - 255);
-            bmp_resource_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
+            bmp_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
         }
     }
 
@@ -237,17 +241,17 @@ function bmp_mod_color_grayscale(
     var width = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_create(width, height);
+    var resource_new = bmp_create(width, height, resource.canvas);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             var c = clamp(
                 (c[0] + c[1] + c[2]) / 3, // This may not be the accurate way
                 0,
                 255
             );
-            bmp_resource_set_pixel(resource_new, x, y, c, c, c);
+            bmp_set_pixel(resource_new, x, y, c, c, c);
         }
     }
 
@@ -266,14 +270,14 @@ function bmp_mod_color_1bit(
     var width = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_create(width, height);
+    var resource_new = bmp_create(width, height, resource.canvas);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             c = clamp((c[0] + c[1] + c[2]) / 3, 0, 255);
             c = c > 127 ? 255 : 0;
-            bmp_resource_set_pixel(resource_new, x, y, c, c, c);
+            bmp_set_pixel(resource_new, x, y, c, c, c);
         }
     }
 
@@ -295,16 +299,16 @@ function bmp_mod_noise_grayscale(
     var width = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             var noise = Math.floor(Math.random(0) * (255 * scale));
             c[0] = clamp(c[0] + noise, 0, 255);
             c[1] = clamp(c[1] + noise, 0, 255);
             c[2] = clamp(c[2] + noise, 0, 255);
-            bmp_resource_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
+            bmp_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
         }
     }
 
@@ -326,18 +330,18 @@ function bmp_mod_noise_rgb(
     var width = resource.width;
     var height = resource.height;
 
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            var c = bmp_resource_get_pixel(resource, x, y);
+            var c = bmp_get_pixel(resource, x, y);
             var noise1 = Math.floor(Math.random(0) * (255 * scale));
             var noise2 = Math.floor(Math.random(0) * (255 * scale));
             var noise3 = Math.floor(Math.random(0) * (255 * scale));
             c[0] = clamp(c[0] + noise1, 0, 255);
             c[1] = clamp(c[1] + noise2, 0, 255);
             c[2] = clamp(c[2] + noise3, 0, 255);
-            bmp_resource_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
+            bmp_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
         }
     }
 
@@ -366,7 +370,7 @@ function bmp_mod_apply_convolution_matrix(
     if (matrix.length != 9 && matrix.length != 25)
         throw("Convolution matrix must be of size 3x3 (9) or 5x5 (25)");
 
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
     var w = resource.width;
     var h = resource.height;
 
@@ -389,17 +393,17 @@ function bmp_mod_apply_convolution_matrix(
             for (let y = 0; y < h; y++)
             {
                 /* 3 x 3 grid */
-                var a0 = bmp_resource_get_pixel(resource, x - 1, y - 1);
-                var a1 = bmp_resource_get_pixel(resource, x    , y - 1);
-                var a2 = bmp_resource_get_pixel(resource, x + 1, y - 1);
+                var a0 = bmp_get_pixel(resource, x - 1, y - 1);
+                var a1 = bmp_get_pixel(resource, x    , y - 1);
+                var a2 = bmp_get_pixel(resource, x + 1, y - 1);
 
-                var b0 = bmp_resource_get_pixel(resource, x - 1, y    );
-                var b1 = bmp_resource_get_pixel(resource, x    , y    );
-                var b2 = bmp_resource_get_pixel(resource, x + 1, y    );
+                var b0 = bmp_get_pixel(resource, x - 1, y    );
+                var b1 = bmp_get_pixel(resource, x    , y    );
+                var b2 = bmp_get_pixel(resource, x + 1, y    );
 
-                var c0 = bmp_resource_get_pixel(resource, x - 1, y + 1);
-                var c1 = bmp_resource_get_pixel(resource, x    , y + 1);
-                var c2 = bmp_resource_get_pixel(resource, x + 1, y + 1);
+                var c0 = bmp_get_pixel(resource, x - 1, y + 1);
+                var c1 = bmp_get_pixel(resource, x    , y + 1);
+                var c2 = bmp_get_pixel(resource, x + 1, y + 1);
 
                 /* Apply convolution matrix */
                 a0[0] *= cm[0];
@@ -452,7 +456,7 @@ function bmp_mod_apply_convolution_matrix(
                      c0[2] + c1[2] + c2[2]) / divisor
                 ];
 
-                bmp_resource_set_pixel(
+                bmp_set_pixel(
                     resource_new,
                     x,
                     y,
@@ -485,35 +489,35 @@ function bmp_mod_apply_convolution_matrix(
             for (let y = 0; y < h; y++)
             {
                 /* 5 x 5 grid */
-                var a0 = bmp_resource_get_pixel(resource, x - 2, y - 2);
-                var a1 = bmp_resource_get_pixel(resource, x - 1, y - 2);
-                var a2 = bmp_resource_get_pixel(resource, x    , y - 2);
-                var a3 = bmp_resource_get_pixel(resource, x + 1, y - 2);
-                var a4 = bmp_resource_get_pixel(resource, x + 2, y - 2);
+                var a0 = bmp_get_pixel(resource, x - 2, y - 2);
+                var a1 = bmp_get_pixel(resource, x - 1, y - 2);
+                var a2 = bmp_get_pixel(resource, x    , y - 2);
+                var a3 = bmp_get_pixel(resource, x + 1, y - 2);
+                var a4 = bmp_get_pixel(resource, x + 2, y - 2);
 
-                var b0 = bmp_resource_get_pixel(resource, x - 2, y - 1);
-                var b1 = bmp_resource_get_pixel(resource, x - 1, y - 1);
-                var b2 = bmp_resource_get_pixel(resource, x    , y - 1);
-                var b3 = bmp_resource_get_pixel(resource, x + 1, y - 1);
-                var b4 = bmp_resource_get_pixel(resource, x + 2, y - 1);
+                var b0 = bmp_get_pixel(resource, x - 2, y - 1);
+                var b1 = bmp_get_pixel(resource, x - 1, y - 1);
+                var b2 = bmp_get_pixel(resource, x    , y - 1);
+                var b3 = bmp_get_pixel(resource, x + 1, y - 1);
+                var b4 = bmp_get_pixel(resource, x + 2, y - 1);
 
-                var c0 = bmp_resource_get_pixel(resource, x - 2, y    );
-                var c1 = bmp_resource_get_pixel(resource, x - 1, y    );
-                var c2 = bmp_resource_get_pixel(resource, x    , y    );
-                var c3 = bmp_resource_get_pixel(resource, x + 1, y    );
-                var c4 = bmp_resource_get_pixel(resource, x + 2, y    );
+                var c0 = bmp_get_pixel(resource, x - 2, y    );
+                var c1 = bmp_get_pixel(resource, x - 1, y    );
+                var c2 = bmp_get_pixel(resource, x    , y    );
+                var c3 = bmp_get_pixel(resource, x + 1, y    );
+                var c4 = bmp_get_pixel(resource, x + 2, y    );
 
-                var d0 = bmp_resource_get_pixel(resource, x - 2, y + 1);
-                var d1 = bmp_resource_get_pixel(resource, x - 1, y + 1);
-                var d2 = bmp_resource_get_pixel(resource, x    , y + 1);
-                var d3 = bmp_resource_get_pixel(resource, x + 1, y + 1);
-                var d4 = bmp_resource_get_pixel(resource, x + 2, y + 1);
+                var d0 = bmp_get_pixel(resource, x - 2, y + 1);
+                var d1 = bmp_get_pixel(resource, x - 1, y + 1);
+                var d2 = bmp_get_pixel(resource, x    , y + 1);
+                var d3 = bmp_get_pixel(resource, x + 1, y + 1);
+                var d4 = bmp_get_pixel(resource, x + 2, y + 1);
 
-                var e0 = bmp_resource_get_pixel(resource, x - 2, y + 2);
-                var e1 = bmp_resource_get_pixel(resource, x - 1, y + 2);
-                var e2 = bmp_resource_get_pixel(resource, x    , y + 2);
-                var e3 = bmp_resource_get_pixel(resource, x + 1, y + 2);
-                var e4 = bmp_resource_get_pixel(resource, x + 2, y + 2);
+                var e0 = bmp_get_pixel(resource, x - 2, y + 2);
+                var e1 = bmp_get_pixel(resource, x - 1, y + 2);
+                var e2 = bmp_get_pixel(resource, x    , y + 2);
+                var e3 = bmp_get_pixel(resource, x + 1, y + 2);
+                var e4 = bmp_get_pixel(resource, x + 2, y + 2);
 
                 /* Apply convolution matrix */
                 a0[0] *= cm[0];
@@ -636,7 +640,7 @@ function bmp_mod_apply_convolution_matrix(
                      e0[2] + e1[2] + e2[2] + e3[2] + e4[2]) / divisor,
                 ];
 
-                bmp_resource_set_pixel(
+                bmp_set_pixel(
                     resource_new,
                     x,
                     y,
@@ -661,7 +665,7 @@ function bmp_mod_apply_convolution_matrix(
 function bmp_mod_sharpen(
     resource
 ) {
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     resource_new = bmp_mod_apply_convolution_matrix(
         resource_new,
@@ -696,7 +700,7 @@ function bmp_mod_resize(
     if (w == resource.width && h == resource.height)
         return resource;
 
-    var resource_new = bmp_resource_create(w, h);
+    var resource_new = bmp_create(w, h, resource.canvas);
 
     // Difference values between resource
     // and resource_new dimensions
@@ -705,7 +709,7 @@ function bmp_mod_resize(
 
     for (let x = 0; x < w; x++) {
         for (let y = 0; y < h; y++) {
-            var c = bmp_resource_get_pixel(
+            var c = bmp_get_pixel(
                 resource,
                 xd * x,
                 yd * y
@@ -713,13 +717,14 @@ function bmp_mod_resize(
 
             for (let i = 0; i < xd; i += xd) {
                 for (let j = 0; j < yd; j += yd) {
-                    bmp_resource_set_pixel(
+                    bmp_set_pixel(
                         resource_new,
                         x + i,
                         y + j,
                         c[0],
                         c[1],
-                        c[2]
+                        c[2],
+                        255
                     );
                 }
             }
@@ -747,7 +752,7 @@ function bmp_mod_pixelate(
     if (factor == 1)
         return resource;
 
-    var resource_new = bmp_resource_copy(bmp_resource);
+    var resource_new = bmp_copy(resource);
 
     // Original dimensions
     var ow = resource.width;
@@ -783,7 +788,7 @@ function bmp_mod_pixelate(
  * X2 and Y2 as the dimensions and not the 2nd point on the image.
  *
  * If the width or height exceed the boundary of the affectee resource
- * then the value that bmp_resource_get_pixel() returns by default when
+ * then the value that bmp_get_pixel() returns by default when
  * out of bounds will be written to the copy resource.
  *
  * @param resource BMPJS Resource
@@ -845,20 +850,20 @@ function bmp_mod_crop(
         h = Math.round(y2 - y1);
     }
 
-    var resource_new = bmp_resource_create(w, h);
+    var resource_new = bmp_create(w, h, resource.canvas);
 
     var mx = w + x1;
     var my = h + y1;
 
     for (let x = x1; x < mx; x++)
         for (let y = y1; y < my; y++) {
-            var c = bmp_resource_get_pixel(
+            var c = bmp_get_pixel(
                 resource,
                 x,
                 y
             );
 
-            bmp_resource_set_pixel(
+            bmp_set_pixel(
                 resource_new,
                 x - x1,
                 y - y1,
@@ -884,7 +889,7 @@ function bmp_mod_detect_edge(
 ) {
     mode = clamp(mode, 0, 2);
 
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     if (mode == 0) {
         resource_new = bmp_mod_apply_convolution_matrix(
@@ -931,7 +936,7 @@ function bmp_mod_detect_edge(
 function bmp_mod_blur_box(
     resource
 ) {
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     resource_new = bmp_mod_apply_convolution_matrix(
         resource_new,
@@ -955,7 +960,7 @@ function bmp_mod_blur_box(
 function bmp_mod_blur_gaussian(
     resource
 ) {
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     resource_new = bmp_mod_apply_convolution_matrix(
         resource_new,
@@ -979,7 +984,7 @@ function bmp_mod_blur_gaussian(
 function bmp_mod_emboss(
     resource
 ) {
-    var resource_new = bmp_resource_copy(resource);
+    var resource_new = bmp_copy(resource);
 
     resource_new = bmp_mod_apply_convolution_matrix(
         resource_new,
