@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-20 02:23 PM
+// Updated: 2023-03-20 02:49 PM
 //
 
 //
@@ -14,11 +14,17 @@
 //
 // - Each bitmap resource treats the image as having 8 bits per color channel,
 //   If an image is 1-bit, 8-bit or 16-bit, all values are automagically treated
-//   as 32-bit (R8 G8 B8 A8).
+//   as 32-bit (RGBA8888).
 //
 // - Each bitmap file has a thing called "padding", it's where each RGB byte
 //   is padded with null bytes on each end of the stride to make sure rows fit
 //   in 32-bits of memory. The computer can operate faster on even values.
+//
+//   This is not the case anymore when we're creating these images internally
+//   as we now always default to 32-bit images which do not require padding.
+//
+//   Loading images that do have padding need to be processed and remapped to
+//   the 32-bit layout.
 //
 // - Ongoing work is being made to bring support to more bit depths other than
 //   24 and 32-bit. We wanna have bit depths ranging from 16, 8, 4, 2 and 1.
@@ -463,8 +469,8 @@ function bmp_get_pixels(resource) {
 }
 
 /**
- * Creates an ImageData object containing RGBA values for the resource
- * This function should only be called by the internals of the library
+ * Creates an ImageData object containing RGBA values for the resource\
+ * \* This function should only be called by the internals of the library
  *
  * @param width  Width  (X axis) of the image (non-zero)
  * @param height Height (Y axis) of the image (non-zero)
@@ -836,8 +842,7 @@ function bmp_save(resource, filename = "download.") {
 
 /**
  * Write `resource` bitmap to the `target` canvas context.\
- * NOTE: This function is used internally by BMPJS and should not be
- * called in scripts.
+ * \* This function should only be called by the internals of the library
  *
  * @param canvas   Value pointing to a previous reference returned by
  *                 bmp_spawn() that is an instance of HTMLCanvasElement
@@ -848,10 +853,10 @@ function bmp_to_canvas(canvas = null, resource) {
     if (canvas == null)
         return false;
 
-    if (!bmp_valid(resource))
+    if (!(canvas instanceof HTMLCanvasElement))
         return false;
 
-    if (!(canvas instanceof HTMLCanvasElement))
+    if (!bmp_valid(resource))
         return false;
 
     // Update the canvas size before putting the image
