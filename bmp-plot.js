@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2023-03-20 01:43 AM
+// Updated: 2023-03-20 03:02 PM
 //
 
 /**
@@ -380,8 +380,8 @@ function bmp_plot_circle(
         y += h / 2;
     }
 
-    w = radian / w * 2;
-    h = radian / h * 2;
+    w = radian / w * 2.016;
+    h = radian / h * 2.016;
 
     for (let angle = 0, x1, y1; angle < angles; angle += 0.05) {
         x1 = radian * Math.cos(deg2rad(angle)) / w;
