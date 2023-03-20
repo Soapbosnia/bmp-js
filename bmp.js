@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-20 01:16 PM
+// Updated: 2023-03-20 01:25 PM
 //
 
 //
@@ -859,14 +859,15 @@ function bmp_to_canvas(canvas = null, resource) {
  * Similar to bmp_request but returns a BMPJS Resource automatically
  *
  * @param url URL pointing to a BMP file
+ * @param canvas When writing to a canvas this must be true (default: false)
  * @return    false | BMPJS Resource
  */
-function bmp_load(url = null) {
+function bmp_load(url = null, canvas = false) {
     var bytes = bmp_request(url);
 
     if (!bmp_valid(bytes, true))
         return false;
 
-    var resource = bmp_from_raw(bytes);
+    var resource = bmp_from_raw(bytes, canvas);
     return resource;
 }
