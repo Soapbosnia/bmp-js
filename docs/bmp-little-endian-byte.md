@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_little_endian_byte
+# bmp-js / Documentation / bmp_le_byte
 ## Introduction
 
 ### Description
@@ -15,7 +15,7 @@ Returns: `(number)`
 
 ```js
 var byte = "\x40\x80";
-var result = bmp_little_endian_byte(byte);
+var result = bmp_le_byte(byte);
 console.log(result);
 // Output: 32832
 ```

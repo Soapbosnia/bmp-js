@@ -36,11 +36,11 @@ var scale_width = image_width / image_width_original;
 var scale_height = image_height / image_height_original;
 
 // Create image
-var bmp_resource_1 = bmp_resource_create(image_width, image_height);
-var bmp_resource_2 = bmp_resource_create(image_width, image_height);
-var bmp_resource_3 = bmp_resource_create(image_width, image_height);
-var bmp_resource_4 = bmp_resource_create(image_width, image_height);
-var bmp_resource_5 = bmp_resource_create(image_width, image_height);
+var bmp_resource_1 = bmp_create(image_width, image_height);
+var bmp_resource_2 = bmp_create(image_width, image_height);
+var bmp_resource_3 = bmp_create(image_width, image_height);
+var bmp_resource_4 = bmp_create(image_width, image_height);
+var bmp_resource_5 = bmp_create(image_width, image_height);
 
 // Star points
 var points = [
@@ -77,11 +77,11 @@ for (let i = 0, j = points.length; i < j; i++) {
 }
 
 // Spawn the images into the container
-bmp_resource_spawn(bmp_resource_1, bmp_container);
-bmp_resource_spawn(bmp_resource_2, bmp_container);
-bmp_resource_spawn(bmp_resource_3, bmp_container);
-bmp_resource_spawn(bmp_resource_4, bmp_container);
-bmp_resource_spawn(bmp_resource_5, bmp_container);
+bmp_spawn(bmp_resource_1, bmp_container);
+bmp_spawn(bmp_resource_2, bmp_container);
+bmp_spawn(bmp_resource_3, bmp_container);
+bmp_spawn(bmp_resource_4, bmp_container);
+bmp_spawn(bmp_resource_5, bmp_container);
 ```
 
 ## Expected Result

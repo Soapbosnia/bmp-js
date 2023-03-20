@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_little_endian_int
+# bmp-js / Documentation / bmp_le_int
 ## Introduction
 
 ### Description
@@ -17,7 +17,7 @@ Returns: Little-endian (LE) bytes `(string)`
 
 ```js
 var integer = 32832;
-var result = bmp_little_endian_int(integer);
+var result = bmp_le_int(integer);
 console.log(bin2hex(result));
 // Output: 4080
 ```

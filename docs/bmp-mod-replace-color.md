@@ -21,11 +21,11 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_bytes = bmp_resource_request("docs/img/load/05.bmp");
-var bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_bytes);
+var bmp_resource_bytes = bmp_request("docs/img/load/05.bmp");
+var bmp_resource_1 = bmp_create_from_bytes(bmp_resource_bytes);
 
 // Spawn the (before) image into the container
-bmp_resource_spawn(bmp_resource_1, bmp_container);
+bmp_spawn(bmp_resource_1, bmp_container);
 
 // Replace colors
 bmp_resource_1 = bmp_mod_replace_color(bmp_resource_1,  28,  98, 183, 255,   0,   0);
@@ -35,7 +35,7 @@ bmp_resource_1 = bmp_mod_replace_color(bmp_resource_1, 255, 127,  39,   0, 255, 
 bmp_resource_1 = bmp_mod_replace_color(bmp_resource_1, 190,  92,  20, 192, 192, 192);
 
 // Spawn the (after) image into the container
-bmp_resource_spawn(bmp_resource_1, bmp_container);
+bmp_spawn(bmp_resource_1, bmp_container);
 ```
 
 ## Expected Result

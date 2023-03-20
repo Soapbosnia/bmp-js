@@ -15,15 +15,15 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_bytes = bmp_resource_request("docs/img/load/01.bmp");
-var bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_bytes);
+var bmp_resource_bytes = bmp_request("docs/img/load/01.bmp");
+var bmp_resource_1 = bmp_create_from_bytes(bmp_resource_bytes);
 
 // Convert bmp_resource_1 to 1-bit and store the new resource here
 var bmp_resource_2 = bmp_mod_color_1bit(bmp_resource_1);
 
 // Spawn the images into the container
-bmp_resource_spawn(bmp_resource_1, bmp_container);
-bmp_resource_spawn(bmp_resource_2, bmp_container);
+bmp_spawn(bmp_resource_1, bmp_container);
+bmp_spawn(bmp_resource_2, bmp_container);
 ```
 
 ## Expected Result

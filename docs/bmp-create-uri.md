@@ -15,7 +15,7 @@ Returns: `(string)`
 
 ```js
 // Create a resource
-var bmp_resource = bmp_resource_create(1, 1);
+var bmp_resource = bmp_create(1, 1);
 
 // Generate a URI
 var bmp_resource_uri = bmp_create_uri(bmp_resource);

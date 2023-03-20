@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_resource_filesize
+# bmp-js / Documentation / bmp_filesize
 
 ## Introduction
 
@@ -16,10 +16,10 @@ Returns: `(number)`
 
 ```js
 // Create a sample picture
-var bmp_resource = bmp_resource_create(64, 64);
+var bmp_resource = bmp_create(64, 64);
 
 // Get the size of this resource in bytes
-var bmp_resource_size = bmp_resource_filesize(bmp_resource);
+var bmp_resource_size = bmp_filesize(bmp_resource);
 
 // Print the size of this resource into the JavaScript console
 console.log(bmp_resource_size);

@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_resource_spawn
+# bmp-js / Documentation / bmp_spawn
 ## Introduction
 
 ### Description
@@ -48,7 +48,7 @@ var box_width    = Math.ceil(image_width / 5);
 var box_height   = image_height;
 
 // Create BMPJS resource
-var image = bmp_resource_create(image_width, image_height);
+var image = bmp_create(image_width, image_height);
 
 // Plot 5 rectangles spanning across the X axis
 bmp_plot_rect(image, box_width * 0, 0, box_width, box_height, 243,  79,  28);
@@ -58,7 +58,7 @@ bmp_plot_rect(image, box_width * 3, 0, box_width, box_height,   1, 166, 240);
 bmp_plot_rect(image, box_width * 4, 0, box_width, box_height, 116, 116, 116);
 
 // Spawn the image, storing the reference
-var image_reference = bmp_resource_spawn(image, container);
+var image_reference = bmp_spawn(image, container);
 image_reference.id = "img";
 
 // Append the container element to the body. The container may be appended

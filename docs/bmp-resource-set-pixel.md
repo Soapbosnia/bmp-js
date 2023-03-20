@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_resource_set_pixel
+# bmp-js / Documentation / bmp_set_pixel
 ## Introduction
 
 ### Description
@@ -20,14 +20,14 @@ Returns: true `(boolean)`
 
 ```js
 // Create a sample picture
-var bmp_resource = bmp_resource_create(10, 10);
+var bmp_resource = bmp_create(10, 10);
 
 // Place blue and red pixels at [2, 2] and [7, 7] coordinates
-bmp_resource_set_pixel(bmp_resource, 2, 2,   0, 255, 255);
-bmp_resource_set_pixel(bmp_resource, 7, 7, 255,   0,   0);
+bmp_set_pixel(bmp_resource, 2, 2,   0, 255, 255);
+bmp_set_pixel(bmp_resource, 7, 7, 255,   0,   0);
 
 // Spawn the image into the container
-bmp_resource_spawn(bmp_resource, bmp_container);
+bmp_spawn(bmp_resource, bmp_container);
 ```
 
 ## Expected Result (10x zoom)

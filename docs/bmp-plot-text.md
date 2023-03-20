@@ -26,24 +26,24 @@ Returns: true `(boolean)`
 
 ```js
 // Create image in which we'll plot text
-var bmp_resource = bmp_resource_create(292, 100);
+var bmp_resource = bmp_create(292, 100);
 
 // Plot a rectangle in which we'll position the text
 bmp_plot_rect(bmp_resource, 8, 8, 277, 84, 128, 128, 128);
 bmp_plot_rect(bmp_resource, 9, 9, 275, 82,  32,  32,  32);
 
 // Load font bitmaps
-var font_1 = bmp_resource_request("demo/images/font/5x8/0.bmp");
-    font_1 = bmp_resource_create_from_bytes(font_1);
+var font_1 = bmp_request("demo/images/font/5x8/0.bmp");
+    font_1 = bmp_create_from_bytes(font_1);
 
-var font_2 = bmp_resource_request("demo/images/font/6x14/0.bmp");
-    font_2 = bmp_resource_create_from_bytes(font_2);
+var font_2 = bmp_request("demo/images/font/6x14/0.bmp");
+    font_2 = bmp_create_from_bytes(font_2);
 
-var font_3 = bmp_resource_request("demo/images/font/7x14/0.bmp");
-    font_3 = bmp_resource_create_from_bytes(font_3);
+var font_3 = bmp_request("demo/images/font/7x14/0.bmp");
+    font_3 = bmp_create_from_bytes(font_3);
 
-var font_4 = bmp_resource_request("demo/images/font/8x16/0.bmp");
-    font_4 = bmp_resource_create_from_bytes(font_4);
+var font_4 = bmp_request("demo/images/font/8x16/0.bmp");
+    font_4 = bmp_create_from_bytes(font_4);
 
 // Acquire information about fonts, their width and height
 var font_1_props = bmp_mod_dissect_font(font_1);
@@ -122,7 +122,7 @@ y_offset += font_4_props[1];
 bmp_plot_text(bmp_resource, font_4, x_offset, y_offset, "Font: 8x16", true,   0,   0,   0, 255, 255, 255);
 
 // Spawn the image into the container
-bmp_resource_spawn(bmp_resource, bmp_container);
+bmp_spawn(bmp_resource, bmp_container);
 ```
 
 ## Expected Result

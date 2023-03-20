@@ -26,23 +26,23 @@ Returns: true `(boolean)`
 
 ```js
 // Create image in which we'll plot other images
-var bmp_resource_1 = bmp_resource_create(640, 480);
+var bmp_resource_1 = bmp_create(640, 480);
 
 // Load other images
-var bmp_resource_2 = bmp_resource_request("docs/img/load/06.bmp");
-    bmp_resource_2 = bmp_resource_create_from_bytes(bmp_resource_2);
+var bmp_resource_2 = bmp_request("docs/img/load/06.bmp");
+    bmp_resource_2 = bmp_create_from_bytes(bmp_resource_2);
 
-var bmp_resource_3 = bmp_resource_request("docs/img/load/07.bmp");
-    bmp_resource_3 = bmp_resource_create_from_bytes(bmp_resource_3);
+var bmp_resource_3 = bmp_request("docs/img/load/07.bmp");
+    bmp_resource_3 = bmp_create_from_bytes(bmp_resource_3);
 
-var bmp_resource_4 = bmp_resource_request("docs/img/load/08.bmp");
-    bmp_resource_4 = bmp_resource_create_from_bytes(bmp_resource_4);
+var bmp_resource_4 = bmp_request("docs/img/load/08.bmp");
+    bmp_resource_4 = bmp_create_from_bytes(bmp_resource_4);
 
-var bmp_resource_5 = bmp_resource_request("docs/img/load/10.bmp");
-    bmp_resource_5 = bmp_resource_create_from_bytes(bmp_resource_5);
+var bmp_resource_5 = bmp_request("docs/img/load/10.bmp");
+    bmp_resource_5 = bmp_create_from_bytes(bmp_resource_5);
 
-var bmp_resource_6 = bmp_resource_request("docs/img/load/11.bmp");
-    bmp_resource_6 = bmp_resource_create_from_bytes(bmp_resource_6);
+var bmp_resource_6 = bmp_request("docs/img/load/11.bmp");
+    bmp_resource_6 = bmp_create_from_bytes(bmp_resource_6);
 
 // Plot images
 bmp_plot_resource(bmp_resource_1, bmp_resource_2, 15, 30);
@@ -62,7 +62,7 @@ bmp_plot_resource(bmp_resource_1, bmp_resource_6, 130, 100, -1, -1, 0, 0);
 bmp_plot_resource(bmp_resource_1, bmp_resource_6, 130, 175, -1, -1, 0, 0, true, 0, 0, 0);
 
 // Spawn the image into the container
-bmp_resource_spawn(bmp_resource_1, bmp_container);
+bmp_spawn(bmp_resource_1, bmp_container);
 ```
 
 ## Expected Result

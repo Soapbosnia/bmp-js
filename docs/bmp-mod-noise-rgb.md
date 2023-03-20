@@ -16,8 +16,8 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_bytes = bmp_resource_request("docs/img/load/04.bmp");
-var bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_bytes);
+var bmp_resource_bytes = bmp_request("docs/img/load/04.bmp");
+var bmp_resource_1 = bmp_create_from_bytes(bmp_resource_bytes);
 
 // Add noise with ranges of: 0.25, 0.50, 0.75, 1.00
 var bmp_resource_2 = bmp_mod_noise_rgb(bmp_resource_1, 0.25);
@@ -26,10 +26,10 @@ var bmp_resource_4 = bmp_mod_noise_rgb(bmp_resource_1, 0.75);
 var bmp_resource_5 = bmp_mod_noise_rgb(bmp_resource_1, 1.00);
 
 // Spawn the images into the container
-bmp_resource_spawn(bmp_resource_2, bmp_container);
-bmp_resource_spawn(bmp_resource_3, bmp_container);
-bmp_resource_spawn(bmp_resource_4, bmp_container);
-bmp_resource_spawn(bmp_resource_5, bmp_container);
+bmp_spawn(bmp_resource_2, bmp_container);
+bmp_spawn(bmp_resource_3, bmp_container);
+bmp_spawn(bmp_resource_4, bmp_container);
+bmp_spawn(bmp_resource_5, bmp_container);
 ```
 
 ## Expected Result

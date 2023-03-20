@@ -16,12 +16,12 @@ Returns: `(uint8array)`
 
 ```js
 // Valid image
-var resource_valid   = bmp_resource_create(1, 1);
+var resource_valid   = bmp_create(1, 1);
 var resource_invalid = {};
 
-console.log(bmp_resource_valid(resource_valid));
+console.log(bmp_valid(resource_valid));
 // Output: true
 
-console.log(bmp_resource_valid(resource_invalid));
+console.log(bmp_valid(resource_invalid));
 // Output: false
 ```

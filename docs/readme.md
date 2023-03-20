@@ -37,7 +37,7 @@ Simply copy the source code provided below and paste it into a text editor, then
 
 <script>
     // Create a resource across 320 x 320 pixels.
-    var bmp_resource = bmp_resource_create(320, 320);
+    var bmp_resource = bmp_create(320, 320);
 
     // Clear the entire resource's background with a dark red color
     bmp_plot_clear(bmp_resource, 64, 0, 0);
@@ -46,7 +46,7 @@ Simply copy the source code provided below and paste it into a text editor, then
     bmp_plot_rect(bmp_resource, 0, 0, 160, 160, 192, 0, 0);
 
     // Spawn the resource inside the HTMLElement #bmp_container
-    bmp_resource_spawn(bmp_resource, bmp_container);
+    bmp_spawn(bmp_resource, bmp_container);
 </script>
 ```
 
@@ -62,7 +62,7 @@ Simply copy the source code provided below and paste it into a text editor, then
 
 <script>
     // Create a resource across 320 x 320 pixels.
-    var bmp_resource = bmp_resource_create(320, 320);
+    var bmp_resource = bmp_create(320, 320);
 
     // Clear the entire resource's background with a dark red color
     bmp_plot_clear(bmp_resource, 64, 0, 0);
@@ -71,7 +71,7 @@ Simply copy the source code provided below and paste it into a text editor, then
     bmp_plot_rect(bmp_resource, 0, 0, 160, 160, 192, 0, 0);
 
     // Spawn the resource inside the HTMLElement #bmp_container
-    bmp_resource_spawn(bmp_resource, bmp_container);
+    bmp_spawn(bmp_resource, bmp_container);
 </script>
 ```
 
@@ -81,26 +81,26 @@ Simply copy the source code provided below and paste it into a text editor, then
 
 ## Other documentations
 ### Core
-- [bmp_resource_bitmap_to_bytes](./bmp-resource-bitmap-to-bytes.md)
-- [bmp_resource_copy](./bmp-resource-copy.md)
-- [bmp_resource_create](./bmp-resource-create.md)
-- [bmp_resource_create_from_bytes](./bmp-resource-create-from-bytes.md)
-- [bmp_resource_download](./bmp-resource-download.md)
-- [bmp_resource_filesize](./bmp-resource-filesize.md)
+- [bmp_to_bytes](./bmp-resource-bitmap-to-bytes.md)
+- [bmp_copy](./bmp-resource-copy.md)
+- [bmp_create](./bmp-resource-create.md)
+- [bmp_create_from_bytes](./bmp-resource-create-from-bytes.md)
+- [bmp_save](./bmp-resource-download.md)
+- [bmp_filesize](./bmp-resource-filesize.md)
 - [bmp_resource_get_bitmap](./bmp-resource-get-bitmap.md)
 - [bmp_resource_get_size](./bmp-resource-get-size.md)
-- [bmp_resource_get_pixel](./bmp-resource-get-pixel.md)
-- [bmp_resource_replace](./bmp-resource-replace.md)
-- [bmp_resource_request](./bmp-resource-request.md)
-- [bmp_resource_set_pixel](./bmp-resource-set-pixel.md)
-- [bmp_resource_spawn](./bmp-resource-spawn.md)
-- [bmp_resource_valid](./bmp-resource-valid.md)
+- [bmp_get_pixel](./bmp-resource-get-pixel.md)
+- [bmp_replace](./bmp-resource-replace.md)
+- [bmp_request](./bmp-resource-request.md)
+- [bmp_set_pixel](./bmp-resource-set-pixel.md)
+- [bmp_spawn](./bmp-resource-spawn.md)
+- [bmp_valid](./bmp-resource-valid.md)
 
 - [bmp_create_array_pixel](./bmp-create-array-pixel.md)
 - [bmp_create_uri](./bmp-create-uri.md)
 
-- [bmp_little_endian_byte](./bmp-little-endian-byte.md)
-- [bmp_little_endian_int](./bmp-little-endian-int.md)
+- [bmp_le_byte](./bmp-little-endian-byte.md)
+- [bmp_le_int](./bmp-little-endian-int.md)
 
 ### Mods
 - [bmp_mod_apply_convolution_matrix](./bmp-mod-apply-convolution-matrix.md)

@@ -24,8 +24,8 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load image
-var bmp_resource = bmp_resource_request("docs/img/load/01.bmp");
-    bmp_resource = bmp_resource_create_from_bytes(bmp_resource);
+var bmp_resource = bmp_request("docs/img/load/01.bmp");
+    bmp_resource = bmp_create_from_bytes(bmp_resource);
 
 // Apply effects
 // Edge Detection #1
@@ -92,13 +92,13 @@ var bmp_resource_7 = bmp_mod_apply_convolution_matrix(
 );
 
 // Spawn images
-bmp_resource_spawn(bmp_resource,   bmp_container);
-bmp_resource_spawn(bmp_resource_2, bmp_container);
-bmp_resource_spawn(bmp_resource_3, bmp_container);
-bmp_resource_spawn(bmp_resource_4, bmp_container);
-bmp_resource_spawn(bmp_resource_5, bmp_container);
-bmp_resource_spawn(bmp_resource_6, bmp_container);
-bmp_resource_spawn(bmp_resource_7, bmp_container);
+bmp_spawn(bmp_resource,   bmp_container);
+bmp_spawn(bmp_resource_2, bmp_container);
+bmp_spawn(bmp_resource_3, bmp_container);
+bmp_spawn(bmp_resource_4, bmp_container);
+bmp_spawn(bmp_resource_5, bmp_container);
+bmp_spawn(bmp_resource_6, bmp_container);
+bmp_spawn(bmp_resource_7, bmp_container);
 ```
 
 ## Expected Result

@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_resource_create_from_bytes
+# bmp-js / Documentation / bmp_create_from_bytes
 
 ## Introduction
 
@@ -16,13 +16,13 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an image
-var bmp_resource_bytes = bmp_resource_request("docs/img/load/02.bmp");
+var bmp_resource_bytes = bmp_request("docs/img/load/02.bmp");
 
 // Convert the raw bytes to a BMP resource object
-var bmp_resource = bmp_resource_create_from_bytes(bmp_resource_bytes);
+var bmp_resource = bmp_create_from_bytes(bmp_resource_bytes);
 
 // Spawn the image into the container
-bmp_resource_spawn(bmp_resource, bmp_container);
+bmp_spawn(bmp_resource, bmp_container);
 ```
 
 ## Expected Result

@@ -21,7 +21,7 @@ Mode 2 overrides the returned resources' width and height by treating
 X2 and Y2 as the dimensions and not the 2nd point on the image.
 
 If the width or height exceed the boundary of the affectee resource
-then the value that bmp_resource_get_pixel() returns when out of bounds
+then the value that bmp_get_pixel() returns when out of bounds
 by default will be written to the copy resource.
 
 ### Parameters
@@ -39,16 +39,16 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_1_bytes = bmp_resource_request("docs/img/load/02.bmp");
-var bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_1_bytes);
+var bmp_resource_1_bytes = bmp_request("docs/img/load/02.bmp");
+var bmp_resource_1 = bmp_create_from_bytes(bmp_resource_1_bytes);
 
 // Crop image using mode 1 and 2
 var bmp_resource_2 = bmp_mod_crop(bmp_resource_1, 60, 60, 120, 120, 0); // Mode 1
 var bmp_resource_3 = bmp_mod_crop(bmp_resource_1, 60, 60, 120, 120, 1); // Mode 2
 
 // Spawn the images into the container
-bmp_resource_spawn(bmp_resource_2, bmp_container);
-bmp_resource_spawn(bmp_resource_3, bmp_container);
+bmp_spawn(bmp_resource_2, bmp_container);
+bmp_spawn(bmp_resource_3, bmp_container);
 ```
 
 ## Expected Result

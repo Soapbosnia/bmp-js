@@ -17,8 +17,8 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load image
-var bmp_resource = bmp_resource_request("docs/img/load/01.bmp");
-    bmp_resource = bmp_resource_create_from_bytes(bmp_resource);
+var bmp_resource = bmp_request("docs/img/load/01.bmp");
+    bmp_resource = bmp_create_from_bytes(bmp_resource);
 
 // Resize images
 var bmp_resource_2 = bmp_mod_resize(bmp_resource, 240, 240);
@@ -27,10 +27,10 @@ var bmp_resource_4 = bmp_mod_resize(bmp_resource, 200, 100);
 var bmp_resource_5 = bmp_mod_resize(bmp_resource,  50, 100);
 
 // Spawn images
-bmp_resource_spawn(bmp_resource_2, bmp_container);
-bmp_resource_spawn(bmp_resource_3, bmp_container);
-bmp_resource_spawn(bmp_resource_4, bmp_container);
-bmp_resource_spawn(bmp_resource_5, bmp_container);
+bmp_spawn(bmp_resource_2, bmp_container);
+bmp_spawn(bmp_resource_3, bmp_container);
+bmp_spawn(bmp_resource_4, bmp_container);
+bmp_spawn(bmp_resource_5, bmp_container);
 ```
 
 ## Expected Result

@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_resource_download
+# bmp-js / Documentation / bmp_save
 
 ## Introduction
 
@@ -17,7 +17,7 @@ Returns: false | true `(boolean)`
 
 ```js
 // Create a sample picture
-var bmp_resource = bmp_resource_create(64, 64);
+var bmp_resource = bmp_create(64, 64);
 
 // Plot rectangles with various colors
 bmp_plot_rect(bmp_resource,  0,  0, 32, 32, 192,   0,   0);
@@ -26,7 +26,7 @@ bmp_plot_rect(bmp_resource, 32, 32, 32, 32, 192, 192, 192);
 bmp_plot_rect(bmp_resource, 32,  0, 32, 32,   0, 192, 192);
 
 // Download the resource
-bmp_resource_download(bmp_resource, "my-image.bmp");
+bmp_save(bmp_resource, "my-image.bmp");
 ```
 
 ## Expected Result

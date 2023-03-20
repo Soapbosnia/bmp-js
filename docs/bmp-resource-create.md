@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_resource_create
+# bmp-js / Documentation / bmp_create
 
 ## Introduction
 
@@ -17,10 +17,10 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Create a 128 x 64 image
-var bmp_resource = bmp_resource_create(128, 64);
+var bmp_resource = bmp_create(128, 64);
 
 // Spawn the image into the container
-bmp_resource_spawn(bmp_resource, bmp_container);
+bmp_spawn(bmp_resource, bmp_container);
 ```
 
 ## Expected Result

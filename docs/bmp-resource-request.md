@@ -1,4 +1,4 @@
-# bmp-js / Documentation / bmp_resource_request
+# bmp-js / Documentation / bmp_request
 
 ## Introduction
 
@@ -16,28 +16,28 @@ Returns: false | null | string `(boolean|null|string)`
 
 ### Notes
 
-Before spawning the requested resource, once it has loaded, the resource must be created using the [`bmp_resource_create_from_bytes()`](./bmp-resource-create-from-bytes.md) function.
+Before spawning the requested resource, once it has loaded, the resource must be created using the [`bmp_create_from_bytes()`](./bmp-resource-create-from-bytes.md) function.
 
 ## Code examples
 
 ```js
 // Load 4 images
-var bmp_resource_1 = bmp_resource_request("docs/img/load/01.bmp");
-var bmp_resource_2 = bmp_resource_request("docs/img/load/02.bmp");
-var bmp_resource_3 = bmp_resource_request("docs/img/load/03.bmp");
-var bmp_resource_4 = bmp_resource_request("docs/img/load/04.bmp");
+var bmp_resource_1 = bmp_request("docs/img/load/01.bmp");
+var bmp_resource_2 = bmp_request("docs/img/load/02.bmp");
+var bmp_resource_3 = bmp_request("docs/img/load/03.bmp");
+var bmp_resource_4 = bmp_request("docs/img/load/04.bmp");
 
 // Create BMP resources from bytes
-bmp_resource_1 = bmp_resource_create_from_bytes(bmp_resource_1);
-bmp_resource_2 = bmp_resource_create_from_bytes(bmp_resource_2);
-bmp_resource_3 = bmp_resource_create_from_bytes(bmp_resource_3);
-bmp_resource_4 = bmp_resource_create_from_bytes(bmp_resource_4);
+bmp_resource_1 = bmp_create_from_bytes(bmp_resource_1);
+bmp_resource_2 = bmp_create_from_bytes(bmp_resource_2);
+bmp_resource_3 = bmp_create_from_bytes(bmp_resource_3);
+bmp_resource_4 = bmp_create_from_bytes(bmp_resource_4);
 
 // Spawn the images into the container
-bmp_resource_spawn(bmp_resource_4, bmp_container);
-bmp_resource_spawn(bmp_resource_3, bmp_container);
-bmp_resource_spawn(bmp_resource_2, bmp_container);
-bmp_resource_spawn(bmp_resource_1, bmp_container);
+bmp_spawn(bmp_resource_4, bmp_container);
+bmp_spawn(bmp_resource_3, bmp_container);
+bmp_spawn(bmp_resource_2, bmp_container);
+bmp_spawn(bmp_resource_1, bmp_container);
 ```
 
 ## Expected Result
