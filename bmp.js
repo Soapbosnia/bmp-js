@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-20 12:50 AM
+// Updated: 2023-03-20 01:16 PM
 //
 
 //
@@ -14,11 +14,14 @@
 //
 // - Each bitmap resource treats the image as having 8 bits per color channel,
 //   If an image is 1-bit, 8-bit or 16-bit, all values are automagically treated
-//   as 24-bit (R8 G8 B8), however this might change.
+//   as 32-bit (R8 G8 B8 A8).
 //
 // - Each bitmap file has a thing called "padding", it's where each RGB byte
-//   is padded with null bytes to make sure rows fit in 32-bits of memory.
-//   The computer can operate faster on even values.
+//   is padded with null bytes on each end of the stride to make sure rows fit
+//   in 32-bits of memory. The computer can operate faster on even values.
+//
+// - Ongoing work is being made to bring support to more bit depths other than
+//   24 and 32-bit. We wanna have bit depths ranging from 16, 8, 4, 2 and 1.
 //
 
 //
@@ -281,7 +284,8 @@ function bmp_create(width, height, canvas = false) {
         padding:     padding,
         filesize:    width * height * 4 + (height * padding) + 54,
         bpp:         4,
-        canvas:      canvas
+        canvas:      canvas,
+        reference:   null
     };
 }
 
@@ -521,8 +525,9 @@ function bmp_create_uri(resource) {
 }
 
 /**
- * Creates an `img` element that is appended to the `target`.\
- * The image element src is set to the output of `bmp_create_uri(resource)`
+ * Creates an `img` or 'canvas' element that is appended to the `target`.\
+ * The Image element src is set to the output of `bmp_create_uri(resource)'\
+ * or else `bmp_to_canvas(canvas, resource)` in case of a Canvas element.
  *
  * @param resource BMPJS Resource
  * @param target   HTMLElement in which the image will be appended to
@@ -535,7 +540,7 @@ function bmp_spawn(resource, target = null) {
     if (target == null)
         return false;
 
-    // If canvas is true then spawn a canvas element instead of an image
+    // If canvas is true then spawn a canvas element
     if (resource.canvas) {
         var canvas = document.createElement("canvas");
         canvas.context = canvas.getContext("2d");
@@ -546,6 +551,7 @@ function bmp_spawn(resource, target = null) {
 
         // Write image to the canvas
         bmp_to_canvas(canvas, resource);
+        resource.reference = canvas;
 
         // Return reference to the canvas element
         return canvas;
@@ -555,6 +561,7 @@ function bmp_spawn(resource, target = null) {
     image.src = bmp_create_uri(resource);
 
     target.appendChild(image);
+    resource.reference = image;
 
     // Return reference to the image element
     return image;
@@ -785,12 +792,32 @@ function bmp_copy(resource) {
  * @param filename Name of the downloaded file (default: download.bmp)
  * @return         false | true
  */
-function bmp_save(resource, filename = "download.bmp") {
+function bmp_save(resource, filename = "download.") {
     if (!bmp_valid(resource))
         return false;
 
-    var anchor      = document.createElement('a');
-    anchor.href     = bmp_create_uri(resource);
+    var anchor = document.createElement('a');
+
+    // NOTE(oxou):
+    // We have to do this because when we spawn a resource with the 'canvas'
+    // flag set to true, the RGBA mapping differs drastically.  There could be
+    // a way to modify bmp_create_uri() itself so that it correctly remaps the
+    // bytes in a different order that's specific to the BMP format, but for now
+    // I'm going this route.  This may change in the future as I think this is
+    // too much bloat.  But going the opposite route may also introduce speed
+    // and overall performance slowdowns.  Remapping those values shouldn't be
+    // hard but I don't wanna waste time trying right now.
+    //                                                     - 2023-03-20 01:13 PM
+    if (!!resource.canvas && resource.reference instanceof HTMLCanvasElement) {
+        anchor.href = resource.reference
+                              .toDataURL("image/png")
+                              .replace("image/png", "image/octet-stream");
+    } else {
+        anchor.href = bmp_create_uri(resource);
+    }
+
+    filename += resource.canvas ? "png" : "bmp";
+
     anchor.download = filename;
     anchor.style    = "display:none";
     document.body.appendChild(anchor);
