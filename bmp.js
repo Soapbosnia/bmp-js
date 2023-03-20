@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-20 01:48 PM
+// Updated: 2023-03-20 02:23 PM
 //
 
 //
@@ -571,7 +571,7 @@ function bmp_spawn(resource, target = null) {
  * Replace the `resource` in the `target` element by creating a new one
  *
  * @param target   Value pointing to a previous reference returned by
- *                 bmp_resource_spawn()
+ *                 bmp_spawn()
  * @param resource BMPJS Resource
  * @return         false | true
  */
@@ -840,7 +840,7 @@ function bmp_save(resource, filename = "download.") {
  * called in scripts.
  *
  * @param canvas   Value pointing to a previous reference returned by
- *                 bmp_resource_spawn() that is an instance of HTMLCanvasElement
+ *                 bmp_spawn() that is an instance of HTMLCanvasElement
  * @param resource BMPJS Resource
  * @return         false | true
  */
