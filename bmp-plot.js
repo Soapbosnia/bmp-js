@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2023-03-19 05:02 PM
+// Updated: 2023-03-20 01:43 AM
 //
 
 /**
@@ -24,6 +24,7 @@
  * @param r        Color channel Red
  * @param g        Color channel Green
  * @param b        Color channel Blue
+ * @param fill     Fill the area with color
  * @return         true
  */
 function bmp_plot_rect(
@@ -34,13 +35,31 @@ function bmp_plot_rect(
     h = 10,
     r = 255,
     g = 255,
-    b = 255
+    b = 255,
+    fill = false
 ) {
-    for (let y2 = y; y2 < h + y; y2++)
-        for (let x2 = x; x2 < w + x; x2++)
-            if (resource.width  > x2 &&
-                resource.height > y2)
-                bmp_set_pixel(resource, x2, y2, r, g, b);
+    if (fill) {
+        for (let y2 = y; y2 < h + y; y2++)
+            for (let x2 = x; x2 < w + x; x2++)
+                if (resource.width  > x2 &&
+                    resource.height > y2)
+                    bmp_set_pixel(resource, x2, y2, r, g, b);
+    } else {
+        var x2 = w + x;
+        var y2 = h + y;
+
+        // top
+        bmp_plot_line(resource, x, y, x2 - 1, y, r, g, b);
+
+        // left
+        bmp_plot_line(resource, x, y, x, y2, r, g, b);
+
+        // bottom
+        bmp_plot_line(resource, x, y2 - 1, x2 - 1, y2 - 1, r, g, b);
+
+        // right
+        bmp_plot_line(resource, x2 - 1, y, x2 - 1, y2, r, g, b);
+    }
 
     return true;
 }
@@ -60,7 +79,6 @@ function bmp_plot_clear(
     g = 0,
     b = 0
 ) {
-    // Default
     for (let y = 0; y < resource.height; y++)
         for (let x = 0; x < resource.width; x++)
             bmp_set_pixel(resource, x, y, r, g, b);
@@ -329,7 +347,7 @@ function bmp_plot_text(
  * @param g        Color channel Green
  * @param b        Color channel Blue
  * @param p        Precision of line (clamped from 0.1 to 2) (ignored on fill)
- * @param fill     Fill the circle with color
+ * @param fill     Fill the area with color
  * @param center   Treat X and Y as the center point of the circle
  * @param angles   Across what angle to plot the circle (default: 360)
  * @return         true
