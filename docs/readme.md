@@ -81,26 +81,26 @@ Simply copy the source code provided below and paste it into a text editor, then
 
 ## Other documentations
 ### Core
-- [bmp_to_bytes](./bmp-resource-bitmap-to-bytes.md)
-- [bmp_copy](./bmp-resource-copy.md)
-- [bmp_create](./bmp-resource-create.md)
-- [bmp_create_from_bytes](./bmp-resource-create-from-bytes.md)
-- [bmp_save](./bmp-resource-download.md)
-- [bmp_filesize](./bmp-resource-filesize.md)
-- [resource_get_bitmap](./bmp-resource-get-bitmap.md)
-- [resource_get_size](./bmp-resource-get-size.md)
-- [bmp_get_pixel](./bmp-resource-get-pixel.md)
-- [bmp_replace](./bmp-resource-replace.md)
-- [bmp_request](./bmp-resource-request.md)
-- [bmp_set_pixel](./bmp-resource-set-pixel.md)
-- [bmp_spawn](./bmp-resource-spawn.md)
-- [bmp_valid](./bmp-resource-valid.md)
+- [bmp_to_bytes](./bmp-to-bytes.md)
+- [bmp_copy](./bmp-copy.md)
+- [bmp_create](./bmp-create.md)
+- [bmp_from_raw](./bmp-from-raw.md)
+- [bmp_save](./bmp-save.md)
+- [bmp_filesize](./bmp-filesize.md)
+- [bmp_get_pixels](./bmp-get-pixels.md)
+- [bmp_size](./bmp-size.md)
+- [bmp_get_pixel](./bmp-get-pixel.md)
+- [bmp_replace](./bmp-replace.md)
+- [bmp_request](./bmp-request.md)
+- [bmp_set_pixel](./bmp-set-pixel.md)
+- [bmp_spawn](./bmp-spawn.md)
+- [bmp_valid](./bmp-valid.md)
 
-- [bmp_create_array_pixel](./bmp-create-array-pixel.md)
+- [bmp_create_pixels](./bmp-create-pixels.md)
 - [bmp_create_uri](./bmp-create-uri.md)
 
-- [bmp_le_byte](./bmp-little-endian-byte.md)
-- [bmp_le_int](./bmp-little-endian-int.md)
+- [bmp_le_byte](./bmp-le-byte.md)
+- [bmp_le_int](./bmp-le-int.md)
 
 ### Mods
 - [bmp_mod_apply_convolution_matrix](./bmp-mod-apply-convolution-matrix.md)
