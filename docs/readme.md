@@ -22,9 +22,9 @@ For the sake of ease-of-use and simplicity we will be taking the `Remote` approa
 
 - You can name the file anything as long as it ends with `.htm` or `.html`.
 
-- All code examples will use `bmp_container` to spawn images into, your code can specify a different variable name or an ID, `bmp_container` is just an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which we write image elements into.
+- All code examples will use `container` to spawn images into, your code can specify a different variable name or an ID, `container` is just an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which we write image elements into.
 
-- If the `bmp_container` variable is undefined, you can create it by spawning a HTMLElement node with the ID of `bmp_container` or adding `<div id="bmp_container"></div>` to your HTML code.
+- If the `container` variable is undefined, you can create it by spawning a HTMLElement node with the ID of `container` or adding `<div id="container"></div>` to your HTML code.
 
 ### Setting up (remote)
 
@@ -33,20 +33,20 @@ Simply copy the source code provided below and paste it into a text editor, then
 ```html
 <script src="https://cdn.jsdelivr.net/gh/oxou/bmp-js/bmp.min.js"></script>
 
-<div id="bmp_container"></div>
+<div id="container"></div>
 
 <script>
     // Create a resource across 320 x 320 pixels.
-    var bmp_resource = bmp_create(320, 320);
+    var resource = bmp_create(320, 320);
 
     // Clear the entire resource's background with a dark red color
-    bmp_plot_clear(bmp_resource, 64, 0, 0);
+    bmp_plot_clear(resource, 64, 0, 0);
 
     // Plot a rectangle at 0,0 with dimensions of 160,160
-    bmp_plot_rect(bmp_resource, 0, 0, 160, 160, 192, 0, 0);
+    bmp_plot_rect(resource, 0, 0, 160, 160, 192, 0, 0);
 
-    // Spawn the resource inside the HTMLElement #bmp_container
-    bmp_spawn(bmp_resource, bmp_container);
+    // Spawn the resource inside the HTMLElement #container
+    bmp_spawn(resource, container);
 </script>
 ```
 
@@ -58,20 +58,20 @@ Simply copy the source code provided below and paste it into a text editor, then
 <script src="./bmp-plot.js"></script>
 <script src="./bmp-mods.js"></script>
 
-<div id="bmp_container"></div>
+<div id="container"></div>
 
 <script>
     // Create a resource across 320 x 320 pixels.
-    var bmp_resource = bmp_create(320, 320);
+    var resource = bmp_create(320, 320);
 
     // Clear the entire resource's background with a dark red color
-    bmp_plot_clear(bmp_resource, 64, 0, 0);
+    bmp_plot_clear(resource, 64, 0, 0);
 
     // Plot a rectangle at 0,0 with dimensions of 160,160
-    bmp_plot_rect(bmp_resource, 0, 0, 160, 160, 192, 0, 0);
+    bmp_plot_rect(resource, 0, 0, 160, 160, 192, 0, 0);
 
-    // Spawn the resource inside the HTMLElement #bmp_container
-    bmp_spawn(bmp_resource, bmp_container);
+    // Spawn the resource inside the HTMLElement #container
+    bmp_spawn(resource, container);
 </script>
 ```
 
@@ -87,8 +87,8 @@ Simply copy the source code provided below and paste it into a text editor, then
 - [bmp_create_from_bytes](./bmp-resource-create-from-bytes.md)
 - [bmp_save](./bmp-resource-download.md)
 - [bmp_filesize](./bmp-resource-filesize.md)
-- [bmp_resource_get_bitmap](./bmp-resource-get-bitmap.md)
-- [bmp_resource_get_size](./bmp-resource-get-size.md)
+- [resource_get_bitmap](./bmp-resource-get-bitmap.md)
+- [resource_get_size](./bmp-resource-get-size.md)
 - [bmp_get_pixel](./bmp-resource-get-pixel.md)
 - [bmp_replace](./bmp-resource-replace.md)
 - [bmp_request](./bmp-resource-request.md)

@@ -15,12 +15,12 @@ Returns: `(string)`
 
 ```js
 // Create a resource
-var bmp_resource = bmp_create(1, 1);
+var resource = bmp_create(1, 1);
 
 // Generate a URI
-var bmp_resource_uri = bmp_create_uri(bmp_resource);
+var resource_uri = bmp_create_uri(resource);
 
 // Print URI
-console.log(bmp_resource_uri);
+console.log(resource_uri);
 // Output: blob:{protocol}://{hostname}/{guid}
 ```

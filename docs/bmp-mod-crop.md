@@ -39,16 +39,16 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_1_bytes = bmp_request("docs/img/load/02.bmp");
-var bmp_resource_1 = bmp_create_from_bytes(bmp_resource_1_bytes);
+var resource_1_bytes = bmp_request("docs/img/load/02.bmp");
+var resource_1 = bmp_create_from_bytes(resource_1_bytes);
 
 // Crop image using mode 1 and 2
-var bmp_resource_2 = bmp_mod_crop(bmp_resource_1, 60, 60, 120, 120, 0); // Mode 1
-var bmp_resource_3 = bmp_mod_crop(bmp_resource_1, 60, 60, 120, 120, 1); // Mode 2
+var resource_2 = bmp_mod_crop(resource_1, 60, 60, 120, 120, 0); // Mode 1
+var resource_3 = bmp_mod_crop(resource_1, 60, 60, 120, 120, 1); // Mode 2
 
 // Spawn the images into the container
-bmp_spawn(bmp_resource_2, bmp_container);
-bmp_spawn(bmp_resource_3, bmp_container);
+bmp_spawn(resource_2, container);
+bmp_spawn(resource_3, container);
 ```
 
 ## Expected Result

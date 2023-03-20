@@ -23,16 +23,16 @@ Returns: true `(boolean)`
 
 ```js
 // Load image
-var bmp_resource = bmp_create(320, 320);
+var resource = bmp_create(320, 320);
 
 // Draw shapes
-bmp_plot_triangle(bmp_resource,  20,  20,   40,  40, 128, 128,   0, 2.00);
-bmp_plot_triangle(bmp_resource,  80,  80,   40,  40, 255,   0,   0, 1.00);
-bmp_plot_triangle(bmp_resource, 140, 180,   80, 120, 128,  64, 192, 0.50);
-bmp_plot_triangle(bmp_resource, 180,  70,  100, 100, 255, 255,   0, 0.25);
+bmp_plot_triangle(resource,  20,  20,   40,  40, 128, 128,   0, 2.00);
+bmp_plot_triangle(resource,  80,  80,   40,  40, 255,   0,   0, 1.00);
+bmp_plot_triangle(resource, 140, 180,   80, 120, 128,  64, 192, 0.50);
+bmp_plot_triangle(resource, 180,  70,  100, 100, 255, 255,   0, 0.25);
 
 // Spawn images
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 ```
 
 ## Expected Result

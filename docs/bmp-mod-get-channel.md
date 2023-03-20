@@ -16,18 +16,18 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_bytes = bmp_request("docs/img/load/03.bmp");
-var bmp_resource = bmp_create_from_bytes(bmp_resource_bytes);
+var resource_bytes = bmp_request("docs/img/load/03.bmp");
+var resource = bmp_create_from_bytes(resource_bytes);
 
 // Extract all 3 channels
-var bmp_resource_r = bmp_mod_get_channel(bmp_resource, 0);
-var bmp_resource_g = bmp_mod_get_channel(bmp_resource, 1);
-var bmp_resource_b = bmp_mod_get_channel(bmp_resource, 2);
+var resource_r = bmp_mod_get_channel(resource, 0);
+var resource_g = bmp_mod_get_channel(resource, 1);
+var resource_b = bmp_mod_get_channel(resource, 2);
 
 // Spawn the images into the container
-bmp_spawn(bmp_resource_r, bmp_container);
-bmp_spawn(bmp_resource_g, bmp_container);
-bmp_spawn(bmp_resource_b, bmp_container);
+bmp_spawn(resource_r, container);
+bmp_spawn(resource_g, container);
+bmp_spawn(resource_b, container);
 ```
 
 ## Expected Result

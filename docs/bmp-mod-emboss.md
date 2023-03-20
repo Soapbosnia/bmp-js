@@ -15,15 +15,15 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load image
-var bmp_resource = bmp_request("docs/img/load/01.bmp");
-    bmp_resource = bmp_create_from_bytes(bmp_resource);
+var resource = bmp_request("docs/img/load/01.bmp");
+    resource = bmp_create_from_bytes(resource);
 
 // Emboss
-var bmp_resource_2 = bmp_mod_emboss(bmp_resource, 0);
+var resource_2 = bmp_mod_emboss(resource, 0);
 
 // Spawn images
-bmp_spawn(bmp_resource,   bmp_container);
-bmp_spawn(bmp_resource_2, bmp_container);
+bmp_spawn(resource,   container);
+bmp_spawn(resource_2, container);
 ```
 
 ## Expected Result

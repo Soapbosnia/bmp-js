@@ -26,11 +26,11 @@ Returns: true `(boolean)`
 
 ```js
 // Create image in which we'll plot text
-var bmp_resource = bmp_create(292, 100);
+var resource = bmp_create(292, 100);
 
 // Plot a rectangle in which we'll position the text
-bmp_plot_rect(bmp_resource, 8, 8, 277, 84, 128, 128, 128);
-bmp_plot_rect(bmp_resource, 9, 9, 275, 82,  32,  32,  32);
+bmp_plot_rect(resource, 8, 8, 277, 84, 128, 128, 128);
+bmp_plot_rect(resource, 9, 9, 275, 82,  32,  32,  32);
 
 // Load font bitmaps
 var font_1 = bmp_request("demo/images/font/5x8/0.bmp");
@@ -56,73 +56,73 @@ var x_offset = 10;
 var y_offset = 10;
 
 // Plot text (font_1)
-bmp_plot_text(bmp_resource, font_1, x_offset, y_offset, "Font: 5x8");
+bmp_plot_text(resource, font_1, x_offset, y_offset, "Font: 5x8");
 y_offset += font_1_props[1];
 
-bmp_plot_text(bmp_resource, font_1, x_offset, y_offset, "Font: 5x8", true, 255, 255, 255, 128,   0,   0);
+bmp_plot_text(resource, font_1, x_offset, y_offset, "Font: 5x8", true, 255, 255, 255, 128,   0,   0);
 y_offset += font_1_props[1];
 
-bmp_plot_text(bmp_resource, font_1, x_offset, y_offset, "Font: 5x8", true, 255, 255, 255,   0, 128,   0);
+bmp_plot_text(resource, font_1, x_offset, y_offset, "Font: 5x8", true, 255, 255, 255,   0, 128,   0);
 y_offset += font_1_props[1];
 
-bmp_plot_text(bmp_resource, font_1, x_offset, y_offset, "Font: 5x8", true, 255, 255, 255,   0,   0, 128);
+bmp_plot_text(resource, font_1, x_offset, y_offset, "Font: 5x8", true, 255, 255, 255,   0,   0, 128);
 y_offset += font_1_props[1];
 
-bmp_plot_text(bmp_resource, font_1, x_offset, y_offset, "Font: 5x8", true,   0,   0,   0, 255, 255, 255);
+bmp_plot_text(resource, font_1, x_offset, y_offset, "Font: 5x8", true,   0,   0,   0, 255, 255, 255);
 x_offset += font_1_props[0] * ("Font: 5x8").length + font_1_props[0];
 y_offset = 10;
 
 // Plot text (font_2)
-bmp_plot_text(bmp_resource, font_2, x_offset, y_offset, "Font: 6x14");
+bmp_plot_text(resource, font_2, x_offset, y_offset, "Font: 6x14");
 y_offset += font_2_props[1];
 
-bmp_plot_text(bmp_resource, font_2, x_offset, y_offset, "Font: 6x14", true, 255, 255, 255, 128,   0,   0);
+bmp_plot_text(resource, font_2, x_offset, y_offset, "Font: 6x14", true, 255, 255, 255, 128,   0,   0);
 y_offset += font_2_props[1];
 
-bmp_plot_text(bmp_resource, font_2, x_offset, y_offset, "Font: 6x14", true, 255, 255, 255,   0, 128,   0);
+bmp_plot_text(resource, font_2, x_offset, y_offset, "Font: 6x14", true, 255, 255, 255,   0, 128,   0);
 y_offset += font_2_props[1];
 
-bmp_plot_text(bmp_resource, font_2, x_offset, y_offset, "Font: 6x14", true, 255, 255, 255,   0,   0, 128);
+bmp_plot_text(resource, font_2, x_offset, y_offset, "Font: 6x14", true, 255, 255, 255,   0,   0, 128);
 y_offset += font_2_props[1];
 
-bmp_plot_text(bmp_resource, font_2, x_offset, y_offset, "Font: 6x14", true,   0,   0,   0, 255, 255, 255);
+bmp_plot_text(resource, font_2, x_offset, y_offset, "Font: 6x14", true,   0,   0,   0, 255, 255, 255);
 x_offset += font_2_props[0] * ("Font: 6x14").length + font_2_props[0];
 y_offset = 10;
 
 // Plot text (font_3)
-bmp_plot_text(bmp_resource, font_3, x_offset, y_offset, "Font: 7x14");
+bmp_plot_text(resource, font_3, x_offset, y_offset, "Font: 7x14");
 y_offset += font_3_props[1];
 
-bmp_plot_text(bmp_resource, font_3, x_offset, y_offset, "Font: 7x14", true, 255, 255, 255, 128,   0,   0);
+bmp_plot_text(resource, font_3, x_offset, y_offset, "Font: 7x14", true, 255, 255, 255, 128,   0,   0);
 y_offset += font_3_props[1];
 
-bmp_plot_text(bmp_resource, font_3, x_offset, y_offset, "Font: 7x14", true, 255, 255, 255,   0, 128,   0);
+bmp_plot_text(resource, font_3, x_offset, y_offset, "Font: 7x14", true, 255, 255, 255,   0, 128,   0);
 y_offset += font_3_props[1];
 
-bmp_plot_text(bmp_resource, font_3, x_offset, y_offset, "Font: 7x14", true, 255, 255, 255,   0,   0, 128);
+bmp_plot_text(resource, font_3, x_offset, y_offset, "Font: 7x14", true, 255, 255, 255,   0,   0, 128);
 y_offset += font_3_props[1];
 
-bmp_plot_text(bmp_resource, font_3, x_offset, y_offset, "Font: 7x14", true,   0,   0,   0, 255, 255, 255);
+bmp_plot_text(resource, font_3, x_offset, y_offset, "Font: 7x14", true,   0,   0,   0, 255, 255, 255);
 x_offset += font_3_props[0] * ("Font: 7x14").length + font_3_props[0];
 y_offset = 10;
 
 // Plot text (font_4)
-bmp_plot_text(bmp_resource, font_4, x_offset, y_offset, "Font: 8x16");
+bmp_plot_text(resource, font_4, x_offset, y_offset, "Font: 8x16");
 y_offset += font_4_props[1];
 
-bmp_plot_text(bmp_resource, font_4, x_offset, y_offset, "Font: 8x16", true, 255, 255, 255, 128,   0,   0);
+bmp_plot_text(resource, font_4, x_offset, y_offset, "Font: 8x16", true, 255, 255, 255, 128,   0,   0);
 y_offset += font_4_props[1];
 
-bmp_plot_text(bmp_resource, font_4, x_offset, y_offset, "Font: 8x16", true, 255, 255, 255,   0, 128,   0);
+bmp_plot_text(resource, font_4, x_offset, y_offset, "Font: 8x16", true, 255, 255, 255,   0, 128,   0);
 y_offset += font_4_props[1];
 
-bmp_plot_text(bmp_resource, font_4, x_offset, y_offset, "Font: 8x16", true, 255, 255, 255,   0,   0, 128);
+bmp_plot_text(resource, font_4, x_offset, y_offset, "Font: 8x16", true, 255, 255, 255,   0,   0, 128);
 y_offset += font_4_props[1];
 
-bmp_plot_text(bmp_resource, font_4, x_offset, y_offset, "Font: 8x16", true,   0,   0,   0, 255, 255, 255);
+bmp_plot_text(resource, font_4, x_offset, y_offset, "Font: 8x16", true,   0,   0,   0, 255, 255, 255);
 
 // Spawn the image into the container
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 ```
 
 ## Expected Result

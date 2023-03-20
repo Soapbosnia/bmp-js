@@ -20,14 +20,14 @@ Returns: true `(boolean)`
 
 ```js
 // Create a sample picture
-var bmp_resource = bmp_create(10, 10);
+var resource = bmp_create(10, 10);
 
 // Place blue and red pixels at [2, 2] and [7, 7] coordinates
-bmp_set_pixel(bmp_resource, 2, 2,   0, 255, 255);
-bmp_set_pixel(bmp_resource, 7, 7, 255,   0,   0);
+bmp_set_pixel(resource, 2, 2,   0, 255, 255);
+bmp_set_pixel(resource, 7, 7, 255,   0,   0);
 
 // Spawn the image into the container
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 ```
 
 ## Expected Result (10x zoom)

@@ -21,21 +21,21 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_bytes = bmp_request("docs/img/load/05.bmp");
-var bmp_resource_1 = bmp_create_from_bytes(bmp_resource_bytes);
+var resource_bytes = bmp_request("docs/img/load/05.bmp");
+var resource_1 = bmp_create_from_bytes(resource_bytes);
 
 // Spawn the (before) image into the container
-bmp_spawn(bmp_resource_1, bmp_container);
+bmp_spawn(resource_1, container);
 
 // Replace colors
-bmp_resource_1 = bmp_mod_replace_color(bmp_resource_1,  28,  98, 183, 255,   0,   0);
-bmp_resource_1 = bmp_mod_replace_color(bmp_resource_1, 192,   0,   0,   0, 255,   0);
-bmp_resource_1 = bmp_mod_replace_color(bmp_resource_1,  23, 217, 211,   0,   0, 255);
-bmp_resource_1 = bmp_mod_replace_color(bmp_resource_1, 255, 127,  39,   0, 255, 255);
-bmp_resource_1 = bmp_mod_replace_color(bmp_resource_1, 190,  92,  20, 192, 192, 192);
+resource_1 = bmp_mod_replace_color(resource_1,  28,  98, 183, 255,   0,   0);
+resource_1 = bmp_mod_replace_color(resource_1, 192,   0,   0,   0, 255,   0);
+resource_1 = bmp_mod_replace_color(resource_1,  23, 217, 211,   0,   0, 255);
+resource_1 = bmp_mod_replace_color(resource_1, 255, 127,  39,   0, 255, 255);
+resource_1 = bmp_mod_replace_color(resource_1, 190,  92,  20, 192, 192, 192);
 
 // Spawn the (after) image into the container
-bmp_spawn(bmp_resource_1, bmp_container);
+bmp_spawn(resource_1, container);
 ```
 
 ## Expected Result

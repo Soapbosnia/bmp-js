@@ -18,25 +18,25 @@ Returns: true `(boolean)`
 
 ```js
 // Create image
-var bmp_resource = bmp_create(32, 32);
+var resource = bmp_create(32, 32);
 
 // Spawn the image into the container after each clear operation
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 
-bmp_plot_clear(bmp_resource, 192, 192, 192);
-bmp_spawn(bmp_resource, bmp_container);
+bmp_plot_clear(resource, 192, 192, 192);
+bmp_spawn(resource, container);
 
-bmp_plot_clear(bmp_resource, 255, 192,  64);
-bmp_spawn(bmp_resource, bmp_container);
+bmp_plot_clear(resource, 255, 192,  64);
+bmp_spawn(resource, container);
 
-bmp_plot_clear(bmp_resource,  64, 128,   0);
-bmp_spawn(bmp_resource, bmp_container);
+bmp_plot_clear(resource,  64, 128,   0);
+bmp_spawn(resource, container);
 
-bmp_plot_clear(bmp_resource,   0,  64,  24);
-bmp_spawn(bmp_resource, bmp_container);
+bmp_plot_clear(resource,   0,  64,  24);
+bmp_spawn(resource, container);
 
-bmp_plot_clear(bmp_resource, 128,   0, 128);
-bmp_spawn(bmp_resource, bmp_container);
+bmp_plot_clear(resource, 128,   0, 128);
+bmp_spawn(resource, container);
 ```
 
 ## Expected Result

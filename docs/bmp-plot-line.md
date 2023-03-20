@@ -36,11 +36,11 @@ var scale_width = image_width / image_width_original;
 var scale_height = image_height / image_height_original;
 
 // Create image
-var bmp_resource_1 = bmp_create(image_width, image_height);
-var bmp_resource_2 = bmp_create(image_width, image_height);
-var bmp_resource_3 = bmp_create(image_width, image_height);
-var bmp_resource_4 = bmp_create(image_width, image_height);
-var bmp_resource_5 = bmp_create(image_width, image_height);
+var resource_1 = bmp_create(image_width, image_height);
+var resource_2 = bmp_create(image_width, image_height);
+var resource_3 = bmp_create(image_width, image_height);
+var resource_4 = bmp_create(image_width, image_height);
+var resource_5 = bmp_create(image_width, image_height);
 
 // Star points
 var points = [
@@ -69,19 +69,19 @@ for (let i = 0, j = points.length; i < j; i++) {
     var c = star_color;
 
     // Plot the points
-    bmp_plot_line(bmp_resource_1, p0, p1, p2, p3, c[0], c[1], c[2], 0.2);
-    bmp_plot_line(bmp_resource_2, p0, p1, p2, p3, c[0], c[1], c[2], 0.4);
-    bmp_plot_line(bmp_resource_3, p0, p1, p2, p3, c[0], c[1], c[2], 0.6);
-    bmp_plot_line(bmp_resource_4, p0, p1, p2, p3, c[0], c[1], c[2], 0.8);
-    bmp_plot_line(bmp_resource_5, p0, p1, p2, p3, c[0], c[1], c[2], 1.0);
+    bmp_plot_line(resource_1, p0, p1, p2, p3, c[0], c[1], c[2], 0.2);
+    bmp_plot_line(resource_2, p0, p1, p2, p3, c[0], c[1], c[2], 0.4);
+    bmp_plot_line(resource_3, p0, p1, p2, p3, c[0], c[1], c[2], 0.6);
+    bmp_plot_line(resource_4, p0, p1, p2, p3, c[0], c[1], c[2], 0.8);
+    bmp_plot_line(resource_5, p0, p1, p2, p3, c[0], c[1], c[2], 1.0);
 }
 
 // Spawn the images into the container
-bmp_spawn(bmp_resource_1, bmp_container);
-bmp_spawn(bmp_resource_2, bmp_container);
-bmp_spawn(bmp_resource_3, bmp_container);
-bmp_spawn(bmp_resource_4, bmp_container);
-bmp_spawn(bmp_resource_5, bmp_container);
+bmp_spawn(resource_1, container);
+bmp_spawn(resource_2, container);
+bmp_spawn(resource_3, container);
+bmp_spawn(resource_4, container);
+bmp_spawn(resource_5, container);
 ```
 
 ## Expected Result

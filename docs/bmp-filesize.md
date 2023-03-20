@@ -16,12 +16,12 @@ Returns: `(number)`
 
 ```js
 // Create a sample picture
-var bmp_resource = bmp_create(64, 64);
+var resource = bmp_create(64, 64);
 
 // Get the size of this resource in bytes
-var bmp_resource_size = bmp_filesize(bmp_resource);
+var filesize = bmp_filesize(resource);
 
 // Print the size of this resource into the JavaScript console
-console.log(bmp_resource_size);
-// Output: 12342
+console.log(filesize);
+// Output: 16438
 ```

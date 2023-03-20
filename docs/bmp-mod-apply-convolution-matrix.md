@@ -24,13 +24,13 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load image
-var bmp_resource = bmp_request("docs/img/load/01.bmp");
-    bmp_resource = bmp_create_from_bytes(bmp_resource);
+var resource = bmp_request("docs/img/load/01.bmp");
+    resource = bmp_create_from_bytes(resource);
 
 // Apply effects
 // Edge Detection #1
-var bmp_resource_2 = bmp_mod_apply_convolution_matrix(
-    bmp_resource,
+var resource_2 = bmp_mod_apply_convolution_matrix(
+    resource,
     [
         1,  0, -1,
         0,  0,  0,
@@ -39,8 +39,8 @@ var bmp_resource_2 = bmp_mod_apply_convolution_matrix(
 );
 
 // Edge Detection #2
-var bmp_resource_3 = bmp_mod_apply_convolution_matrix(
-    bmp_resource,
+var resource_3 = bmp_mod_apply_convolution_matrix(
+    resource,
     [
         0,  1,  0,
         1, -4,  1,
@@ -49,8 +49,8 @@ var bmp_resource_3 = bmp_mod_apply_convolution_matrix(
 );
 
 // Edge Detection #3
-var bmp_resource_4 = bmp_mod_apply_convolution_matrix(
-    bmp_resource,
+var resource_4 = bmp_mod_apply_convolution_matrix(
+    resource,
     [
        -1, -1, -1,
        -1,  8, -1,
@@ -59,8 +59,8 @@ var bmp_resource_4 = bmp_mod_apply_convolution_matrix(
 );
 
 // Box Blur
-var bmp_resource_5 = bmp_mod_apply_convolution_matrix(
-    bmp_resource,
+var resource_5 = bmp_mod_apply_convolution_matrix(
+    resource,
     [
         1,  1,  1,
         1,  1,  1,
@@ -70,8 +70,8 @@ var bmp_resource_5 = bmp_mod_apply_convolution_matrix(
 );
 
 // Guassian Blur
-var bmp_resource_6 = bmp_mod_apply_convolution_matrix(
-    bmp_resource,
+var resource_6 = bmp_mod_apply_convolution_matrix(
+    resource,
     [
         1,  2,  1,
         2,  4,  2,
@@ -81,8 +81,8 @@ var bmp_resource_6 = bmp_mod_apply_convolution_matrix(
 );
 
 // Emboss
-var bmp_resource_7 = bmp_mod_apply_convolution_matrix(
-    bmp_resource,
+var resource_7 = bmp_mod_apply_convolution_matrix(
+    resource,
     [
        -2, -1,  0,
        -1,  1,  1,
@@ -92,13 +92,13 @@ var bmp_resource_7 = bmp_mod_apply_convolution_matrix(
 );
 
 // Spawn images
-bmp_spawn(bmp_resource,   bmp_container);
-bmp_spawn(bmp_resource_2, bmp_container);
-bmp_spawn(bmp_resource_3, bmp_container);
-bmp_spawn(bmp_resource_4, bmp_container);
-bmp_spawn(bmp_resource_5, bmp_container);
-bmp_spawn(bmp_resource_6, bmp_container);
-bmp_spawn(bmp_resource_7, bmp_container);
+bmp_spawn(resource,   container);
+bmp_spawn(resource_2, container);
+bmp_spawn(resource_3, container);
+bmp_spawn(resource_4, container);
+bmp_spawn(resource_5, container);
+bmp_spawn(resource_6, container);
+bmp_spawn(resource_7, container);
 ```
 
 ## Expected Result

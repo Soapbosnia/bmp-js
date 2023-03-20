@@ -16,18 +16,18 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load image
-var bmp_resource = bmp_request("docs/img/load/01.bmp");
-    bmp_resource = bmp_create_from_bytes(bmp_resource);
+var resource = bmp_request("docs/img/load/01.bmp");
+    resource = bmp_create_from_bytes(resource);
 
 // Detect edges
-var bmp_resource_2 = bmp_mod_detect_edge(bmp_resource, 0); // Mode 0
-var bmp_resource_3 = bmp_mod_detect_edge(bmp_resource, 1); // Mode 1
-var bmp_resource_4 = bmp_mod_detect_edge(bmp_resource, 2); // Mode 2
+var resource_2 = bmp_mod_detect_edge(resource, 0); // Mode 0
+var resource_3 = bmp_mod_detect_edge(resource, 1); // Mode 1
+var resource_4 = bmp_mod_detect_edge(resource, 2); // Mode 2
 
 // Spawn images
-bmp_spawn(bmp_resource_2, bmp_container);
-bmp_spawn(bmp_resource_3, bmp_container);
-bmp_spawn(bmp_resource_4, bmp_container);
+bmp_spawn(resource_2, container);
+bmp_spawn(resource_3, container);
+bmp_spawn(resource_4, container);
 ```
 
 ## Expected Result

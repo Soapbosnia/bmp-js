@@ -15,17 +15,17 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load an example image
-var bmp_resource_bytes = bmp_request("docs/img/load/02.bmp");
-var bmp_resource = bmp_create_from_bytes(bmp_resource_bytes);
+var resource_bytes = bmp_request("docs/img/load/02.bmp");
+var resource = bmp_create_from_bytes(resource_bytes);
 
 // Spawn the (before) image into the container
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 
 // Rotate right
-bmp_resource = bmp_mod_rotate_right(bmp_resource);
+resource = bmp_mod_rotate_right(resource);
 
 // Spawn the (after) image into the container
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 ```
 
 ## Expected Result

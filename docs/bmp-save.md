@@ -17,16 +17,16 @@ Returns: false | true `(boolean)`
 
 ```js
 // Create a sample picture
-var bmp_resource = bmp_create(64, 64);
+var resource = bmp_create(64, 64);
 
 // Plot rectangles with various colors
-bmp_plot_rect(bmp_resource,  0,  0, 32, 32, 192,   0,   0);
-bmp_plot_rect(bmp_resource,  0, 32, 32, 32, 192, 192,   0);
-bmp_plot_rect(bmp_resource, 32, 32, 32, 32, 192, 192, 192);
-bmp_plot_rect(bmp_resource, 32,  0, 32, 32,   0, 192, 192);
+bmp_plot_rect(resource,  0,  0, 32, 32, 192,   0,   0);
+bmp_plot_rect(resource,  0, 32, 32, 32, 192, 192,   0);
+bmp_plot_rect(resource, 32, 32, 32, 32, 192, 192, 192);
+bmp_plot_rect(resource, 32,  0, 32, 32,   0, 192, 192);
 
 // Download the resource
-bmp_save(bmp_resource, "my-image.bmp");
+bmp_save(resource, "my-image.bmp");
 ```
 
 ## Expected Result

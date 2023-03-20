@@ -21,32 +21,32 @@ Returns: true `(boolean)`
 
 ```js
 // Create image
-var bmp_resource = bmp_create(160, 160);
+var resource = bmp_create(160, 160);
 
 // Clear the entire resource's background with a dark red color
-bmp_plot_clear(bmp_resource, 60, 60, 60);
+bmp_plot_clear(resource, 60, 60, 60);
 
 // Plot a circle at 20, 20 with the dimensions of 120, 120
-bmp_plot_circle(bmp_resource, 20, 20, 120, 120, 255, 255, 255);
+bmp_plot_circle(resource, 20, 20, 120, 120, 255, 255, 255);
 
 // Spawn the image
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 
 // Fill the circle with red
 bmp_plot_fill(
-    bmp_resource,
+    resource,
     80, 80,
     255, 0, 0
 );
 
 // Spawn the image
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 
 // Fill the circle again but using a callback function.
 // Warning: This approach can lead to unexpected results and even crashes,
 // proceed with care.
 bmp_plot_fill(
-    bmp_resource,
+    resource,
     80, 80,
     255, 255, 0,
     (res, x, y, r, g, b) => {
@@ -56,7 +56,7 @@ bmp_plot_fill(
 );
 
 // Spawn the image
-bmp_spawn(bmp_resource, bmp_container);
+bmp_spawn(resource, container);
 ```
 
 ## Expected Result

@@ -16,24 +16,24 @@ Returns: BMPJS Resource `(object)`
 
 ```js
 // Load image
-var bmp_resource = bmp_request("docs/img/load/09.bmp");
-    bmp_resource = bmp_create_from_bytes(bmp_resource);
+var resource = bmp_request("docs/img/load/09.bmp");
+    resource = bmp_create_from_bytes(resource);
 
 // Pixelate images
-var bmp_resource_2 = bmp_mod_pixelate(bmp_resource, 1);
-var bmp_resource_3 = bmp_mod_pixelate(bmp_resource, 2);
-var bmp_resource_4 = bmp_mod_pixelate(bmp_resource, 3);
-var bmp_resource_5 = bmp_mod_pixelate(bmp_resource, 4);
-var bmp_resource_6 = bmp_mod_pixelate(bmp_resource, 5);
-var bmp_resource_7 = bmp_mod_pixelate(bmp_resource, 6);
+var resource_2 = bmp_mod_pixelate(resource, 1);
+var resource_3 = bmp_mod_pixelate(resource, 2);
+var resource_4 = bmp_mod_pixelate(resource, 3);
+var resource_5 = bmp_mod_pixelate(resource, 4);
+var resource_6 = bmp_mod_pixelate(resource, 5);
+var resource_7 = bmp_mod_pixelate(resource, 6);
 
 // Spawn images
-bmp_spawn(bmp_resource_2, bmp_container);
-bmp_spawn(bmp_resource_3, bmp_container);
-bmp_spawn(bmp_resource_4, bmp_container);
-bmp_spawn(bmp_resource_5, bmp_container);
-bmp_spawn(bmp_resource_6, bmp_container);
-bmp_spawn(bmp_resource_7, bmp_container);
+bmp_spawn(resource_2, container);
+bmp_spawn(resource_3, container);
+bmp_spawn(resource_4, container);
+bmp_spawn(resource_5, container);
+bmp_spawn(resource_6, container);
+bmp_spawn(resource_7, container);
 ```
 
 ## Expected Result
