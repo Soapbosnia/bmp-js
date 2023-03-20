@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-20 01:25 PM
+// Updated: 2023-03-20 01:48 PM
 //
 
 //
@@ -782,7 +782,14 @@ function bmp_copy(resource) {
     if (!bmp_valid(resource))
         return false;
 
-    return structuredClone(resource);
+    var tmp_ref = resource.reference;
+    resource.reference = null;
+
+    var copy = structuredClone(resource);
+    copy.reference = tmp_ref;
+    resource.reference = tmp_ref;
+
+    return copy;
 }
 
 /**
