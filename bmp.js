@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-21 02:30 PM
+// Updated: 2023-03-21 03:27 PM
 //
 
 //
@@ -222,7 +222,7 @@ function bmp_le_int(value, pad_length = 2, pad_left = true) {
  * \* This function should only be called by the internals of the library
  *
  * @param value Bytes to integer
- * @return      number
+ * @return      Number
  */
 function bmp_le_byte(value) {
     value = bin2hex(value);
@@ -289,7 +289,7 @@ function bmp_create(width, height, canvas = false) {
         bitmap_raw:  null,
         bitmap_size: bitmap_size,
         padding:     padding,
-        filesize:    width * height * 4 + (height * padding) + 54,
+        filesize:    width * height * 4 + 54,
         bpp:         4,
         canvas:      canvas,
         reference:   null
@@ -721,8 +721,6 @@ function bmp_from_raw(bytes, canvas = false) {
             resource.bitmap = new ImageData(bytes, width);
         }
     }
-
-    resource.filesize = bytes.length;
 
     return resource;
 }
