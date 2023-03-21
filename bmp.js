@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-21 02:29 PM
+// Updated: 2023-03-21 02:30 PM
 //
 
 //
@@ -550,7 +550,7 @@ function bmp_spawn(resource, target = null) {
     // If canvas is true then spawn a canvas element
     if (resource.canvas) {
         var canvas = document.createElement("canvas");
-        canvas.context = canvas.getContext("2d");
+        canvas.context = canvas.getContext("2d", {alpha:false});
         target.appendChild(canvas);
 
         canvas.width = resource.width;
