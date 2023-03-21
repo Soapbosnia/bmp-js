@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-20 02:49 PM
+// Updated: 2023-03-21 02:29 PM
 //
 
 //
@@ -162,9 +162,8 @@ const bmp_header_parts = [
     },
 
     // Raw bitmap pixel data. Each index contains 4 bytes (RGBA) and whole array
-    // can be retrieved using bmp_get_pixels(resource) or individual
-    // colors at X and Y coordinates using
-    // bmp_get_pixel(resource, x, y)
+    // can be retrieved using bmp_get_pixels(resource) or individual colors at X
+    // and Y coordinates using bmp_get_pixel(resource, x, y)
     //
     // The size value of this data block is determined based on the width and
     // height.
@@ -196,12 +195,13 @@ const BMP_HEADER_IMPORTANTCOLORS = 0xF;
 const BMP_HEADER_DATA            = 0x10;
 
 /**
- * Converts integers to little-endian bytes
+ * Converts integers to little-endian bytes\
+ * \* This function should only be called by the internals of the library
  *
  * @param value      Unsigned integer
  * @param pad_length Padding length
  * @param pad_left   True pads left (default), False pads right
- * @return           Little-endian (LE) bytes
+ * @return           string
  */
 function bmp_le_int(value, pad_length = 2, pad_left = true) {
     value = dechex(value);
@@ -218,10 +218,11 @@ function bmp_le_int(value, pad_length = 2, pad_left = true) {
 }
 
 /**
- * Converts bytes from little-endian to integers
+ * Converts bytes from little-endian to integers\
+ * \* This function should only be called by the internals of the library
  *
  * @param value Bytes to integer
- * @return      Integer
+ * @return      number
  */
 function bmp_le_byte(value) {
     value = bin2hex(value);
@@ -238,7 +239,7 @@ function bmp_le_byte(value) {
  *
  * @param width  Width  (X axis) of the image (non-zero) (limit: 16384)
  * @param height Height (Y axis) of the image (non-zero) (limit: 16384)
- * @param canvas When writing to a canvas this must be true (default: false)
+ * @param canvas When writing to a canvas this must be true
  * @return       false | BMPJS Resource
  */
 function bmp_create(width, height, canvas = false) {
@@ -418,8 +419,8 @@ function bmp_set_pixel(
 }
 
 /**
- * Converts resource.bitmap array into raw bytes and mutates
- * resource.bitmap_raw property
+ * Converts `resource.bitmap` array into raw bytes and mutates
+ * `resource.bitmap_raw` property
  *
  * @param resource BMPJS Resource
  * @return         true
@@ -574,10 +575,10 @@ function bmp_spawn(resource, target = null) {
 }
 
 /**
- * Replace the `resource` in the `target` element by creating a new one
+ * Replace the `resource` in the `target` element
  *
  * @param target   Value pointing to a previous reference returned by
- *                 bmp_spawn()
+ *                 `bmp_spawn()`
  * @param resource BMPJS Resource
  * @return         false | true
  */
@@ -610,10 +611,10 @@ function bmp_filesize(resource) {
 }
 
 /**
- * Decode raw Bitmap bytes to a BMPJS resource object
+ * Decode raw bytes from a BMP file to a BMPJS resource object
  *
  * @param bytes  Raw bytes of a valid BMP file
- * @param canvas When writing to a canvas this must be true (default: false)
+ * @param canvas When writing to a canvas this must be true
  * @return       BMPJS resource
  */
 function bmp_from_raw(bytes, canvas = false) {
@@ -802,10 +803,10 @@ function bmp_copy(resource) {
  * Prompt for a download of BMPJS resource.
  *
  * @param resource BMPJS Resource
- * @param filename Name of the downloaded file (default: download.bmp)
+ * @param filename Name of the downloaded file
  * @return         false | true
  */
-function bmp_save(resource, filename = "download.") {
+function bmp_save(resource, filename = "download.bmp") {
     if (!bmp_valid(resource))
         return false;
 
@@ -828,8 +829,6 @@ function bmp_save(resource, filename = "download.") {
     } else {
         anchor.href = bmp_create_uri(resource);
     }
-
-    filename += resource.canvas ? "png" : "bmp";
 
     anchor.download = filename;
     anchor.style    = "display:none";
@@ -870,9 +869,9 @@ function bmp_to_canvas(canvas = null, resource) {
 /**
  * Similar to bmp_request but returns a BMPJS Resource automatically
  *
- * @param url URL pointing to a BMP file
- * @param canvas When writing to a canvas this must be true (default: false)
- * @return    false | BMPJS Resource
+ * @param url    URL pointing to a BMP file
+ * @param canvas When writing to a canvas this must be true
+ * @return       false | BMPJS Resource
  */
 function bmp_load(url = null, canvas = false) {
     var bytes = bmp_request(url);
