@@ -24,9 +24,9 @@ Couple of revisions back, BMPJS did not support Canvas. At first this wasn't a b
 
 Using Blobs for that is entirely impractical so I needed a workaround.
 
-This is what the `canvas` parameter is for, if you create a resource with `canvas:true` then [`bmp_spawn()`](./bmp-spawn.md) will append an [`HTMLCanvasElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement) instead of [`HTMLImageElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement) to the target element.
+This is what the `canvas` parameter is for, if you create a resource with `canvas:true` then [`bmp_spawn()`](./bmp-spawn.md) will append an [`HTMLCanvasElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement) to the target element.
 
-It affects how [`bmp_get_pixel()`](./bmp-get-pixel.md) and [`bmp_set_pixel()`](./bmp-set-pixel.md) work under the hood, due to a different mapping of the bytes between a [BMP file](https://en.wikipedia.org/wiki/BMP_file_format) and the Canvas framebuffer we have to control the order of bytes and how we read from and write to them. You can take a look at those functions in [`bmp.js`](https://github.com/oxou/bmp-js/blob/main/bmp.js) to understand how the mapping is done between the two cases.
+It affects how [`bmp_get_pixel()`](./bmp-get-pixel.md) and [`bmp_set_pixel()`](./bmp-set-pixel.md) work under the hood, due to a different mapping of the bytes between a [BMP file](https://en.wikipedia.org/wiki/BMP_file_format) and the Canvas framebuffer we have to control the order of bytes and how we read from and write to them. You can take a look at those functions in [`bmp.js`](https://github.com/oxou/bmp-js/blob/main/bmp.js) to understand how the mapping is done between the two.
 
 Such feature allows us to write directly to the framebuffer of that context with almost no loss in memory space or computing performance.
 
@@ -72,8 +72,9 @@ bmp_plot_clear(resource_image, 128, 0, 128);
 var resource_canvas = bmp_create(128, 64, true);
 bmp_plot_clear(resource_canvas, 0, 128, 0);
 
-// Spawn the image into the container
-bmp_spawn(resource, container);
+// Spawn the resources into the container
+bmp_spawn(resource_image, container);
+bmp_spawn(resource_canvas, container);
 ```
 
 ## Expected Result
