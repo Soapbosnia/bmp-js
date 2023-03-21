@@ -7,22 +7,24 @@ Replace a specific color in the image
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `pr` | `Color channel Red (parent)`
-3. `pg` | `Color channel Green (parent)`
-4. `pb` | `Color channel Blue (parent)`
-5. `cr` | `Color channel Red (child)`
-6. `cg` | `Color channel Green (child)`
-7. `cb` | `Color channel Blue (child)`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|pr|Color channel Red (parent)||
+|3|pg|Color channel Green (parent)||
+|4|pb|Color channel Blue (parent)||
+|5|cr|Color channel Red (child)||
+|6|cg|Color channel Green (child)||
+|7|cb|Color channel Blue (child)||
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load an example image
-var resource_bytes = bmp_request("docs/img/load/05.bmp");
-var resource_1 = bmp_create_from_bytes(resource_bytes);
+var resource_bytes = bmp_load("docs/img/load/05.bmp");
 
 // Spawn the (before) image into the container
 bmp_spawn(resource_1, container);

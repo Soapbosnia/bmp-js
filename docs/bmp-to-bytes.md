@@ -8,9 +8,12 @@ Converts `resource.bitmap` array into raw bytes and mutates `resource.bitmap_raw
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
 
-Returns: true `(boolean)`
+### Returns
+`true`
 
 ### Notes
 
@@ -31,5 +34,5 @@ console.log(bin2hex(resource.bitmap_raw));
 bmp_to_bytes(resource);
 
 console.log(bin2hex(resource.bitmap_raw));
-// Output: ffff00ffff0000000000ffff00ff0000ff0000000000
+// Output: ffff00ffffff000000ffffff00ff0000ffff00ff0000
 ```

@@ -7,16 +7,18 @@ Convert an image to appear like a 1-bit image
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load an example image
-var resource_bytes = bmp_request("docs/img/load/01.bmp");
-var resource_1 = bmp_create_from_bytes(resource_bytes);
+var resource_1 = bmp_load("docs/img/load/01.bmp");
 
 // Convert resource_1 to 1-bit and store the new resource here
 var resource_2 = bmp_mod_color_1bit(resource_1);

@@ -7,10 +7,13 @@ Verify that the BMP resource is valid
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `raw` | `Process raw data`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|raw|Process raw data|false|
 
-Returns: false | true `(boolean)`
+### Returns:
+`false` | `true`
 
 ## Code examples
 

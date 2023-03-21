@@ -3,14 +3,17 @@
 
 ### Description
 
-Replace the URI from the old `img` element referenced through `target` by creating a new one by `resource`
+Replace the `resource` in the `target` element
 
 ### Parameters
 
-1. `target` | `img element pointing to a previous reference returned by bmp_spawn()`
-2. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|target|Value pointing to a previous reference returned by `bmp_spawn()`|null|
+|2|resource|BMPJS Resource||
 
-Returns: false | true `(boolean)`
+### Returns
+`false` | `true`
 
 ## Code examples
 

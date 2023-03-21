@@ -8,9 +8,12 @@ Determine the file size of the BMPJS resource based on resource properties.
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
 
-Returns: `(number)`
+### Returns
+`number`
 
 ## Code examples
 

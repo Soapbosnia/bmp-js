@@ -5,17 +5,23 @@
 
 Converts bytes from little endian to integers
 
+\* This function should only be called by the internals of the library.
+
 ### Parameters
 
-1. `value` | `Bytes to integer`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|value|Bytes to integer||
 
-Returns: `(number)`
+### Returns
+`number`
 
 ## Code examples
 
 ```js
 var byte = "\x40\x80";
 var result = bmp_le_byte(byte);
+
 console.log(result);
 // Output: 32832
 ```

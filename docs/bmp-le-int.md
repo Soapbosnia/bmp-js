@@ -5,13 +5,18 @@
 
 Converts integers to little endian bytes
 
+\* This function should only be called by the internals of the library.
+
 ### Parameters
 
-1. `value` | `Unsigned integer`
-2. `pad_length` | `Padding length`
-3. `pad_left` | `True pads left (default), False pads right`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|value|Unsigned integer||
+|2|pad_length|Padding length|2|
+|3|pad_left|True pads left, False pads right|true|
 
-Returns: Little-endian (LE) bytes `(string)`
+### Returns
+`string`
 
 ## Code examples
 

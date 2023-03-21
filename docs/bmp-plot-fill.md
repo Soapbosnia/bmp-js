@@ -7,15 +7,22 @@ Fill the area with the given color starting from x,y until all occurences of the
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `x` | `Position X`
-3. `y` | `Position Y`
-4. `r` | `Color channel Red`
-5. `g` | `Color channel Green`
-6. `b` | `Color channel Blue`
-7. `callback` | `Callback function (defaults to bmp_set_pixel)`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|x|Position X||
+|3|y|Position Y||
+|4|r|Color channel Red||
+|5|g|Color channel Green||
+|6|b|Color channel Blue||
+|7|callback|Callback function|[`bmp_set_pixel`](./bmp-set-pixel.md)|
 
-Returns: true `(boolean)`
+### Returns
+`true`
+
+### Notes
+
+Take care when specifying a callback function, there are cases where the function may enter an infinite loop based on the logic inside of the callback function.
 
 ## Code examples
 
@@ -23,7 +30,7 @@ Returns: true `(boolean)`
 // Create image
 var resource = bmp_create(160, 160);
 
-// Clear the entire resource's background with a dark red color
+// Clear the entire resource's background
 bmp_plot_clear(resource, 60, 60, 60);
 
 // Plot a circle at 20, 20 with the dimensions of 120, 120
@@ -50,7 +57,7 @@ bmp_plot_fill(
     80, 80,
     255, 255, 0,
     (res, x, y, r, g, b) => {
-        var lerp = res.width / 100 * (x);
+        var lerp = res.width / 100 * x;
         bmp_set_pixel(res, x, y, 0, lerp, 128);
     }
 );

@@ -7,18 +7,20 @@ Resize an image (using nearest neighbor)
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `w` | `Width  (Rounded to nearest place)`
-3. `h` | `Height (Rounded to nearest place)`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|w|Width (Rounded to nearest place)||
+|3|h|Height (Rounded to nearest place)||
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load image
-var resource = bmp_request("docs/img/load/01.bmp");
-    resource = bmp_create_from_bytes(resource);
+var resource = bmp_load("docs/img/load/01.bmp");
 
 // Resize images
 var resource_2 = bmp_mod_resize(resource, 240, 240);

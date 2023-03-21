@@ -7,31 +7,35 @@ Gaussian blur
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|max|How many times to call the convolution matrix function (min 1)|1|
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load image
-var resource = bmp_request("docs/img/load/02.bmp");
-    resource = bmp_create_from_bytes(resource);
+var resource = bmp_load("docs/img/load/02.bmp");
 
-// Blur
-var resource_2 = bmp_mod_blur_gaussian(resource);
-var resource_3 = bmp_mod_blur_gaussian(resource_2);
-var resource_4 = bmp_mod_blur_gaussian(resource_3);
-var resource_5 = bmp_mod_blur_gaussian(resource_4);
-var resource_6 = bmp_mod_blur_gaussian(resource_5);
+// Resize the image for easier showcase
+resource = bmp_mod_resize(
+    resource,
+    resource.width  / 2,
+    resource.height / 2
+);
 
-// Spawn images
-bmp_spawn(resource,   container);
-bmp_spawn(resource_2, container);
-bmp_spawn(resource_3, container);
-bmp_spawn(resource_4, container);
-bmp_spawn(resource_5, container);
-bmp_spawn(resource_6, container);
+// Spawn original image
+bmp_spawn(resource, container);
+
+for (let i = 1; i < 12; i++) {
+    // Spawn blurred images
+    var resource_tmp = bmp_mod_blur_gaussian(resource, i);
+    bmp_spawn(resource_tmp, container);
+}
 ```
 
 ## Expected Result

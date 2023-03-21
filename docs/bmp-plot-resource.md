@@ -7,20 +7,23 @@ Copy the contents from a resource child to the resource parent
 
 ### Parameters
 
-1. `resource_p` | `BMPJS resource (parent)`
-2. `resource_c` | `BMPJS resource (child)`
-3. `x` | `Position X`
-4. `y` | `Position Y`
-5. `w` | `Width (by default -1, child's width)`
-6. `h` | `Height (by default -1, child's height)`
-7. `ox` | `Offset to add to the X position of child`
-8. `oy` | `Offset to add to the Y position of child`
-9. `transparent` | `Handle tr, tg and tb colors as transparency`
-10. `tr` | `Red channel to be used as transparency`
-11. `tg` | `Green channel to be used as transparency`
-12. `tb` | `Blue channel to be used as transparency`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource_p|BMPJS Resource (parent)||
+|2|resource_c|BMPJS Resource (child)||
+|3|x|Position X|0|
+|4|y|Position Y|0|
+|5|w|Width (-1 = child's width)|-1|
+|6|h|Height (-1 = child's height)|-1|
+|7|ox|Offset to add to the X position of child|0|
+|8|oy|Offset to add to the Y position of child|0|
+|9|transparent|Handle tr, tg and tb colors as transparency|false|
+|10|tr|Red channel to be used as transparency|-1|
+|11|tg|Green channel to be used as transparency|-1|
+|12|tb|Blue channel to be used as transparency|-1|
 
-Returns: true `(boolean)`
+### Returns
+`true`
 
 ## Code examples
 
@@ -29,20 +32,11 @@ Returns: true `(boolean)`
 var resource_1 = bmp_create(640, 480);
 
 // Load other images
-var resource_2 = bmp_request("docs/img/load/06.bmp");
-    resource_2 = bmp_create_from_bytes(resource_2);
-
-var resource_3 = bmp_request("docs/img/load/07.bmp");
-    resource_3 = bmp_create_from_bytes(resource_3);
-
-var resource_4 = bmp_request("docs/img/load/08.bmp");
-    resource_4 = bmp_create_from_bytes(resource_4);
-
-var resource_5 = bmp_request("docs/img/load/10.bmp");
-    resource_5 = bmp_create_from_bytes(resource_5);
-
-var resource_6 = bmp_request("docs/img/load/11.bmp");
-    resource_6 = bmp_create_from_bytes(resource_6);
+var resource_2 = bmp_load("docs/img/load/06.bmp");
+var resource_3 = bmp_load("docs/img/load/07.bmp");
+var resource_4 = bmp_load("docs/img/load/08.bmp");
+var resource_5 = bmp_load("docs/img/load/10.bmp");
+var resource_6 = bmp_load("docs/img/load/11.bmp");
 
 // Plot images
 bmp_plot_resource(resource_1, resource_2, 15, 30);

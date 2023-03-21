@@ -7,17 +7,19 @@ Add grayscale noise to an image
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `scale` | `Amount of noise to add ranging from 0.0 to 10.0`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|scale|Amount of noise to add ranging from 0.0 to 10.0|0.1|
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load an example image
-var resource_bytes = bmp_request("docs/img/load/04.bmp");
-var resource_1 = bmp_create_from_bytes(resource_bytes);
+var resource_bytes = bmp_load("docs/img/load/04.bmp");
 
 // Add noise with ranges of: 0.25, 0.50, 0.75, 1.00
 var resource_2 = bmp_mod_noise_grayscale(resource_1, 0.25);

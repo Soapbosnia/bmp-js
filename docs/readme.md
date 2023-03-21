@@ -95,12 +95,11 @@ Simply copy the source code provided below and paste it into a text editor, then
 - [bmp_set_pixel](./bmp-set-pixel.md)
 - [bmp_spawn](./bmp-spawn.md)
 - [bmp_valid](./bmp-valid.md)
-
 - [bmp_create_pixels](./bmp-create-pixels.md)
 - [bmp_create_uri](./bmp-create-uri.md)
-
 - [bmp_le_byte](./bmp-le-byte.md)
 - [bmp_le_int](./bmp-le-int.md)
+- [bmp_load](./bmp-load.md)
 
 ### Mods
 - [bmp_mod_apply_convolution_matrix](./bmp-mod-apply-convolution-matrix.md)

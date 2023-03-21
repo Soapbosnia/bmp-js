@@ -7,29 +7,70 @@ Creates an `img` element that is appended to the `target`. The image element src
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `target` | `HTMLElement in which the image will be appended to`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|target|HTMLElement in which the image will be appended to|null|
 
-Returns: false | Reference to the `img` element `(boolean|htmlelement)`
+### Returns
+`false` | `HTMLImageElement` | `HTMLCanvasElement`
+
+### Notes
+#### Reference
+
+The `BMPJS Resource` object stores the property `reference` whose value is set to the element that `bmp_spawn()` has spawned.
+
+That value is overwrite to the new `reference` if `bmp_spawn()` is called on the same resource.
+
+Due to this nature it is best to store the `reference` in a separate variable instead of accessing it through the `BMPJS Resource` object, as that value may change if you spawn a separate instance without realizing.
+
+Bad code:
+```js
+var resource = bmp_create(640, 480);
+// Spawn base image
+bmp_spawn(resource, container);
+// ...
+bmp_replace(resource.reference, resource);
+//                   ^^^^^^^^^
+//                   |- if this changes, you've lost your previous reference
+// ...
+// Do some debug visualisation on the resource
+// ...
+// Spawn debug image
+bmp_spawn(resource, container); // <-- this has now wiped the previous reference
+```
+
+Good code:
+```js
+var resource_1 = bmp_create(640, 480);
+var reference_1 = bmp_spawn(resource_1, container);
+// ...
+bmp_replace(reference_1, resource_1);
+//          ^^^^^^^^^^^
+//          |- this stays constant until an external force acts upon it like
+//             the element gets removed, or this reference gets shuffled around
+//             and lost
+// ...
+// Do some debug visualisation on the resource
+// ...
+// Spawn debug image
+var reference_2 = bmp_spawn(resource_1, container);
+//                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//                |- this appends a new element to the container, and overwrites
+//                   the |reference| property in the BMPJS Resource object.
+//                   But we still retain the previous reference in |reference_1|
+```
+
+To showcase this in practice, take a look at the [`demo/debug-overlay/index.js`](../demo/example/bmp-spawn/index.js)
 
 ## Code examples
 
 ```js
 // Add CSS
 var raw_css = `
-#container,
-#img {
-    border: 12px solid #800;
-    display: inline-block
-}
-
-#img {
-    border-color: #080
-}
-
-p {
-    padding-left: 16px
-}
+#container, #img {border: 12px solid #800; display: inline-block}
+#img {border-color: #080}
+p {padding-left: 16px}
 `;
 
 var style_element = document.createElement("style");
@@ -51,11 +92,11 @@ var box_height   = image_height;
 var image = bmp_create(image_width, image_height);
 
 // Plot 5 rectangles spanning across the X axis
-bmp_plot_rect(image, box_width * 0, 0, box_width, box_height, 243,  79,  28);
-bmp_plot_rect(image, box_width * 1, 0, box_width, box_height, 127, 188,   0);
-bmp_plot_rect(image, box_width * 2, 0, box_width, box_height, 255, 186,   1);
-bmp_plot_rect(image, box_width * 3, 0, box_width, box_height,   1, 166, 240);
-bmp_plot_rect(image, box_width * 4, 0, box_width, box_height, 116, 116, 116);
+bmp_plot_rect(image, box_width * 0, 0, box_width, box_height, 243,  79,  28, true);
+bmp_plot_rect(image, box_width * 1, 0, box_width, box_height, 127, 188,   0, true);
+bmp_plot_rect(image, box_width * 2, 0, box_width, box_height, 255, 186,   1, true);
+bmp_plot_rect(image, box_width * 3, 0, box_width, box_height,   1, 166, 240, true);
+bmp_plot_rect(image, box_width * 4, 0, box_width, box_height, 116, 116, 116, true);
 
 // Spawn the image, storing the reference
 var image_reference = bmp_spawn(image, container);

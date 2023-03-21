@@ -7,22 +7,24 @@ Detect edges in an image
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `mode` | `Available modes range from 0 to 2`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|mode|Available modes range from 0 to 2|0|
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load image
-var resource = bmp_request("docs/img/load/01.bmp");
-    resource = bmp_create_from_bytes(resource);
+var resource_1 = bmp_load("docs/img/load/01.bmp");
 
 // Detect edges
-var resource_2 = bmp_mod_detect_edge(resource, 0); // Mode 0
-var resource_3 = bmp_mod_detect_edge(resource, 1); // Mode 1
-var resource_4 = bmp_mod_detect_edge(resource, 2); // Mode 2
+var resource_2 = bmp_mod_detect_edge(resource_1, 0); // Mode 0
+var resource_3 = bmp_mod_detect_edge(resource_1, 1); // Mode 1
+var resource_4 = bmp_mod_detect_edge(resource_1, 2); // Mode 2
 
 // Spawn images
 bmp_spawn(resource_2, container);

@@ -3,18 +3,21 @@
 
 ### Description
 
-Set pixel RGB value at X, Y coordinate of a resource
+Set pixel RGBA value at X, Y coordinate of a resource
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `x` | `X axis`
-3. `y` | `Y axis`
-4. `r` | `Color channel Red`
-5. `g` | `Color channel Green`
-6. `b` | `Color channel Blue`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|x|X axis||
+|3|y|Y Axis||
+|4|r|Color channel Red|null|
+|5|g|Color channel Green|null|
+|6|b|Color channel Blue|null|
 
-Returns: true `(boolean)`
+### Returns
+`true`
 
 ## Code examples
 

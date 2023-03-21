@@ -11,7 +11,8 @@ Returns the image width and height for a BMPJS resource
 |-|-|-|-|
 |1|resource|BMPJS Resource||
 
-Returns: [width, height] `(Uint8ClampedArray)`
+### Returns
+`false` | `[width, height]`
 
 ## Code examples
 

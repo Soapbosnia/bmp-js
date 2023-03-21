@@ -7,16 +7,18 @@ Sharpen an image
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load image
-var resource = bmp_request("docs/img/load/01.bmp");
-    resource = bmp_create_from_bytes(resource);
+var resource = bmp_load("docs/img/load/01.bmp");
 
 // Sharpen images
 var resource_2 = bmp_mod_sharpen(resource);

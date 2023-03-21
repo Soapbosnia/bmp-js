@@ -7,17 +7,19 @@ Pixelate an image
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `factor` | `How much to divide image dimensions before upsampling (default 2, min 1)`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|factor|How much to divide image dimensions before upsampling (min 1)|2|
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load image
-var resource = bmp_request("docs/img/load/09.bmp");
-    resource = bmp_create_from_bytes(resource);
+var resource = bmp_load("docs/img/load/09.bmp");
 
 // Pixelate images
 var resource_2 = bmp_mod_pixelate(resource, 1);

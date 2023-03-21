@@ -7,32 +7,35 @@ Plot a line from point A to B
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `x1` | `Position X #1`
-3. `y1` | `Position Y #1`
-4. `x2` | `Position X #2`
-5. `y2` | `Position Y #2`
-6. `r` | `Color channel Red`
-7. `g` | `Color channel Green`
-8. `b` | `Color channel Blue`
-9. `p` | `Precision of line (clamped from 0.1 to 2)`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|x1|Position X #1||
+|3|y1|Position Y #1||
+|4|x2|Position X #2||
+|5|y2|Position Y #2||
+|6|r|Color channel Red|255|
+|7|g|Color channel Green|255|
+|8|b|Color channel Blue|255|
+|9|p|Precision of line (clamped from 0.1 to 2)|1|
 
-Returns: true `(boolean)`
+### Returns
+`true`
 
 ## Code examples
 
 ```js
 // Initialization
-var image_width, image_width_original = 256;
+var image_width, image_width_original   = 256;
 var image_height, image_height_original = 256;
 var star_color = [255, 0, 0];
 
 // You may define a custom width and height here
-image_width = 96;
+image_width  = 96;
 image_height = 96;
 
 // This calculates the scale relative to the original size
-var scale_width = image_width / image_width_original;
+var scale_width  = image_width  / image_width_original;
 var scale_height = image_height / image_height_original;
 
 // Create image
@@ -59,8 +62,8 @@ var points = [
 // Plot the points with multiple precisions
 for (let i = 0, j = points.length; i < j; i++) {
     var p = points[i];
-    
-    // Define points and scale them correctly    
+
+    // Define points and scale them correctly
     var p0 = p[0] * scale_width;
     var p1 = p[1] * scale_height;
     var p2 = p[2] * scale_width;

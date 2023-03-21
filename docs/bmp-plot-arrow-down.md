@@ -7,17 +7,20 @@ Plot an arrow pointing down
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `x` | `Position X`
-3. `y` | `Position Y`
-4. `w` | `Width`
-5. `h` | `Height`
-6. `r` | `Color channel Red`
-7. `g` | `Color channel Green`
-8. `b` | `Color channel Blue`
-9. `p` | `Precision of line (clamped from 0.1 to 2)`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|x|Position X||
+|3|y|Position Y||
+|4|w|Width||
+|5|h|Height||
+|6|r|Color channel Red||
+|7|g|Color channel Green||
+|8|b|Color channel Blue||
+|9|p|Precision of line (clamped from 0.1 to 2)||
 
-Returns: true `(boolean)`
+### Returns
+`true`
 
 ## Code examples
 

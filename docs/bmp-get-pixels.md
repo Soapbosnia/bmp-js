@@ -7,9 +7,12 @@ Returns the bitmap from a BMPJS resource (if valid)
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
 
-Returns: resource.bitmap.data `(Uint8ClampedArray)`
+### Returns
+`Uint8ClampedArray`
 
 ## Code examples
 

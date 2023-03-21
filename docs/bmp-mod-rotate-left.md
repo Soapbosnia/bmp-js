@@ -7,16 +7,18 @@ Rotate the image to the left
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
 ```js
 // Load an example image
-var resource_bytes = bmp_request("docs/img/load/02.bmp");
-var resource = bmp_create_from_bytes(resource_bytes);
+var resource_bytes = bmp_load("docs/img/load/02.bmp");
 
 // Spawn the (before) image into the container
 bmp_spawn(resource, container);

@@ -7,12 +7,15 @@ Clear everything from the bitmap (by default using Black color)
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
-2. `r` | `Color channel Red`
-3. `g` | `Color channel Green`
-4. `b` | `Color channel Blue`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
+|2|r|Color channel Red|0|
+|3|g|Color channel Green|0|
+|4|b|Color channel Blue|0|
 
-Returns: true `(boolean)`
+### Returns
+`true`
 
 ## Code examples
 

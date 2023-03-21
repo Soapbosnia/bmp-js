@@ -4,13 +4,17 @@
 
 ### Description
 
-Decode raw Bitmap bytes to a BMPJS resource object
+Decode raw bytes from a BMP file to a BMPJS resource object
 
 ### Parameters
 
-1. `bytes` | `Raw bytes of a valid BMP file`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|bytes|Raw bytes of a valid BMP file||
+|2|canvas|When writing to a canvas this must be true|false|
 
-Returns: BMPJS Resource `(object)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
