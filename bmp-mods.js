@@ -9,7 +9,7 @@
 // Adds extra functionality for manipulating BMPJS resources.
 //
 // Created: 2022-09-28 06:42 PM
-// Updated: 2023-03-19 02:58 PM
+// Updated: 2023-03-21 08:19 PM
 //
 
 /**
@@ -47,7 +47,7 @@ function bmp_mod_get_channel(
 }
 
 /**
- * Request information about font dimensions (if the resource is a font)
+ * Request information about font dimensions (if the resource is a font)\
  * This will return incorrect results if called on a non-font resource
  *
  * @param resource BMPJS Resource
@@ -72,7 +72,7 @@ function bmp_mod_dissect_font(
 function bmp_mod_flip_x(
     resource
 ) {
-    var width  = resource.width;
+    var width = resource.width;
     var height = resource.height;
 
     var resource_new = bmp_create(width, height, resource.canvas);
@@ -97,7 +97,7 @@ function bmp_mod_flip_x(
 function bmp_mod_flip_y(
     resource
 ) {
-    var width  = resource.width;
+    var width = resource.width;
     var height = resource.height;
 
     var resource_new = bmp_create(width, height, resource.canvas);
@@ -296,6 +296,10 @@ function bmp_mod_noise_grayscale(
     scale = 0.1
 ) {
     scale = clamp(scale, 0, 10);
+
+    if (scale == 0)
+        return resource;
+
     var width = resource.width;
     var height = resource.height;
 
@@ -327,6 +331,10 @@ function bmp_mod_noise_rgb(
     scale = 0.1
 ) {
     scale = clamp(scale, 0, 10);
+
+    if (scale == 0)
+        return resource;
+
     var width = resource.width;
     var height = resource.height;
 
@@ -357,7 +365,7 @@ function bmp_mod_noise_rgb(
  *
  * @param resource BMPJS Resource
  * @param matrix   Convolution matrix (3x3 and 5x5 only)
- * @param divisor  How much to divide the average result (default 1)
+ * @param divisor  How much to divide the average result
  * @param offset   Value to add to the quotient (division result)
  * @return         BMPJS Resource
  */
@@ -796,23 +804,24 @@ function bmp_mod_pixelate(
  * @param y1       Position Y #1
  * @param x2       Position X #2 (Mode 2 uses it as width)
  * @param y2       Position Y #2 (Mode 2 uses it as height)
- * @param mode2    This is so values [x2, y2] are used as width and height of the returned resource
+ * @param mode     If 1, values [x2, y2] are used as width and height of the returned resource
  * @return         BMPJS Resource
  */
 function bmp_mod_crop(
     resource,
-    x1    = 0,
-    y1    = 0,
-    x2    = 1,
-    y2    = 1,
-    mode2 = 0
+    x1   = 0,
+    y1   = 0,
+    x2   = 1,
+    y2   = 1,
+    mode = 0
 ) {
     x1 = Math.round(Math.abs(x1));
     y1 = Math.round(Math.abs(y1));
     x2 = Math.round(Math.abs(x2));
     y2 = Math.round(Math.abs(y2));
+    mode = clamp(mode, 0, 1);
 
-    if (!mode2) {
+    if (mode == 0) {
         // Here we try to save people from making pesky mistakes
         if (x1 == x2)
             ++x2;
@@ -834,15 +843,15 @@ function bmp_mod_crop(
         }
     }
 
-    // Point #2 must be within the dimension boundaries of the resource
-    if (!mode2) {
+    // Mode 1: Point #2 must be within the dimension boundaries of the resource
+    if (mode == 0) {
         x2 = clamp(x2, 0, resource.width);
         y2 = clamp(y2, 0, resource.height);
     }
 
     var w, h;
 
-    if (mode2) {
+    if (mode == 1) {
         w = x2;
         h = y2;
     } else {
@@ -857,11 +866,7 @@ function bmp_mod_crop(
 
     for (let x = x1; x < mx; x++)
         for (let y = y1; y < my; y++) {
-            var c = bmp_get_pixel(
-                resource,
-                x,
-                y
-            );
+            var c = bmp_get_pixel(resource, x, y);
 
             bmp_set_pixel(
                 resource_new,
@@ -880,8 +885,8 @@ function bmp_mod_crop(
  * Detect edges in an image
  *
  * @param resource BMPJS Resource
- * @param mode Available modes range from 0 to 2
- * @return BMPJS Resource
+ * @param mode     Available modes range from 0 to 2
+ * @return         BMPJS Resource
  */
 function bmp_mod_detect_edge(
     resource,
@@ -931,22 +936,27 @@ function bmp_mod_detect_edge(
  * Box blur
  *
  * @param resource BMPJS Resource
- * @return BMPJS Resource
+ * @param max      How many times to call the convolution matrix function
+ *                 (min 1)
+ * @return         BMPJS Resource
  */
 function bmp_mod_blur_box(
-    resource
+    resource,
+    max = 1
 ) {
     var resource_new = bmp_copy(resource);
+    max = clamp(max, 1);
 
-    resource_new = bmp_mod_apply_convolution_matrix(
-        resource_new,
-        [
-            1,  1,  1,
-            1,  1,  1,
-            1,  1,  1
-        ],
-        9
-    );
+    for (let i = 0; i < max; i++)
+        resource_new = bmp_mod_apply_convolution_matrix(
+            resource_new,
+            [
+                1,  1,  1,
+                1,  1,  1,
+                1,  1,  1
+            ],
+            9
+        );
 
     return resource_new;
 }
@@ -955,22 +965,27 @@ function bmp_mod_blur_box(
  * Gaussian blur
  *
  * @param resource BMPJS Resource
- * @return BMPJS Resource
+ * @param max      How many times to call the convolution matrix function
+ *                 (min 1)
+ * @return         BMPJS Resource
  */
 function bmp_mod_blur_gaussian(
-    resource
+    resource,
+    max = 1
 ) {
     var resource_new = bmp_copy(resource);
+    max = clamp(max, 1);
 
-    resource_new = bmp_mod_apply_convolution_matrix(
-        resource_new,
-        [
-            1,  2,  1,
-            2,  4,  2,
-            1,  2,  1
-        ],
-        16
-    );
+    for (let i = 0; i < max; i++)
+        resource_new = bmp_mod_apply_convolution_matrix(
+            resource_new,
+            [
+                1,  2,  1,
+                2,  4,  2,
+                1,  2,  1
+            ],
+            16
+        );
 
     return resource_new;
 }
@@ -979,21 +994,24 @@ function bmp_mod_blur_gaussian(
  * Emboss
  *
  * @param resource BMPJS Resource
- * @return BMPJS Resource
+ * @param power    How many times to apply the convolution matrix (min 0.01)
+ * @return         BMPJS Resource
  */
 function bmp_mod_emboss(
-    resource
+    resource,
+    power = 1
 ) {
     var resource_new = bmp_copy(resource);
+    power = clamp(power, 0.01);
 
     resource_new = bmp_mod_apply_convolution_matrix(
         resource_new,
         [
-            -2, -1,  0,
-            -1,  1,  1,
-             0,  1,  2
-         ],
-         9
+            -2 * power, -1 * power,  0 * power,
+            -1 * power,  1 * power,  1 * power,
+             0 * power,  1 * power,  2 * power
+        ],
+        9
     );
 
     return resource_new;
