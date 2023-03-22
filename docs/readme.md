@@ -43,7 +43,7 @@ Simply copy the source code provided below and paste it into a text editor, then
     bmp_plot_clear(resource, 64, 0, 0);
 
     // Plot a rectangle at 0,0 with dimensions of 160,160
-    bmp_plot_rect(resource, 0, 0, 160, 160, 192, 0, 0);
+    bmp_plot_rect(resource, 0, 0, 160, 160, 192, 0, 0, true);
 
     // Spawn the resource inside the HTMLElement #container
     bmp_spawn(resource, container);
@@ -68,7 +68,7 @@ Simply copy the source code provided below and paste it into a text editor, then
     bmp_plot_clear(resource, 64, 0, 0);
 
     // Plot a rectangle at 0,0 with dimensions of 160,160
-    bmp_plot_rect(resource, 0, 0, 160, 160, 192, 0, 0);
+    bmp_plot_rect(resource, 0, 0, 160, 160, 192, 0, 0, true);
 
     // Spawn the resource inside the HTMLElement #container
     bmp_spawn(resource, container);
