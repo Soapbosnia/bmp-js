@@ -24,7 +24,7 @@ Replace a specific color in the image
 
 ```js
 // Load an example image
-var resource_bytes = bmp_load("docs/img/load/05.bmp");
+var resource_1 = bmp_load("docs/img/load/05.bmp");
 
 // Spawn the (before) image into the container
 bmp_spawn(resource_1, container);

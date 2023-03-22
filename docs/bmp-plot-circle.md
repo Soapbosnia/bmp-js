@@ -47,14 +47,14 @@ for (let i = 0, max = 50; i < max; i += 4) {
         resource,
         // position
         340 + (i * 2),
-            50 + (i * 2),
+        50  + (i * 2),
         // dimension
         250 - (i * 4),
         250 - (i * 4),
         // colors
-            _r,
-            _g,
-            _b,
+        _r,
+        _g,
+        _b,
         0.25, // precision
         false // fill
     );

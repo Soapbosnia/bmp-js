@@ -15,6 +15,7 @@ Set pixel RGBA value at X, Y coordinate of a resource
 |4|r|Color channel Red|null|
 |5|g|Color channel Green|null|
 |6|b|Color channel Blue|null|
+|7|a|Color channel Alpha (untouched if null)|null|
 
 ### Returns
 `true`

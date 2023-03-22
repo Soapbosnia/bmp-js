@@ -19,7 +19,7 @@ Add RGB noise to an image
 
 ```js
 // Load an example image
-var resource_bytes = bmp_load("docs/img/load/04.bmp");
+var resource_1 = bmp_load("docs/img/load/04.bmp");
 
 // Add noise with ranges of: 0.25, 0.50, 0.75, 1.00
 var resource_2 = bmp_mod_noise_rgb(resource_1, 0.25);

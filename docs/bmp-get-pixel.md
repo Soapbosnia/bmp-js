@@ -26,7 +26,7 @@ var resource = bmp_create(10, 10);
 bmp_plot_rect(resource, 0, 0, 5, 5, 111, 111, 111, true);
 bmp_plot_rect(resource, 6, 6, 5, 5, 222, 222, 222, true);
 
-// Get RGB colors at [0, 0] and [6, 6] coordinates
+// Get RGBA colors at [0, 0] and [6, 6] coordinates
 var color_1 = bmp_get_pixel(resource, 0, 0);
 var color_2 = bmp_get_pixel(resource, 6, 6);
 
