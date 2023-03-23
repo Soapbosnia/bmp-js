@@ -31,7 +31,7 @@ For the sake of ease-of-use and simplicity we will be taking the `Remote` approa
 Simply copy the source code provided below and paste it into a text editor, then save it somewhere safely under the name `bmpjs.htm`.
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/oxou/bmp-js@master/dist/bmp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/oxou/bmp-js@main/dist/bmp.min.js"></script>
 
 <div id="container"></div>
 
