@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-21 03:56 PM
+// Updated: 2023-03-23 11:12 PM
 //
 
 //
@@ -331,8 +331,12 @@ function bmp_valid(resource, raw = false) {
  * @return         [R, G, B, A]
  */
 function bmp_get_pixel(resource, x, y) {
+    // NOTE(oxou): We need this or we get pixels drawn on the opposite side
+    x = Math.floor(x);
+    y = Math.floor(y);
+
     // WARN(oxou): Fallback to 0,0,0,255 if out of bounds.
-    if (x > resource.width - 1 || y > resource.height - 1 || 0 > x || 0 > y)
+    if (x > resource.width || y > resource.height || 0 > x || 0 > y)
         return [0, 0, 0, 255];
 
     var pos = bmp_getpos_32(resource.width, resource.height, x, y, !resource.canvas);
@@ -381,8 +385,12 @@ function bmp_set_pixel(
     b = null,
     a = null
 ) {
+    // NOTE(oxou): We need this or we get pixels drawn on the opposite side
+    x = Math.floor(x);
+    y = Math.floor(y);
+
     // WARN(oxou): Fake set_pixel success if out of bounds.
-    if (x > resource.width - 1 || y > resource.height - 1 || 0 > x || 0 > y)
+    if (x > resource.width || y > resource.height || 0 > x || 0 > y)
         return true;
 
     r = Math.floor(Number(r));
