@@ -61,7 +61,7 @@ var reference_2 = bmp_spawn(resource_1, container);
 //                   But we still retain the previous reference in |reference_1|
 ```
 
-To showcase this in practice, take a look at the [`demo/debug-overlay/index.js`](../demo/example/bmp-spawn/index.js)
+To showcase this in practice, take a look at the [`../demo/debug-overlay/index.js`](../demo/debug-overlay/index.js)
 
 ## Code examples
 
