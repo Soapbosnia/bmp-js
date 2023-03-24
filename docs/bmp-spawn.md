@@ -20,7 +20,7 @@ Creates an `img` element that is appended to the `target`. The image element src
 
 The `BMPJS Resource` object stores the property `reference` whose value is set to the element that `bmp_spawn()` has spawned.
 
-That value is overwrite to the new `reference` if `bmp_spawn()` is called on the same resource.
+That value is overwritten to the new `reference` if `bmp_spawn()` is called on the same resource.
 
 Due to this nature it is best to store the `reference` in a separate variable instead of accessing it through the `BMPJS Resource` object, as that value may change if you spawn a separate instance without realizing.
 
