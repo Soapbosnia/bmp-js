@@ -55,7 +55,7 @@ function dark_mode(b) {
 // inheriting through the parent
 dark_mode_options.style.height = dark_mode_options.parentElement.offsetHeight + "px";
 
-dark_mode_options.addEventListener("click", function(e) {
+dark_mode_toggle.addEventListener("click", function(e) {
     // Primary mouse click
     if (e.which === 1)
         dark_mode(!dark_mode_enabled);
