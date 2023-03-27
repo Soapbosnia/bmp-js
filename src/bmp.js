@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-27 04:08 PM
+// Updated: 2023-03-27 04:35 PM
 //
 
 //
@@ -487,6 +487,14 @@ function bmp_get_pixels(resource) {
  * @return       false | ImageData
  */
 function bmp_create_pixels(width, height) {
+    // NOTE(oxou): We don't clamp the width and height here because we want
+    // the developer to know that there's a bug in their code and not ours.
+    //
+    // If we clamp these values to a minimum of 1, we will introduce
+    // unexpected behavior somewhere else.
+    width = Math.abs(width);
+    height = Math.abs(height);
+
     var bitmap = new ImageData(width, height);
 
     for (let x = 0; x < width; x++) {
