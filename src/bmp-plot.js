@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2023-03-27 03:24 PM
+// Updated: 2023-03-27 04:19 PM
 //
 
 /**
@@ -123,7 +123,7 @@ function bmp_plot_line(
     y = y1;
 
     for (let i = 0; i < l; i++) {
-        if (resource.width > x &&
+        if (resource.width  > x &&
             resource.height > y)
             bmp_set_pixel(resource, x, y, r, g, b);
 
