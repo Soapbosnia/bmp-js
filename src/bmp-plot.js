@@ -10,7 +10,7 @@
 // on the bitmap.
 //
 // Created: 2022-09-19 09:32 PM
-// Updated: 2023-03-20 10:35 PM
+// Updated: 2023-03-27 03:24 PM
 //
 
 /**
@@ -165,7 +165,7 @@ function bmp_plot_resource(
     tg = -1,
     tb = -1
 ) {
-    var resource_c = structuredClone(resource_c);
+    var resource_c = bmp_copy(resource_c);
 
     w = clamp(w, -1, resource_c.width);
     h = clamp(h, -1, resource_c.height);
