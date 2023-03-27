@@ -1,7 +1,7 @@
 // Copyright (C) 2023 Nurudin Imsirovic <github.com/oxou>
 //
 // Created: 2023-03-23 08:11 PM
-// Updated: 2023-03-23 03:46 AM
+// Updated: 2023-03-27 03:16 AM
 
 // Create resource (fb1 = framebuffer 1)
 var fb1 = bmp_create(768, 432, true);
@@ -72,15 +72,15 @@ function create_controls_for_object(name, parent) {
 
     var html = `
 <td>${name}</td>
-<td><input class="object-controller" type="range" step="1" min="0" max="${fb1.width - parent[name].dim_w}" data-property="pos_x"   value="${parent[name].pos_x}"></td>
-<td><input class="object-controller" type="range" step="1" min="0" max="${fb1.height - parent[name].dim_h}" data-property="pos_y"   value="${parent[name].pos_y}"></td>
-<td><input class="object-controller" type="range" step="1"   min="0" max="${fb1.width}" data-property="dim_w"   value="${parent[name].dim_w}"></td>
-<td><input class="object-controller" type="range" step="1"   min="0" max="${fb1.height}" data-property="dim_h"   value="${parent[name].dim_h}"></td>
-<td><input class="object-controller" type="range" step="1"   min="0" max="255" data-property="color_r" value="${parent[name].color_r}"></td>
-<td><input class="object-controller" type="range" step="1"   min="0" max="255" data-property="color_g" value="${parent[name].color_g}"></td>
-<td><input class="object-controller" type="range" step="1"   min="0" max="255" data-property="color_b" value="${parent[name].color_b}"></td>
-<td><input class="object-controller" type="range" step=".01" min="0" max="10"  data-property="scale"   value="${parent[name].scale}"></td>
-<td><input class="object-controller" type="range" step=".01" min="0" max="1"   data-property="opacity" value="${parent[name].opacity}"></td>
+<td><input class="object-controller" type="range" step="1"   min="0" max="${fb1.width - parent[name].dim_w}"  data-property="pos_x"   value="${parent[name].pos_x}"></td>
+<td><input class="object-controller" type="range" step="1"   min="0" max="${fb1.height - parent[name].dim_h}" data-property="pos_y"   value="${parent[name].pos_y}"></td>
+<td><input class="object-controller" type="range" step="1"   min="0" max="${fb1.width}"                       data-property="dim_w"   value="${parent[name].dim_w}"></td>
+<td><input class="object-controller" type="range" step="1"   min="0" max="${fb1.height}"                      data-property="dim_h"   value="${parent[name].dim_h}"></td>
+<td><input class="object-controller" type="range" step="1"   min="0" max="255"                                data-property="color_r" value="${parent[name].color_r}"></td>
+<td><input class="object-controller" type="range" step="1"   min="0" max="255"                                data-property="color_g" value="${parent[name].color_g}"></td>
+<td><input class="object-controller" type="range" step="1"   min="0" max="255"                                data-property="color_b" value="${parent[name].color_b}"></td>
+<td><input class="object-controller" type="range" step=".01" min="0" max="10"                                 data-property="scale"   value="${parent[name].scale}"></td>
+<td><input class="object-controller" type="range" step=".01" min="0" max="1"                                  data-property="opacity" value="${parent[name].opacity}"></td>
 `;
     var element = document.createElement("tr");
     element.dataset.object = name;
