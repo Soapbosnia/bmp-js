@@ -1,7 +1,7 @@
 // Copyright (C) 2023 Nurudin Imsirovic <github.com/oxou>
 //
 // Created: 2023-03-23 08:11 PM
-// Updated: 2023-03-27 03:16 AM
+// Updated: 2023-03-27 03:17 AM
 
 // Create resource (fb1 = framebuffer 1)
 var fb1 = bmp_create(768, 432, true);
@@ -28,6 +28,7 @@ function draw_box(fb, x, y, w, h, r, g, b, s, o) {
         var lh = h + y;
         for (let lx = x; lx < lw; lx++) {
             for (let ly = y; ly < lh; ly++) {
+                // NOTE(oxou): This math is incorrect.
                 var color_behind = bmp_get_pixel(fb, lx, ly);
                 var lr = color_behind[0] + lerp(0, r, o);
                 var lg = color_behind[1] + lerp(0, g, o);
