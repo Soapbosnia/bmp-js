@@ -1,5 +1,4 @@
 # bmp-js / Documentation / bmp_copy
-
 ## Introduction
 
 ### Description
