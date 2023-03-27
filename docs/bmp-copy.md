@@ -8,9 +8,12 @@ Uses [`structuredClone()`](https://developer.mozilla.org/en-US/docs/Web/API/stru
 
 ### Parameters
 
-1. `resource` | `BMPJS Resource`
+|#|Name|Description|Default Value|
+|-|-|-|-|
+|1|resource|BMPJS Resource||
 
-Returns: BMPJS Resource | false `(object|boolean)`
+### Returns
+`BMPJS Resource`
 
 ## Code examples
 
