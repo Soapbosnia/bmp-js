@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-27 04:35 PM
+// Updated: 2023-03-30 01:00 PM
 //
 
 //
@@ -797,7 +797,7 @@ function bmp_request(url = null) {
 }
 
 /**
- * Uses structuredClone() to copy the resource object without reference.
+ * Uses structuredClone() to copy the resource bitmap without reference.
  *
  * @param resource BMPJS Resource
  * @return         BMPJS Resource | false
@@ -806,12 +806,9 @@ function bmp_copy(resource) {
     if (!bmp_valid(resource))
         return false;
 
-    var tmp_ref = resource.reference;
-    resource.reference = null;
-
-    var copy = structuredClone(resource);
-    copy.reference = tmp_ref;
-    resource.reference = tmp_ref;
+    var copy = bmp_create(resource.width, resource.height, resource.canvas);
+    copy.bitmap = structuredClone(resource.bitmap);
+    copy.reference = resource.reference;
 
     return copy;
 }
