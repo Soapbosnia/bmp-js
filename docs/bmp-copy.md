@@ -3,7 +3,7 @@
 
 ### Description
 
-Uses [`structuredClone()`](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) to copy the resource object without reference.
+Uses [`structuredClone()`](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) to copy the resource bitmap without reference.
 
 ### Parameters
 
