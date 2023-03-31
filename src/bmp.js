@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-30 01:00 PM
+// Updated: 2023-03-31 02:34 PM
 //
 
 //
@@ -534,6 +534,28 @@ function bmp_reset_alpha(resource) {
  * @return         The Blob URI containing fully-constructed BMP data
  */
 function bmp_create_uri(resource) {
+    // TODO(oxou): This doesn't work because the Web standards are a piece of
+    // shit, and we have to find a differnet workaround instead, that's probably
+    // going to cost us performance and sanity.  Thank you W3C!
+    /*
+    if (!!resource.canvas && resource.reference instanceof HTMLCanvasElement) {
+        var data = resource.reference.toDataURL("image/png").substring(22);
+        var raw = atob(data);
+        var blob = new Blob(
+            [
+                raw
+            ],
+            {
+                type: "image/png"
+            }
+        );
+
+        var url = URL.createObjectURL(blob);
+
+        return url;
+    }
+    */
+
     var blob = new Blob(
         [
             resource.header,
