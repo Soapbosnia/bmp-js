@@ -16,17 +16,6 @@ Prompt for a download of BMPJS resource.
 ### Returns
 `false` | `true`
 
-### Notes
-
-If the resource has `canvas:true` then the saved image will be a PNG instead of a BMP, you need to manually control the file extension before calling `bmp_save()`.
-
-To determine the file extension you can try this:
-```js
-var extension = resource.canvas ? "png" : "bmp";
-/// ...
-bmp_save(resource, filename + '.' + extension);
-```
-
 ## Code examples
 
 ```js

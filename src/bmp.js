@@ -5,7 +5,7 @@
 // https://www.github.com/oxou/bmp-js
 //
 // Created: 2022-09-05 09:46 AM
-// Updated: 2023-03-31 02:34 PM
+// Updated: 2023-03-31 03:43 PM
 //
 
 //
@@ -534,32 +534,23 @@ function bmp_reset_alpha(resource) {
  * @return         The Blob URI containing fully-constructed BMP data
  */
 function bmp_create_uri(resource) {
-    // TODO(oxou): This doesn't work because the Web standards are a piece of
-    // shit, and we have to find a differnet workaround instead, that's probably
-    // going to cost us performance and sanity.  Thank you W3C!
-    /*
-    if (!!resource.canvas && resource.reference instanceof HTMLCanvasElement) {
-        var data = resource.reference.toDataURL("image/png").substring(22);
-        var raw = atob(data);
-        var blob = new Blob(
-            [
-                raw
-            ],
-            {
-                type: "image/png"
+    var resource_new = resource;
+
+    if (resource.canvas) {
+        resource_new = bmp_create(resource.width, resource.height);
+
+        for (let x = 0; x < resource.width; x++) {
+            for (let y = 0; y < resource.height; y++) {
+                var c = bmp_get_pixel(resource, x, y);
+                bmp_set_pixel(resource_new, x, y, c[0], c[1], c[2]);
             }
-        );
-
-        var url = URL.createObjectURL(blob);
-
-        return url;
+        }
     }
-    */
 
     var blob = new Blob(
         [
-            resource.header,
-            resource.bitmap.data
+            resource_new.header,
+            resource_new.bitmap.data
         ],
         {
             type: "image/bmp"
@@ -848,24 +839,7 @@ function bmp_save(resource, filename = "download.bmp") {
 
     var anchor = document.createElement('a');
 
-    // NOTE(oxou):
-    // We have to do this because when we spawn a resource with the 'canvas'
-    // flag set to true, the RGBA mapping differs drastically.  There could be
-    // a way to modify bmp_create_uri() itself so that it correctly remaps the
-    // bytes in a different order that's specific to the BMP format, but for now
-    // I'm going this route.  This may change in the future as I think this is
-    // too much bloat.  But going the opposite route may also introduce speed
-    // and overall performance slowdowns.  Remapping those values shouldn't be
-    // hard but I don't wanna waste time trying right now.
-    //                                                     - 2023-03-20 01:13 PM
-    if (!!resource.canvas && resource.reference instanceof HTMLCanvasElement) {
-        anchor.href = resource.reference
-                              .toDataURL("image/png")
-                              .replace("image/png", "image/octet-stream");
-    } else {
-        anchor.href = bmp_create_uri(resource);
-    }
-
+    anchor.href = bmp_create_uri(resource);
     anchor.download = filename;
     anchor.style    = "display:none";
     document.body.appendChild(anchor);
