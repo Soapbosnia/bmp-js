@@ -4,7 +4,7 @@
 
 Using this function to load a BMP file and create a BMPJS Resource occupies way too many lines of code, if you want to make your life easier you can do this in a single function call with the [`bmp_load()`](./bmp-load.md) function.
 
-If you wish to operate directly on the bytes before of a BMP file before creating a BMPJS Resource, then continue reading.
+If you wish to operate directly on the bytes of a BMP file before creating a BMPJS Resource then continue reading.
 
 ## Introduction
 

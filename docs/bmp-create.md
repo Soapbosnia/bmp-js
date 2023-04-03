@@ -16,6 +16,14 @@ Create a BMP resource
 ### Returns
 `false` | `BMPJS Resource`
 
+### Warning
+
+When the BMPJS resource is created for use in a Canvas element then [Chromium-based browsers](https://en.wikipedia.org/wiki/Chromium_(web_browser)#Browsers_based_on_Chromium) may experience rendering artifacts if the `alpha` property inside the `options` object that's passed to [`getContext`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext) is set to false.
+
+This bug must be fixed by Chromium developers and is not caused by bmp-js.
+
+This issue does not occur on Mozilla Firefox.
+
 ### Notes
 
 #### Canvas support
